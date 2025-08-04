@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI eBay Seller</title>
+  <title>ResellAI</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     html {
       scroll-behavior: smooth;
@@ -19,83 +20,119 @@
     }
   </style>
 </head>
-<body class="bg-gray-900 text-white font-['Inter']">
+<body class="bg-black text-white font-['Inter']">
   <!-- Hero Section -->
   <section class="min-h-screen flex flex-col justify-center items-center text-center px-4">
-    <h1 class="text-4xl md:text-6xl font-bold mb-4 fade-in" style="animation-delay: 0.2s;">
-      AI Lists, Prices, and Posts to eBay
-    </h1>
-    <p class="text-xl md:text-2xl mb-8 fade-in" style="animation-delay: 0.4s;">
-      Just upload a photo. Sell smarter.
-    </p>
-    <a href="#beta" class="bg-blue-500 text-white px-6 py-3 rounded-full text-lg hover:bg-blue-600 transition transform hover:scale-105 fade-in" style="animation-delay: 0.6s;">
-      Join the Beta
-    </a>
+    <h1 class="text-4xl md:text-6xl font-bold mb-4 fade-in" style="animation-delay: 0.2s;">Resell, automated.</h1>
+    <p class="text-xl md:text-2xl mb-8 fade-in" style="animation-delay: 0.4s;">AI lists, prices, and posts to eBay. Just upload a photo.</p>
+    <a href="#how-it-works" class="bg-blue-500 text-white px-6 py-3 rounded-full text-lg hover:bg-blue-600 transition transform hover:scale-105 fade-in" style="animation-delay: 0.6s;">See How It Works</a>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="py-16 bg-black text-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 fade-in" style="animation-delay: 0.2s;">How It Works</h2>
+      <div class="flex flex-col md:flex-row items-center mb-12">
+        <img src="https://picsum.photos/300/600" alt="Step 1" class="w-full md:w-1/2 h-auto mb-4 md:mb-0 md:pr-8 fade-in" style="animation-delay: 0.4s;" />
+        <div class="w-full md:w-1/2 fade-in" style="animation-delay: 0.6s;">
+          <h3 class="text-2xl font-bold mb-2">Step 1: Upload a photo</h3>
+          <p class="text-gray-300">Snap a picture or upload from your phone or computer.</p>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row-reverse items-center mb-12">
+        <img src="https://picsum.photos/300/600" alt="Step 2" class="w-full md:w-1/2 h-auto mb-4 md:mb-0 md:pl-8 fade-in" style="animation-delay: 0.8s;" />
+        <div class="w-full md:w-1/2 fade-in" style="animation-delay: 1.0s;">
+          <h3 class="text-2xl font-bold mb-2">Step 2: AI analyzes item</h3>
+          <p class="text-gray-300">AI finds comps, writes the listing, and suggests pricing.</p>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row items-center">
+        <img src="https://picsum.photos/300/600" alt="Step 3" class="w-full md:w-1/2 h-auto mb-4 md:mb-0 md:pr-8 fade-in" style="animation-delay: 1.2s;" />
+        <div class="w-full md:w-1/2 fade-in" style="animation-delay: 1.4s;">
+          <h3 class="text-2xl font-bold mb-2">Step 3: List & track</h3>
+          <p class="text-gray-300">Posts to eBay and tracks your sales, all hands-off.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Features Section -->
-  <section class="py-16 px-4">
-    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-      <div class="fade-in" style="animation-delay: 0.8s;">
-        <svg class="w-12 h-12 mx-auto mb-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        <p class="font-bold">AI Recognition</p>
-      </div>
-      <div class="fade-in" style="animation-delay: 1s;">
-        <svg class="w-12 h-12 mx-auto mb-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-        <p class="font-bold">Smart Pricing</p>
-      </div>
-      <div class="fade-in" style="animation-delay: 1.2s;">
-        <svg class="w-12 h-12 mx-auto mb-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 4h16v2H4zm0 4h16v2H4z"/></svg>
-        <p class="font-bold">Auto-Listing</p>
-      </div>
-      <div class="fade-in" style="animation-delay: 1.4s;">
-        <svg class="w-12 h-12 mx-auto mb-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 11l-4-4h3V8h2v3h3l-4 4z"/></svg>
-        <p class="font-bold">Direct Posting</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing Section -->
-  <section id="pricing" class="py-16 px-4 bg-gray-800">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in" style="animation-delay: 0.2s;">Pricing</h2>
-      <p class="text-lg mb-12 fade-in" style="animation-delay: 0.4s;">Simple, transparent plans.</p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-gray-700 p-6 rounded-lg fade-in" style="animation-delay: 0.6s;">
-          <h3 class="text-2xl font-bold mb-4">Free</h3>
-          <ul class="text-left mb-6">
-            <li class="mb-2">✔ 10 listings/month</li>
-            <li class="mb-2">✔ Manual post</li>
-            <li class="mb-2">✔ AI listing builder</li>
-          </ul>
-          <a href="#" class="block bg-gray-600 text-white px-4 py-2 rounded-full hover:bg-gray-500 transition">Get Started</a>
+  <section class="py-16 px-4 bg-gray-800">
+    <div class="container mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 fade-in" style="animation-delay: 0.2s;">Features</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="bg-gray-900 p-6 rounded-lg text-center fade-in" style="animation-delay: 0.4s;">
+          <i class="fas fa-camera text-blue-500 text-4xl mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Photo-based identification</h3>
+          <p class="text-gray-300">Identify items instantly with AI-powered photo analysis.</p>
         </div>
-        <div class="bg-gray-700 p-6 rounded-lg fade-in" style="animation-delay: 0.8s;">
-          <h3 class="text-2xl font-bold mb-4">$19/mo</h3>
-          <ul class="text-left mb-6">
-            <li class="mb-2">✔ 100 AI listings</li>
-            <li class="mb-2">✔ Full automation</li>
-            <li class="mb-2">✔ Priority support</li>
-          </ul>
-          <a href="#" class="block bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition">Upgrade</a>
+        <div class="bg-gray-900 p-6 rounded-lg text-center fade-in" style="animation-delay: 0.6s;">
+          <i class="fas fa-chart-line text-blue-500 text-4xl mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Automatic pricing</h3>
+          <p class="text-gray-300">Get accurate pricing based on eBay sold comps.</p>
         </div>
-        <div class="bg-gray-700 p-6 rounded-lg fade-in" style="animation-delay: 1s;">
-          <h3 class="text-2xl font-bold mb-4">$49/mo</h3>
-          <ul class="text-left mb-6">
-            <li class="mb-2">✔ 400 listings</li>
-            <li class="mb-2">✔ Dynamic pricing</li>
-            <li class="mb-2">✔ Offer auto-send</li>
-          </ul>
-          <a href="#" class="block bg-gray-600 text-white px-4 py-2 rounded-full hover:bg-gray-500 transition">Go Power</a>
+        <div class="bg-gray-900 p-6 rounded-lg text-center fade-in" style="animation-delay: 0.8s;">
+          <i class="fas fa-list text-blue-500 text-4xl mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">eBay listing automation</h3>
+          <p class="text-gray-300">AI creates and posts listings for you.</p>
+        </div>
+        <div class="bg-gray-900 p-6 rounded-lg text-center fade-in" style="animation-delay: 1.0s;">
+          <i class="fas fa-shipping-fast text-blue-500 text-4xl mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Sales tracking + shipping</h3>
+          <p class="text-gray-300">Track sales and shipping seamlessly.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section id="beta" class="py-16 px-4 text-center">
-    <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-in" style="animation-delay: 0.2s;">Ready to Sell Smarter?</h2>
-    <a href="#" class="bg-blue-500 text-white px-6 py-3 rounded-full text-lg hover:bg-blue-600 transition transform hover:scale-105 fade-in" style="animation-delay: 0.4s;">Join the Beta</a>
+  <!-- FAQ Section -->
+  <section id="faq" class="py-16 px-4 bg-black">
+    <div class="container mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 fade-in" style="animation-delay: 0.2s;">FAQ</h2>
+      <div class="max-w-2xl mx-auto">
+        <div class="mb-6 fade-in" style="animation-delay: 0.4s;">
+          <h3 class="text-xl font-bold mb-2">What is ResellAI?</h3>
+          <p class="text-gray-300">ResellAI is an AI-powered app that automates reselling on eBay by identifying items, suggesting prices, creating listings, and tracking sales.</p>
+        </div>
+        <div class="mb-6 fade-in" style="animation-delay: 0.6s;">
+          <h3 class="text-xl font-bold mb-2">Is it free to use?</h3>
+          <p class="text-gray-300">Yes, there’s a free plan with limited listings. Paid plans offer more features and higher limits.</p>
+        </div>
+        <div class="mb-6 fade-in" style="animation-delay: 0.8s;">
+          <h3 class="text-xl font-bold mb-2">Does it work with other platforms?</h3>
+          <p class="text-gray-300">Currently, it supports only eBay, with plans to add more platforms soon.</p>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <!-- Newsletter Signup -->
+  <section id="newsletter" class="py-16 px-4 bg-gray-800">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in" style="animation-delay: 0.2s;">Join Our Waitlist</h2>
+      <p class="mb-8 text-gray-300 fade-in" style="animation-delay: 0.4s;">Be the first to know when ResellAI is available.</p>
+      <form name="newsletter" method="POST" data-netlify="true" class="flex flex-col md:flex-row justify-center items-center">
+        <input type="hidden" name="form-name" value="newsletter" />
+        <input type="email" name="email" placeholder="Your email" class="px-4 py-2 rounded-l-md mb-2 md:mb-0 w-full md:w-auto bg-white text-black" required />
+        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-r-md hover:bg-blue-600 transition fade-in" style="animation-delay: 0.6s;">Sign Up</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 bg-black text-white text-center">
+    <nav class="mb-4">
+      <a href="#faq" class="mx-2 hover:text-blue-500">FAQ</a>
+      <a href="#newsletter" class="mx-2 hover:text-blue-500">Waitlist</a>
+      <a href="/privacy" class="mx-2 hover:text-blue-500">Privacy Policy</a>
+      <a href="/terms" class="mx-2 hover:text-blue-500">Terms of Service</a>
+    </nav>
+    <div class="social mb-4">
+      <a href="#" class="mx-2 hover:text-blue-500"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="mx-2 hover:text-blue-500"><i class="fab fa-facebook"></i></a>
+      <a href="#" class="mx-2 hover:text-blue-500"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p class="text-gray-300">&copy; 2025 ResellAI. All rights reserved.</p>
+  </footer>
 </body>
 </html>
