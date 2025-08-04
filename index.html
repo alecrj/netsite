@@ -1,46 +1,101 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Miniport by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body>
-		<!-- Nav -->
-			<nav id="nav">
-				<ul class="container">
-					<li><a href="#top">Top</a></li>
-					<li><a href="#portfolio">Portfolio</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
-			</nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI eBay Seller</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s ease-in forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-['Inter']">
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-4">
+    <h1 class="text-4xl md:text-6xl font-bold mb-4 fade-in" style="animation-delay: 0.2s;">
+      AI Lists, Prices, and Posts to eBay
+    </h1>
+    <p class="text-xl md:text-2xl mb-8 fade-in" style="animation-delay: 0.4s;">
+      Just upload a photo. Sell smarter.
+    </p>
+    <a href="#beta" class="bg-blue-500 text-white px-6 py-3 rounded-full text-lg hover:bg-blue-600 transition transform hover:scale-105 fade-in" style="animation-delay: 0.6s;">
+      Join the Beta
+    </a>
+  </section>
 
-		<!-- Home -->
-			<article id="top" class="wrapper style1">
-				<div class="container">
-					<div class="row">
-						<div class="col-4 col-5-large col-12-medium">
-							<span class="image fit"><img src="images/my-mockup.png" alt="" /></span>
-						</div>
-						<div class="col-8 col-7-large col-12-medium">
-							<header>
-								<h1>AI lists, prices, and posts to eBay. Just upload a photo.</h1>
-							</header>
-							<p>A simple way to sell smarter.</p>
-						 “>Join the Beta</a>
-						</div>
-					</div>
-				</div>
-			</article>
+  <!-- Features Section -->
+  <section class="py-16 px-4">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+      <div class="fade-in" style="animation-delay: 0.8s;">
+        <svg class="w-12 h-12 mx-auto mb-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <p class="font-bold">AI Recognition</p>
+      </div>
+      <div class="fade-in" style="animation-delay: 1s;">
+        <svg class="w-12 h-12 mx-auto mb-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        <p class="font-bold">Smart Pricing</p>
+      </div>
+      <div class="fade-in" style="animation-delay: 1.2s;">
+        <svg class="w-12 h-12 mx-auto mb-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 4h16v2H4zm0 4h16v2H4z"/></svg>
+        <p class="font-bold">Auto-Listing</p>
+      </div>
+      <div class="fade-in" style="animation-delay: 1.4s;">
+        <svg class="w-12 h-12 mx-auto mb-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 11l-4-4h3V8h2v3h3l-4 4z"/></svg>
+        <p class="font-bold">Direct Posting</p>
+      </div>
+    </div>
+  </section>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-16 px-4 bg-gray-800">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in" style="animation-delay: 0.2s;">Pricing</h2>
+      <p class="text-lg mb-12 fade-in" style="animation-delay: 0.4s;">Simple, transparent plans.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-gray-700 p-6 rounded-lg fade-in" style="animation-delay: 0.6s;">
+          <h3 class="text-2xl font-bold mb-4">Free</h3>
+          <ul class="text-left mb-6">
+            <li class="mb-2">✔ 10 listings/month</li>
+            <li class="mb-2">✔ Manual post</li>
+            <li class="mb-2">✔ AI listing builder</li>
+          </ul>
+          <a href="#" class="block bg-gray-600 text-white px-4 py-2 rounded-full hover:bg-gray-500 transition">Get Started</a>
+        </div>
+        <div class="bg-gray-700 p-6 rounded-lg fade-in" style="animation-delay: 0.8s;">
+          <h3 class="text-2xl font-bold mb-4">$19/mo</h3>
+          <ul class="text-left mb-6">
+            <li class="mb-2">✔ 100 AI listings</li>
+            <li class="mb-2">✔ Full automation</li>
+            <li class="mb-2">✔ Priority support</li>
+          </ul>
+          <a href="#" class="block bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition">Upgrade</a>
+        </div>
+        <div class="bg-gray-700 p-6 rounded-lg fade-in" style="animation-delay: 1s;">
+          <h3 class="text-2xl font-bold mb-4">$49/mo</h3>
+          <ul class="text-left mb-6">
+            <li class="mb-2">✔ 400 listings</li>
+            <li class="mb-2">✔ Dynamic pricing</li>
+            <li class="mb-2">✔ Offer auto-send</li>
+          </ul>
+          <a href="#" class="block bg-gray-600 text-white px-4 py-2 rounded-full hover:bg-gray-500 transition">Go Power</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-	</body>
+  <!-- CTA Section -->
+  <section id="beta" class="py-16 px-4 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-in" style="animation-delay: 0.2s;">Ready to Sell Smarter?</h2>
+    <a href="#" class="bg-blue-500 text-white px-6 py-3 rounded-full text-lg hover:bg-blue-600 transition transform hover:scale-105 fade-in" style="animation-delay: 0.4s;">Join the Beta</a>
+  </section>
+</body>
 </html>
