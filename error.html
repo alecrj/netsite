@@ -1,323 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>eBay Connection Failed - ResellAI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --neon-green: #39FF14;
-      --neon-green-glow: rgba(57, 255, 20, 0.3);
-      --error-red: #FF4444;
-      --error-red-glow: rgba(255, 68, 68, 0.3);
-      --dark-bg: #0A0A0A;
-      --card-bg: #111111;
-      --text-primary: #FFFFFF;
-      --text-secondary: #888888;
-      --gradient-green: linear-gradient(135deg, #39FF14, #2ECC71);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--dark-bg);
-      color: var(--text-primary);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .bg-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.03;
-      background-image: 
-        linear-gradient(rgba(57, 255, 20, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(57, 255, 20, 0.1) 1px, transparent 1px);
-      background-size: 50px 50px;
-      z-index: -1;
-      animation: gridMove 20s linear infinite;
-    }
-
-    @keyframes gridMove {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(50px, 50px); }
-    }
-
-    .container {
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 3rem;
-      text-align: center;
-      border: 1px solid rgba(255, 68, 68, 0.2);
-      position: relative;
-      max-width: 500px;
-      margin: 2rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(135deg, var(--error-red), #FF6B6B);
-      border-radius: 20px 20px 0 0;
-    }
-
-    .logo {
-      font-weight: 800;
-      font-size: 1.8rem;
-      color: var(--neon-green);
-      text-shadow: 0 0 10px var(--neon-green-glow);
-      margin-bottom: 2rem;
-    }
-
-    .error-icon {
-      font-size: 4rem;
-      color: var(--error-red);
-      margin-bottom: 1.5rem;
-    }
-
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-    }
-
-    .error-message {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-      line-height: 1.6;
-    }
-
-    .error-details {
-      background: rgba(255, 68, 68, 0.1);
-      border: 1px solid rgba(255, 68, 68, 0.3);
-      border-radius: 10px;
-      padding: 1.5rem;
-      margin: 2rem 0;
-      text-align: left;
-    }
-
-    .error-details h3 {
-      color: var(--error-red);
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-
-    .error-details ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .error-details li {
-      color: var(--text-secondary);
-      margin-bottom: 0.5rem;
-      padding-left: 1.2rem;
-      position: relative;
-    }
-
-    .error-details li::before {
-      content: '•';
-      color: var(--error-red);
-      font-weight: bold;
-      position: absolute;
-      left: 0;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 32px;
-      background: var(--gradient-green);
-      color: #000;
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      margin: 0.5rem;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px var(--neon-green-glow);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 2px solid var(--text-secondary);
-    }
-
-    .btn-secondary:hover {
-      color: var(--text-primary);
-      border-color: var(--text-primary);
-      box-shadow: none;
-    }
-
-    .help-section {
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .help-section p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    .help-section a {
-      color: var(--neon-green);
-      text-decoration: none;
-    }
-
-    .help-section a:hover {
-      text-shadow: 0 0 10px var(--neon-green-glow);
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        margin: 1rem;
-        padding: 2rem;
-      }
-
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      .error-icon {
-        font-size: 3rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResellAI - Connection Failed</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #39FF14;
+        }
+        .error-icon {
+            font-size: 3rem;
+            margin: 20px 0;
+        }
+        .message {
+            font-size: 1.1rem;
+            margin: 20px 0;
+        }
+        .actions {
+            margin-top: 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin: 5px;
+            font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .btn-primary {
+            background: #39FF14;
+            color: #000;
+        }
+    </style>
 </head>
 <body>
-  <div class="bg-grid"></div>
-  
-  <div class="container">
-    <div class="logo">ResellAI</div>
-    
-    <i class="fas fa-exclamation-triangle error-icon"></i>
-    <h1>eBay Connection Failed</h1>
-    
-    <div class="error-message" id="error-message">
-      We couldn't connect your eBay account. This might be because you canceled the authorization or there was a technical issue.
-    </div>
-    
-    <div class="error-details">
-      <h3>Common reasons:</h3>
-      <ul>
-        <li>You clicked "Cancel" or "Decline" on eBay's authorization page</li>
-        <li>The authorization session expired</li>
-        <li>Network connection issue during the process</li>
-        <li>eBay's servers are temporarily unavailable</li>
-      </ul>
-    </div>
-    
-    <div>
-      <button class="btn" onclick="retryConnection()">
-        Try Again
-      </button>
-      <button class="btn-secondary btn" onclick="closeWindow()">
-        Return to App
-      </button>
+    <div class="container">
+        <div class="logo">ResellAI</div>
+        <div class="error-icon">⚠️</div>
+        <div class="message">
+            Failed to connect your eBay account. This could be because you declined the authorization or there was a technical issue.
+        </div>
+        <div class="actions">
+            <a href="#" onclick="openApp()" class="btn">Open ResellAI</a>
+            <a href="https://auth.ebay.com/oauth2/authorize?client_id=AlecRodr-resell-PRD-d0bc91504-be3e553a&response_type=code&runame=Alec_Rodriguez-AlecRodr-resell-yinuaueco&scope=https://api.ebay.com/oauth/api_scope/sell.inventory%20https://api.ebay.com/oauth/api_scope/sell.account%20https://api.ebay.com/oauth/api_scope/sell.fulfillment" class="btn btn-primary">Try Again</a>
+        </div>
     </div>
 
-    <div class="help-section">
-      <p>Still having trouble? <a href="mailto:support@resellaiapp.com">Contact Support</a></p>
-      <p>You can also try connecting eBay from the Settings page in the ResellAI app.</p>
-    </div>
-  </div>
-
-  <script>
-    function retryConnection() {
-      // Redirect back to eBay OAuth flow
-      // This would typically involve going back to the app and starting over
-      window.location.href = 'resellai://auth/retry';
-      
-      // Fallback: close the window after a short delay
-      setTimeout(() => {
-        closeWindow();
-      }, 2000);
-    }
-
-    function closeWindow() {
-      // Try to redirect back to the app
-      window.location.href = 'resellai://auth/ebay?error=user_cancelled';
-      
-      // Fallback: try to close the window
-      setTimeout(() => {
-        if (window.opener) {
-          window.close();
-        } else {
-          // If we can't close, show message
-          document.querySelector('.error-message').innerHTML = 
-            '📱 Please return to the ResellAI app and try connecting eBay again from Settings.';
+    <script>
+        function openApp() {
+            const params = new URLSearchParams(window.location.search);
+            
+            // Build the deep link to your app with error info
+            let appURL = 'resellai://auth/ebay?error=declined';
+            
+            console.log('Redirecting to app with error:', appURL);
+            window.location.href = appURL;
         }
-      }, 2000);
-    }
 
-    // Parse URL parameters and show specific error message
-    window.addEventListener('load', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const error = urlParams.get('error');
-      const errorDescription = urlParams.get('error_description');
-      
-      console.log('eBay OAuth error callback received');
-      console.log('Error:', error);
-      console.log('Description:', errorDescription);
-      
-      let errorMessage = "We couldn't connect your eBay account.";
-      
-      switch (error) {
-        case 'access_denied':
-          errorMessage = "You declined the eBay authorization. To use auto-listing features, you'll need to grant permission to ResellAI.";
-          break;
-        case 'invalid_request':
-          errorMessage = "There was a technical issue with the connection request. Please try again.";
-          break;
-        case 'server_error':
-          errorMessage = "eBay's servers are experiencing issues. Please try again in a few minutes.";
-          break;
-        case 'temporarily_unavailable':
-          errorMessage = "eBay's authorization service is temporarily unavailable. Please try again later.";
-          break;
-        default:
-          if (errorDescription) {
-            errorMessage = `Connection failed: ${errorDescription}`;
-          }
-      }
-      
-      document.getElementById('error-message').textContent = errorMessage;
-    });
-
-    // Auto-close after 15 seconds if it's a popup
-    setTimeout(() => {
-      if (window.opener) {
-        window.close();
-      }
-    }, 15000);
-  </script>
+        // Auto-redirect to app after 3 seconds
+        setTimeout(openApp, 3000);
+    </script>
 </body>
 </html>

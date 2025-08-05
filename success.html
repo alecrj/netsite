@@ -1,327 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>eBay Connected - ResellAI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --neon-green: #39FF14;
-      --neon-green-glow: rgba(57, 255, 20, 0.3);
-      --dark-bg: #0A0A0A;
-      --card-bg: #111111;
-      --text-primary: #FFFFFF;
-      --text-secondary: #888888;
-      --gradient-green: linear-gradient(135deg, #39FF14, #2ECC71);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--dark-bg);
-      color: var(--text-primary);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .bg-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.03;
-      background-image: 
-        linear-gradient(rgba(57, 255, 20, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(57, 255, 20, 0.1) 1px, transparent 1px);
-      background-size: 50px 50px;
-      z-index: -1;
-      animation: gridMove 20s linear infinite;
-    }
-
-    @keyframes gridMove {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(50px, 50px); }
-    }
-
-    .container {
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 3rem;
-      text-align: center;
-      border: 1px solid rgba(57, 255, 20, 0.2);
-      position: relative;
-      max-width: 500px;
-      margin: 2rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--gradient-green);
-      border-radius: 20px 20px 0 0;
-    }
-
-    .logo {
-      font-weight: 800;
-      font-size: 1.8rem;
-      color: var(--neon-green);
-      text-shadow: 0 0 10px var(--neon-green-glow);
-      margin-bottom: 2rem;
-    }
-
-    .success-icon {
-      font-size: 4rem;
-      color: var(--neon-green);
-      margin-bottom: 1.5rem;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.8; }
-    }
-
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #FFFFFF, var(--neon-green));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .status-message {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-      line-height: 1.6;
-    }
-
-    .redirect-info {
-      background: rgba(57, 255, 20, 0.1);
-      border: 1px solid rgba(57, 255, 20, 0.3);
-      border-radius: 10px;
-      padding: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .redirect-info p {
-      margin: 0;
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .loading-spinner {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(57, 255, 20, 0.3);
-      border-radius: 50%;
-      border-top-color: var(--neon-green);
-      animation: spin 1s ease-in-out infinite;
-      margin-right: 10px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 32px;
-      background: var(--gradient-green);
-      color: #000;
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 1rem;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px var(--neon-green-glow);
-    }
-
-    .error-state {
-      display: none;
-    }
-
-    .error-state .success-icon {
-      color: #FF4444;
-      animation: none;
-    }
-
-    .timer {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin-top: 1rem;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        margin: 1rem;
-        padding: 2rem;
-      }
-
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      .success-icon {
-        font-size: 3rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResellAI - Connecting to eBay...</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #39FF14;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #39FF14;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .message {
+            font-size: 1.1rem;
+            margin: 20px 0;
+        }
+        .fallback {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        .fallback a {
+            color: #39FF14;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <div class="bg-grid"></div>
-  
-  <div class="container">
-    <div class="logo">ResellAI</div>
-    
-    <div id="success-state">
-      <i class="fas fa-check-circle success-icon"></i>
-      <h1>eBay Connected!</h1>
-      <div class="status-message">
-        <div class="loading-spinner"></div>
-        Redirecting you back to ResellAI...
-      </div>
-      
-      <div class="redirect-info">
-        <p>🎉 Your eBay account is now connected!</p>
-      </div>
-      
-      <div class="timer" id="countdown">
-        Returning to app in <span id="timer-count">5</span> seconds
-      </div>
-      
-      <button class="btn" onclick="openApp()" id="open-app-btn" style="display: none;">
-        Open ResellAI
-      </button>
+    <div class="container">
+        <div class="logo">ResellAI</div>
+        <div class="spinner"></div>
+        <div class="message" id="message">
+            Connecting your eBay account...
+        </div>
+        <div class="fallback" id="fallback" style="display: none;">
+            <p>Having trouble? <a href="#" onclick="openApp()">Tap here to open ResellAI</a></p>
+        </div>
     </div>
 
-    <div id="error-state" class="error-state">
-      <i class="fas fa-exclamation-circle success-icon"></i>
-      <h1>Connection Issue</h1>
-      <div class="status-message">
-        There was a problem connecting to eBay. Please try again in the ResellAI app.
-      </div>
-      
-      <button class="btn" onclick="window.close()">
-        Close & Return to App
-      </button>
-    </div>
-  </div>
+    <script>
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const result = {};
+            for (const [key, value] of params) {
+                result[key] = value;
+            }
+            return result;
+        }
 
-  <script>
-    let countdownTimer = 5;
-    let countdownInterval;
+        function openApp() {
+            const params = getUrlParams();
+            
+            // Build the deep link to your app
+            let appURL = 'resellai://auth/ebay';
+            
+            // Add all URL parameters to the app redirect
+            const paramString = new URLSearchParams(params).toString();
+            if (paramString) {
+                appURL += '?' + paramString;
+            }
+            
+            console.log('Redirecting to app:', appURL);
+            
+            // Try to open the app
+            window.location.href = appURL;
+            
+            // Show fallback after a delay
+            setTimeout(() => {
+                document.getElementById('fallback').style.display = 'block';
+                document.getElementById('message').textContent = 'Please open the ResellAI app to complete the connection.';
+            }, 2000);
+        }
 
-    function updateCountdown() {
-      document.getElementById('timer-count').textContent = countdownTimer;
-      countdownTimer--;
-      
-      if (countdownTimer < 0) {
-        clearInterval(countdownInterval);
-        document.getElementById('countdown').style.display = 'none';
-        document.getElementById('open-app-btn').style.display = 'inline-block';
-      }
-    }
+        function handleEbayCallback() {
+            const params = getUrlParams();
+            
+            if (params.code) {
+                // Success - got authorization code
+                document.getElementById('message').textContent = 'eBay connected successfully! Opening ResellAI...';
+                setTimeout(openApp, 1000);
+            } else if (params.error) {
+                // Error occurred
+                document.getElementById('message').textContent = 'Connection failed. Please try again.';
+                document.getElementById('fallback').style.display = 'block';
+                
+                // Still try to open app with error info
+                setTimeout(openApp, 2000);
+            } else {
+                // No params - probably direct access
+                document.getElementById('message').textContent = 'Please use the ResellAI app to connect your eBay account.';
+                document.getElementById('fallback').style.display = 'block';
+            }
+        }
 
-    function openApp() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get('code');
-      const state = urlParams.get('state');
-      const error = urlParams.get('error');
-      
-      if (error) {
-        showError();
-        return;
-      }
-      
-      if (code) {
-        // Build the app URL with the authorization code
-        const appUrl = `resellai://auth/ebay?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state || '')}`;
+        // Run when page loads
+        window.onload = handleEbayCallback;
         
-        console.log('Opening app with URL:', appUrl);
-        
-        // Try to open the app
-        window.location.href = appUrl;
-        
-        // Fallback: show manual instructions after a delay
-        setTimeout(() => {
-          document.querySelector('.redirect-info p').textContent = 
-            '📱 Please return to the ResellAI app to complete setup.';
-        }, 3000);
-      } else {
-        showError();
-      }
-    }
-
-    function showError() {
-      document.getElementById('success-state').style.display = 'none';
-      document.getElementById('error-state').style.display = 'block';
-    }
-
-    // Start the process when page loads
-    window.addEventListener('load', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get('code');
-      const error = urlParams.get('error');
-      
-      console.log('eBay OAuth callback received');
-      console.log('Code:', code ? 'Present' : 'Missing');
-      console.log('Error:', error || 'None');
-      
-      if (error) {
-        showError();
-        return;
-      }
-      
-      if (!code) {
-        console.error('No authorization code received');
-        showError();
-        return;
-      }
-      
-      // Start countdown and auto-redirect
-      countdownInterval = setInterval(updateCountdown, 1000);
-      updateCountdown(); // Update immediately
-      
-      // Try to open app after 2 seconds
-      setTimeout(() => {
-        openApp();
-      }, 2000);
-    });
-
-    // Try to close the window/tab if possible
-    setTimeout(() => {
-      if (window.opener) {
-        window.close();
-      }
-    }, 10000); // Close after 10 seconds if it's a popup
-  </script>
+        // Also try to open app immediately if we have an auth code
+        const params = getUrlParams();
+        if (params.code) {
+            setTimeout(openApp, 500);
+        }
+    </script>
 </body>
 </html>
