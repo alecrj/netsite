@@ -36,22 +36,19 @@
       theme: {
         extend: {
           colors: {
-            premium: '#00E676',
-            charcoal: '#0F1419',
-            slate: '#B0BEC5',
+            win98blue: '#0080FF',
+            win98gray: '#C0C0C0',
+            win98darkgray: '#808080',
+            win98lightgray: '#D3D3D3',
+            win98white: '#FFFFFF',
+            win98black: '#000000',
           },
           fontFamily: {
-            'retro': ['"Orbitron"', 'sans-serif'],
-            'inter': ['"Inter Variable"', 'system-ui', 'Arial', 'sans-serif'],
-          },
-          spacing: {
-            '128': '32rem',
-          },
-          aspectRatio: {
-            'iphone': '9 / 16',
+            'win98': ['"MS Sans Serif"', 'sans-serif'],
           },
           boxShadow: {
-            'premium-glow': '0 0 10px rgba(0,230,118,0.2), 0 0 20px rgba(0,230,118,0.1)',
+            'win98': 'inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #FFFFFF, 2px 2px 0 #808080, -2px -2px 0 #808080',
+            'win98-pop': 'inset 2px 2px 0 #FFFFFF, inset -2px -2px 0 #FFFFFF, 4px 4px 0 #808080, -4px -4px 0 #808080',
           },
         }
       }
@@ -59,62 +56,67 @@
   </script>
 
   <!-- Fonts & Icons -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600;700&display=swap" as="style" onload="this.rel='stylesheet'" />
+  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/ms-sans-serif" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.netlify.com;" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.cdnfonts.com https://fonts.googleapis.com; font-src https://fonts.cdnfonts.com https://fonts.gstatic.com; connect-src 'self' https://api.netlify.com;" />
 
   <style>
     html { scroll-behavior: smooth; }
-    body { background: #0F1419; color: #fff; font-family: inter, sans-serif; }
+    body { background: #0080FF; color: #000000; font-family: win98, sans-serif; }
 
-    .bg-spot {
-      position: relative;
-      isolation: isolate;
-      background: radial-gradient(1200px 600px at 50% -5%, rgba(0,230,118,0.05), transparent 70%), #0F1419;
+    .bg-win98 {
+      background: linear-gradient(to bottom, #0080FF, #000080);
+      border: 2px outset #FFFFFF;
+      padding: 10px;
     }
 
-    .btn-premium {
-      --premium: #00E676;
+    .btn-win98 {
       position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      padding: 0.75rem 1.25rem;
-      border-radius: 9999px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      color: #0F1419;
-      background: linear-gradient(180deg, #76FF03 0%, var(--premium) 65%, #64DD17 100%);
-      box-shadow: 0 4px 12px rgba(0,230,118,0.1);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      padding: 0.5rem 1rem;
+      border: 2px outset #FFFFFF;
+      border-radius: 0;
+      font-weight: bold;
+      color: #000000;
+      background: linear-gradient(to bottom, #D3D3D3, #C0C0C0);
+      box-shadow: win98-pop;
+      text-align: center;
+      cursor: hand;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
     }
-    .btn-premium:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,230,118,0.2);
+    .btn-win98:hover {
+      transform: translateY(-1px);
+      box-shadow: inset 2px 2px 0 #FFFFFF, inset -2px -2px 0 #FFFFFF, 6px 6px 0 #808080, -6px -6px 0 #808080;
     }
-    .btn-premium:active { transform: translateY(0); }
+    .btn-win98:active {
+      transform: translateY(1px);
+      box-shadow: inset 1px 1px 0 #808080, inset -1px -1px 0 #808080, 2px 2px 0 #FFFFFF, -2px -2px 0 #FFFFFF;
+      border-style: inset;
+    }
 
     .btn-ghost {
-      border-radius: 9999px;
-      padding: 0.75rem 1.25rem;
-      border: 1px solid rgba(255,255,255,0.15);
-      color: #fff;
+      border: 2px solid #FFFFFF;
+      padding: 0.5rem 1rem;
+      color: #000000;
+      background: #C0C0C0;
       transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     }
     .btn-ghost:hover {
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(255,255,255,0.25);
-      transform: translateY(-2px);
+      background: #D3D3D3;
+      border-color: #808080;
+      transform: translateY(-1px);
     }
 
     .card {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(0,230,118,0.05);
-      border-radius: 10px;
+      background: #C0C0C0;
+      border: 2px outset #FFFFFF;
+      border-radius: 0;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.7s ease; }
     .reveal.show { opacity: 1; transform: translateY(0); }
@@ -123,97 +125,94 @@
       display: inline-block;
       width: 14px;
       height: 14px;
-      border: 2px solid rgba(0,230,118,0.2);
-      border-top: 2px solid #00E676;
+      border: 2px solid rgba(0, 128, 255, 0.2);
+      border-top: 2px solid #0080FF;
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
-<body class="text-white font-inter antialiased bg-spot" aria-label="ResellAI Website">
+<body class="font-win98 antialiased bg-win98" aria-label="ResellAI Website">
 
   <!-- NAV -->
-  <header class="fixed top-0 z-50 w-full border-b border-white/10 bg-charcoal/80 backdrop-blur-md" role="banner">
-    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-      <div class="text-2xl font-bold font-retro">ResellAI</div>
-      <nav class="hidden md:flex items-center gap-8 text-sm font-retro text-white/70" aria-label="Main navigation">
-        <a href="#how" class="hover:text-premium transition-colors">How It Works</a>
-        <a href="#features" class="hover:text-premium transition-colors">Features</a>
-        <a href="#faq" class="hover:text-premium transition-colors">FAQ</a>
-        <a href="#newsletter" class="hover:text-premium transition-colors">Waitlist</a>
+  <header class="fixed top-0 z-50 w-full border-b-2 border-win98darkgray bg-win98gray/80" role="banner">
+    <div class="mx-auto max-w-7xl px-6 py-2 flex items-center justify-between">
+      <div class="text-xl font-bold">ResellAI</div>
+      <nav class="hidden md:flex items-center gap-6 text-sm text-win98black" aria-label="Main navigation">
+        <a href="#how" class="hover:underline">How It Works</a>
+        <a href="#features" class="hover:underline">Features</a>
+        <a href="#faq" class="hover:underline">FAQ</a>
+        <a href="#newsletter" class="hover:underline">Waitlist</a>
       </nav>
-      <a href="#newsletter" class="btn-premium text-sm font-retro" aria-label="Get early access">Get Started</a>
+      <a href="#newsletter" class="btn-win98 text-sm" aria-label="Get early access">Get Started</a>
     </div>
   </header>
 
   <!-- HERO -->
-  <section class="mx-auto max-w-7xl px-6 py-32 text-center" role="main">
-    <div>
-      <div class="inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-white/60 mb-8">
-        <span class="h-1.5 w-1.5 rounded-full bg-premium"></span> AI Innovation
-      </div>
-      <h1 class="text-5xl md:text-6xl font-bold leading-tight font-retro">
+  <section class="mx-auto max-w-7xl px-6 py-20 text-center" role="main">
+    <div class="bg-win98lightgray p-6">
+      <h1 class="text-4xl font-bold">
         Resell, Automated
       </h1>
-      <p class="mt-6 text-lg text-white/80 max-w-2xl mx-auto font-inter">
+      <p class="mt-4 text-lg max-w-xl mx-auto">
         AI lists, prices, and posts to eBay. Just upload a photo.
       </p>
-      <div class="mt-10 flex justify-center gap-6">
-        <a href="#newsletter" class="btn-premium flex items-center gap-2 font-retro" aria-label="Download for free">
+      <div class="mt-6 flex justify-center gap-4">
+        <a href="#newsletter" class="btn-win98 flex items-center gap-2" aria-label="Download for free">
           <i class="fa-solid fa-download"></i> Download Now
         </a>
-        <a href="#how" class="btn-ghost font-retro" aria-label="Learn more">Discover More</a>
+        <a href="#how" class="btn-ghost" aria-label="Learn more">Discover More</a>
       </div>
-      <div class="mt-5 text-sm text-white/60 font-inter">Free to start. No spam.</div>
+      <div class="mt-3 text-sm">Free to start. No spam.</div>
     </div>
   </section>
 
   <!-- HOW IT WORKS -->
-  <section id="how" class="mx-auto max-w-7xl px-6 py-40">
-    <h2 class="text-4xl md:text-5xl font-bold leading-tight text-center font-retro">How It Works</h2>
-    <p class="text-white/70 text-center mt-4 max-w-2xl mx-auto font-inter">Three seamless steps to automated reselling.</p>
-    <div class="mt-32 space-y-64">
+  <section id="how" class="mx-auto max-w-7xl px-6 py-20">
+    <h2 class="text-3xl font-bold text-center">How It Works</h2>
+    <p class="text-center mt-2 max-w-2xl mx-auto">Three seamless steps to automated reselling.</p>
+    <div class="mt-10 space-y-20">
       <!-- Step 1 -->
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="card p-6 reveal order-1 md:order-1">
-          <div class="text-premium text-4xl mb-8"><i class="fa-solid fa-camera"></i></div>
-          <h3 class="text-3xl md:text-4xl font-semibold mb-6 font-retro">Step 1: Upload a photo</h3>
-          <p class="text-white/80 text-lg font-inter">Snap a picture or upload from your phone or computer.</p>
+      <div class="grid md:grid-cols-2 gap-6 items-center">
+        <div class="card p-4 reveal">
+          <div class="text-win98blue text-3xl mb-4"><i class="fa-solid fa-camera"></i></div>
+          <h3 class="text-2xl font-bold mb-2">Step 1: Upload a photo</h3>
+          <p class="text-lg">Snap a picture or upload from your phone or computer.</p>
         </div>
-        <div class="relative flex justify-center order-2 md:order-2">
-          <div class="card p-6" style="aspect-ratio: 9 / 16; width: 250px;">
-            <video autoplay muted loop playsinline class="w-full h-full object-cover rounded-lg" poster="https://via.placeholder.com/250x441?text=Demo+Video+2" loading="lazy" onerror="this.src='https://via.placeholder.com/250x441?text=Video+Unavailable';">
+        <div class="relative flex justify-center">
+          <div class="card p-4" style="aspect-ratio: 9 / 16; width: 200px;">
+            <video autoplay muted loop playsinline class="w-full h-full object-cover" poster="https://via.placeholder.com/200x354?text=Demo+Video+2" loading="lazy" onerror="this.src='https://via.placeholder.com/200x354?text=Video+Unavailable';">
               <source src="" type="video/mp4" />
             </video>
           </div>
         </div>
       </div>
       <!-- Step 2 -->
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="card p-6 reveal order-2 md:order-2">
-          <div class="text-premium text-4xl mb-8"><i class="fa-solid fa-brain"></i></div>
-          <h3 class="text-3xl md:text-4xl font-semibold mb-6 font-retro">Step 2: AI analyzes item</h3>
-          <p class="text-white/80 text-lg font-inter">AI finds comps, writes the listing, and suggests pricing.</p>
+      <div class="grid md:grid-cols-2 gap-6 items-center">
+        <div class="card p-4 reveal">
+          <div class="text-win98blue text-3xl mb-4"><i class="fa-solid fa-brain"></i></div>
+          <h3 class="text-2xl font-bold mb-2">Step 2: AI analyzes item</h3>
+          <p class="text-lg">AI finds comps, writes the listing, and suggests pricing.</p>
         </div>
-        <div class="relative flex justify-center order-1 md:order-1">
-          <div class="card p-6" style="aspect-ratio: 9 / 16; width: 250px;">
-            <video autoplay muted loop playsinline class="w-full h-full object-cover rounded-lg" poster="https://via.placeholder.com/250x441?text=Demo+Video+3" loading="lazy" onerror="this.src='https://via.placeholder.com/250x441?text=Video+Unavailable';">
+        <div class="relative flex justify-center">
+          <div class="card p-4" style="aspect-ratio: 9 / 16; width: 200px;">
+            <video autoplay muted loop playsinline class="w-full h-full object-cover" poster="https://via.placeholder.com/200x354?text=Demo+Video+3" loading="lazy" onerror="this.src='https://via.placeholder.com/200x354?text=Video+Unavailable';">
               <source src="" type="video/mp4" />
             </video>
           </div>
         </div>
       </div>
       <!-- Step 3 -->
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="card p-6 reveal order-1 md:order-1">
-          <div class="text-premium text-4xl mb-8"><i class="fa-solid fa-rocket"></i></div>
-          <h3 class="text-3xl md:text-4xl font-semibold mb-6 font-retro">Step 3: List & track</h3>
-          <p class="text-white/80 text-lg font-inter">Posts to eBay and tracks your sales, all hands-off.</p>
+      <div class="grid md:grid-cols-2 gap-6 items-center">
+        <div class="card p-4 reveal">
+          <div class="text-win98blue text-3xl mb-4"><i class="fa-solid fa-rocket"></i></div>
+          <h3 class="text-2xl font-bold mb-2">Step 3: List & track</h3>
+          <p class="text-lg">Posts to eBay and tracks your sales, all hands-off.</p>
         </div>
-        <div class="relative flex justify-center order-2 md:order-2">
-          <div class="card p-6" style="aspect-ratio: 9 / 16; width: 250px;">
-            <video autoplay muted loop playsinline class="w-full h-full object-cover rounded-lg" poster="https://via.placeholder.com/250x441?text=Demo+Video+4" loading="lazy" onerror="this.src='https://via.placeholder.com/250x441?text=Video+Unavailable';">
+        <div class="relative flex justify-center">
+          <div class="card p-4" style="aspect-ratio: 9 / 16; width: 200px;">
+            <video autoplay muted loop playsinline class="w-full h-full object-cover" poster="https://via.placeholder.com/200x354?text=Demo+Video+4" loading="lazy" onerror="this.src='https://via.placeholder.com/200x354?text=Video+Unavailable';">
               <source src="" type="video/mp4" />
             </video>
           </div>
@@ -223,66 +222,66 @@
   </section>
 
   <!-- FEATURES -->
-  <section id="features" class="mx-auto max-w-7xl px-6 py-32">
-    <h2 class="text-4xl md:text-5xl font-bold leading-tight text-center font-retro">Key Features</h2>
-    <p class="text-white/70 text-center mt-4 max-w-2xl mx-auto font-inter">Power your reselling with cutting-edge tools.</p>
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mt-16">
-      <div class="card p-6 reveal">
-        <div class="text-premium text-2xl mb-5"><i class="fa-solid fa-image"></i></div>
-        <h3 class="text-xl font-semibold font-retro">Photo Recognition</h3>
-        <p class="text-white/80 mt-3 font-inter">AI-powered item identification.</p>
+  <section id="features" class="mx-auto max-w-7xl px-6 py-20">
+    <h2 class="text-3xl font-bold text-center">Key Features</h2>
+    <p class="text-center mt-2 max-w-2xl mx-auto">Power your reselling with cutting-edge tools.</p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+      <div class="card p-4 reveal">
+        <div class="text-win98blue text-2xl mb-2"><i class="fa-solid fa-image"></i></div>
+        <h3 class="text-xl font-bold">Photo Recognition</h3>
+        <p class="mt-1">AI-powered item identification.</p>
       </div>
-      <div class="card p-6 reveal">
-        <div class="text-premium text-2xl mb-5"><i class="fa-solid fa-chart-line"></i></div>
-        <h3 class="text-xl font-semibold font-retro">Dynamic Pricing</h3>
-        <p class="text-white/80 mt-3 font-inter">Market-adaptive pricing models.</p>
+      <div class="card p-4 reveal">
+        <div class="text-win98blue text-2xl mb-2"><i class="fa-solid fa-chart-line"></i></div>
+        <h3 class="text-xl font-bold">Dynamic Pricing</h3>
+        <p class="mt-1">Market-adaptive pricing models.</p>
       </div>
-      <div class="card p-6 reveal">
-        <div class="text-premium text-2xl mb-5"><i class="fa-solid fa-robot"></i></div>
-        <h3 class="text-xl font-semibold font-retro">Automation</h3>
-        <p class="text-white/80 mt-3 font-inter">Seamless listing creation.</p>
+      <div class="card p-4 reveal">
+        <div class="text-win98blue text-2xl mb-2"><i class="fa-solid fa-robot"></i></div>
+        <h3 class="text-xl font-bold">Automation</h3>
+        <p class="mt-1">Seamless listing creation.</p>
       </div>
-      <div class="card p-6 reveal">
-        <div class="text-premium text-2xl mb-5"><i class="fa-solid fa-truck-fast"></i></div>
-        <h3 class="text-xl font-semibold font-retro">Sales Insights</h3>
-        <p class="text-white/80 mt-3 font-inter">Real-time performance tracking.</p>
+      <div class="card p-4 reveal">
+        <div class="text-win98blue text-2xl mb-2"><i class="fa-solid fa-truck-fast"></i></div>
+        <h3 class="text-xl font-bold">Sales Insights</h3>
+        <p class="mt-1">Real-time performance tracking.</p>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="mx-auto max-w-5xl px-6 py-32">
-    <h2 class="text-4xl md:text-5xl font-bold leading-tight text-center font-retro">Frequently Asked</h2>
-    <div class="mt-10 space-y-8">
-      <div class="card p-6 reveal">
-        <h3 class="text-xl font-semibold font-retro">What is ResellAI?</h3>
-        <p class="text-white/80 mt-3 font-inter">A premium AI tool for eBay reselling—identify, price, list, and track with ease.</p>
+  <section id="faq" class="mx-auto max-w-5xl px-6 py-20">
+    <h2 class="text-3xl font-bold text-center">Frequently Asked</h2>
+    <div class="mt-6 space-y-4">
+      <div class="card p-4 reveal">
+        <h3 class="text-xl font-bold">What is ResellAI?</h3>
+        <p class="mt-1">A premium AI tool for eBay reselling—identify, price, list, and track with ease.</p>
       </div>
-      <div class="card p-6 reveal">
-        <h3 class="text-xl font-semibold font-retro">Is there a free plan?</h3>
-        <p class="text-white/80 mt-3 font-inter">Yes, with advanced features available via subscription.</p>
+      <div class="card p-4 reveal">
+        <h3 class="text-xl font-bold">Is there a free plan?</h3>
+        <p class="mt-1">Yes, with advanced features available via subscription.</p>
       </div>
-      <div class="card p-6 reveal">
-        <h3 class="text-xl font-semibold font-retro">Which platforms are supported?</h3>
-        <p class="text-white/80 mt-3 font-inter">Currently eBay, with more to come.</p>
+      <div class="card p-4 reveal">
+        <h3 class="text-xl font-bold">Which platforms are supported?</h3>
+        <p class="mt-1">Currently eBay, with more to come.</p>
       </div>
     </div>
   </section>
 
   <!-- NEWSLETTER / WAITLIST -->
-  <section id="newsletter" class="mx-auto max-w-3xl px-6 py-32">
-    <div class="card p-8">
-      <h2 class="text-4xl md:text-5xl font-bold leading-tight font-retro">Join the Elite Waitlist</h2>
-      <p class="text-white/80 mt-6 font-inter">Be among the first to experience ResellAI. No spam, ever.</p>
-      <form name="newsletter" method="POST" data-netlify="true" class="mt-8 grid sm:grid-cols-[1fr_auto] gap-4" aria-label="Newsletter signup">
+  <section id="newsletter" class="mx-auto max-w-3xl px-6 py-20">
+    <div class="card p-6">
+      <h2 class="text-3xl font-bold">Join the Elite Waitlist</h2>
+      <p class="mt-2">Be among the first to experience ResellAI. No spam, ever.</p>
+      <form name="newsletter" method="POST" data-netlify="true" class="mt-4 grid sm:grid-cols-[1fr_auto] gap-2" aria-label="Newsletter signup">
         <input type="hidden" name="form-name" value="newsletter" />
-        <input type="email" name="email" placeholder="your@email.com" required class="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-premium" aria-label="Email address" />
-        <button type="submit" class="btn-premium flex items-center gap-2 font-retro" aria-label="Join waitlist">
+        <input type="email" name="email" placeholder="your@email.com" required class="w-full border-2 border-win98darkgray bg-win98lightgray px-2 py-1 text-black placeholder-win98black" aria-label="Email address" />
+        <button type="submit" class="btn-win98 flex items-center gap-2" aria-label="Join waitlist">
           <span>Join Now</span>
           <span class="spinner hidden" aria-hidden="true"></span>
         </button>
       </form>
-      <p id="form-feedback" class="mt-4 text-sm text-white/60 hidden">Processing your request...</p>
+      <p id="form-feedback" class="mt-2 text-sm hidden">Processing your request...</p>
       <script>
         document.querySelector('form[name="newsletter"]').addEventListener('submit', (e) => {
           e.preventDefault();
@@ -316,15 +315,15 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="border-t border-white/10 bg-charcoal">
-    <div class="mx-auto max-w-7xl px-6 py-12 text-center md:text-left">
-      <p class="text-white/60 text-sm font-inter">© 2025 ResellAI. All rights reserved.</p>
-      <div class="mt-6 flex justify-center md:justify-end gap-6 text-white/60">
-        <a href="#faq" class="hover:text-premium transition-colors">FAQ</a>
-        <a href="/privacy" class="hover:text-premium transition-colors">Privacy</a>
-        <a href="/terms" class="hover:text-premium transition-colors">Terms</a>
-        <a href="https://twitter.com/ResellAI" target="_blank" rel="noopener noreferrer" class="hover:text-premium transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://instagram.com/ResellAI" target="_blank" rel="noopener noreferrer" class="hover:text-premium transition-colors"><i class="fa-brands fa-instagram"></i></a>
+  <footer class="border-t-2 border-win98darkgray bg-win98gray">
+    <div class="mx-auto max-w-7xl px-6 py-4 text-center">
+      <p class="text-sm">© 2025 ResellAI. All rights reserved.</p>
+      <div class="mt-2 flex justify-center gap-4 text-sm">
+        <a href="#faq" class="hover:underline">FAQ</a>
+        <a href="/privacy" class="hover:underline">Privacy</a>
+        <a href="/terms" class="hover:underline">Terms</a>
+        <a href="https://twitter.com/ResellAI" target="_blank" rel="noopener noreferrer" class="hover:underline"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://instagram.com/ResellAI" target="_blank" rel="noopener noreferrer" class="hover:underline"><i class="fa-brands fa-instagram"></i></a>
       </div>
     </div>
   </footer>
