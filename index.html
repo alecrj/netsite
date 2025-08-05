@@ -14,334 +14,955 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@ResellAI" />
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "ResellAI",
-      "url": "https://resellai.com",
-      "logo": "https://resellai.com/logo.png",
-      "sameAs": [
-        "https://twitter.com/ResellAI",
-        "https://www.instagram.com/ResellAI"
-      ]
-    }
-  </script>
-  <title>ResellAI — Resell, Automated</title>
+  <title>ResellAI — Desktop</title>
 
-  <!-- Tailwind (CDN) -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonts & Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/ms-sans-serif');
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'MS Sans Serif', sans-serif;
+      font-size: 11px;
+      background: linear-gradient(45deg, #008080 0%, #004040 100%);
+      height: 100vh;
+      overflow: hidden;
+      user-select: none;
+      cursor: default;
+    }
+
+    /* Desktop */
+    .desktop {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 40px);
+      background: linear-gradient(45deg, #008080 0%, #004040 100%);
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%);
+    }
+
+    /* Desktop Icons */
+    .desktop-icon {
+      position: absolute;
+      width: 64px;
+      text-align: center;
+      color: white;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .desktop-icon:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .desktop-icon.selected {
+      background: rgba(0,0,255,0.3);
+      border: 1px dotted white;
+    }
+
+    .desktop-icon i {
+      font-size: 32px;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .desktop-icon span {
+      font-size: 11px;
+      display: block;
+      word-wrap: break-word;
+    }
+
+    /* Window Styling */
+    .window {
+      position: absolute;
+      background: #c0c0c0;
+      border: 2px outset #c0c0c0;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      display: none;
+      min-width: 300px;
+      min-height: 200px;
+    }
+
+    .window.active {
+      z-index: 1000;
+    }
+
+    .window-header {
+      background: linear-gradient(90deg, #0080ff 0%, #004080 100%);
+      color: white;
+      padding: 2px 4px;
+      font-weight: bold;
+      cursor: move;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 18px;
+      font-size: 11px;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 2px;
+    }
+
+    .window-button {
+      width: 16px;
+      height: 14px;
+      background: #c0c0c0;
+      border: 1px outset #c0c0c0;
+      font-size: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: black;
+    }
+
+    .window-button:active {
+      border: 1px inset #c0c0c0;
+    }
+
+    .window-content {
+      padding: 8px;
+      background: #c0c0c0;
+      height: calc(100% - 18px);
+      overflow: auto;
+    }
+
+    /* Button Styling */
+    .btn-98 {
+      background: #c0c0c0;
+      border: 2px outset #c0c0c0;
+      padding: 4px 16px;
+      font-family: 'MS Sans Serif', sans-serif;
+      font-size: 11px;
+      cursor: pointer;
+      margin: 4px;
+    }
+
+    .btn-98:hover {
+      background: #d0d0d0;
+    }
+
+    .btn-98:active {
+      border: 2px inset #c0c0c0;
+    }
+
+    .btn-98.primary {
+      background: #0080ff;
+      color: white;
+      border: 2px outset #0080ff;
+    }
+
+    .btn-98.primary:hover {
+      background: #0090ff;
+    }
+
+    .btn-98.primary:active {
+      border: 2px inset #0080ff;
+    }
+
+    /* Input Styling */
+    .input-98 {
+      border: 2px inset #c0c0c0;
+      padding: 2px 4px;
+      font-family: 'MS Sans Serif', sans-serif;
+      font-size: 11px;
+      background: white;
+    }
+
+    .input-98:focus {
+      outline: 1px dotted black;
+      outline-offset: -3px;
+    }
+
+    /* Taskbar */
+    .taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: #c0c0c0;
+      border-top: 1px solid #808080;
+      display: flex;
+      align-items: center;
+      padding: 2px;
+      z-index: 10000;
+    }
+
+    .start-button {
+      background: #c0c0c0;
+      border: 2px outset #c0c0c0;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-right: 4px;
+    }
+
+    .start-button:active {
+      border: 2px inset #c0c0c0;
+    }
+
+    .start-button img {
+      width: 16px;
+      height: 16px;
+    }
+
+    .taskbar-separator {
+      width: 2px;
+      height: 32px;
+      background: linear-gradient(to bottom, #808080, #ffffff);
+      margin: 0 4px;
+    }
+
+    .taskbar-buttons {
+      flex: 1;
+      display: flex;
+      gap: 2px;
+      overflow: hidden;
+    }
+
+    .taskbar-button {
+      background: #c0c0c0;
+      border: 2px outset #c0c0c0;
+      padding: 4px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .taskbar-button.active {
+      border: 2px inset #c0c0c0;
+      background: #a0a0a0;
+    }
+
+    .system-tray {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+      padding: 0 8px;
+      border: 1px inset #c0c0c0;
+      height: 32px;
+    }
+
+    .tray-icon {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .clock {
+      font-size: 11px;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    /* Start Menu */
+    .start-menu {
+      position: absolute;
+      bottom: 40px;
+      left: 0;
+      width: 200px;
+      background: #c0c0c0;
+      border: 2px outset #c0c0c0;
+      display: none;
+      z-index: 20000;
+    }
+
+    .start-menu-header {
+      background: linear-gradient(90deg, #0080ff 0%, #004080 100%);
+      color: white;
+      padding: 8px;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    .start-menu-items {
+      list-style: none;
+    }
+
+    .start-menu-item {
+      padding: 4px 8px;
+      cursor: pointer;
+      border-bottom: 1px solid #808080;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .start-menu-item:hover {
+      background: #0080ff;
+      color: white;
+    }
+
+    .start-menu-item i {
+      width: 16px;
+      font-size: 14px;
+    }
+
+    /* Loading Screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 50000;
+      font-family: 'Courier New', monospace;
+    }
+
+    .loading-screen.hidden {
+      display: none;
+    }
+
+    .boot-text {
+      margin: 4px 0;
+      font-size: 14px;
+    }
+
+    .progress-bar {
+      width: 300px;
+      height: 20px;
+      border: 2px inset #c0c0c0;
+      background: #c0c0c0;
+      margin: 20px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #0080ff;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .desktop-icon {
+        width: 48px;
+      }
+      
+      .desktop-icon i {
+        font-size: 24px;
+      }
+      
+      .window {
+        min-width: 250px;
+        min-height: 150px;
+      }
+      
+      .start-menu {
+        width: 180px;
+      }
+    }
+
+    /* Animations */
+    @keyframes windowOpen {
+      from {
+        transform: scale(0.1);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .window.opening {
+      animation: windowOpen 0.3s ease-out;
+    }
+
+    /* Demo Styles for ResellAI content */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .feature-card {
+      background: white;
+      border: 2px inset #c0c0c0;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .feature-card i {
+      font-size: 24px;
+      color: #0080ff;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .newsletter-form {
+      background: white;
+      border: 2px inset #c0c0c0;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .form-group {
+      margin: 8px 0;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+
+    .spinner-98 {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid #c0c0c0;
+      border-top: 2px solid #0080ff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-left: 8px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="boot-text">ResellAI Operating System v2.0</div>
+    <div class="boot-text">Loading ResellAI.exe...</div>
+    <div class="boot-text">Initializing AI modules...</div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="boot-text" id="loadingStatus">Starting up...</div>
+  </div>
+
+  <!-- Desktop -->
+  <div class="desktop" id="desktop">
+    <!-- Desktop Icons -->
+    <div class="desktop-icon" style="top: 20px; left: 20px;" data-window="resellai-window">
+      <i class="fas fa-robot"></i>
+      <span>ResellAI</span>
+    </div>
+
+    <div class="desktop-icon" style="top: 100px; left: 20px;" data-window="features-window">
+      <i class="fas fa-cog"></i>
+      <span>Features</span>
+    </div>
+
+    <div class="desktop-icon" style="top: 180px; left: 20px;" data-window="demo-window">
+      <i class="fas fa-play-circle"></i>
+      <span>Demo</span>
+    </div>
+
+    <div class="desktop-icon" style="top: 260px; left: 20px;" data-window="newsletter-window">
+      <i class="fas fa-envelope"></i>
+      <span>Waitlist</span>
+    </div>
+
+    <div class="desktop-icon" style="top: 20px; right: 20px;">
+      <i class="fas fa-recycle"></i>
+      <span>Recycle Bin</span>
+    </div>
+
+    <div class="desktop-icon" style="top: 100px; right: 20px;" onclick="openTerms()">
+      <i class="fas fa-file-contract"></i>
+      <span>Legal.exe</span>
+    </div>
+  </div>
+
+  <!-- Windows -->
+  <!-- Main ResellAI Window -->
+  <div class="window" id="resellai-window" style="top: 100px; left: 100px; width: 600px; height: 400px;">
+    <div class="window-header">
+      <span>ResellAI - Automated eBay Reselling</span>
+      <div class="window-controls">
+        <div class="window-button" onclick="minimizeWindow('resellai-window')">_</div>
+        <div class="window-button" onclick="maximizeWindow('resellai-window')">□</div>
+        <div class="window-button" onclick="closeWindow('resellai-window')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <h2 style="margin-bottom: 16px; color: #000080;">Welcome to ResellAI</h2>
+      <p style="margin-bottom: 16px;">Transform your reselling business with AI-powered automation. Upload a photo, and we'll handle the rest.</p>
+      
+      <div style="background: white; border: 2px inset #c0c0c0; padding: 16px; margin: 16px 0;">
+        <h3 style="color: #000080; margin-bottom: 8px;">How It Works:</h3>
+        <ol style="margin-left: 20px;">
+          <li>📸 Upload item photo</li>
+          <li>🤖 AI identifies & researches</li>
+          <li>💰 Smart pricing analysis</li>
+          <li>📝 Auto-generated listings</li>
+          <li>🚀 Post to eBay instantly</li>
+        </ol>
+      </div>
+      
+      <div style="text-align: center; margin-top: 20px;">
+        <button class="btn-98 primary" onclick="openWindow('demo-window')">Try Demo</button>
+        <button class="btn-98" onclick="openWindow('features-window')">View Features</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Window -->
+  <div class="window" id="features-window" style="top: 150px; left: 200px; width: 500px; height: 350px;">
+    <div class="window-header">
+      <span>ResellAI Features</span>
+      <div class="window-controls">
+        <div class="window-button" onclick="minimizeWindow('features-window')">_</div>
+        <div class="window-button" onclick="maximizeWindow('features-window')">□</div>
+        <div class="window-button" onclick="closeWindow('features-window')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="feature-grid">
+        <div class="feature-card">
+          <i class="fas fa-camera"></i>
+          <h4>Photo Analysis</h4>
+          <p>AI-powered item identification</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-chart-line"></i>
+          <h4>Smart Pricing</h4>
+          <p>Market-adaptive pricing models</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-robot"></i>
+          <h4>Auto Listing</h4>
+          <p>Seamless listing creation</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-truck-fast"></i>
+          <h4>Sales Tracking</h4>
+          <p>Real-time performance insights</p>
+        </div>
+      </div>
+      
+      <div style="background: #ffffcc; border: 2px inset #c0c0c0; padding: 12px; margin-top: 16px;">
+        <h4 style="margin-bottom: 8px;">🎯 Perfect For:</h4>
+        <ul style="margin-left: 20px;">
+          <li>eBay resellers</li>
+          <li>Thrift store flippers</li>
+          <li>Garage sale hunters</li>
+          <li>Estate sale professionals</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo Window -->
+  <div class="window" id="demo-window" style="top: 120px; left: 300px; width: 450px; height: 300px;">
+    <div class="window-header">
+      <span>ResellAI Demo</span>
+      <div class="window-controls">
+        <div class="window-button" onclick="minimizeWindow('demo-window')">_</div>
+        <div class="window-button" onclick="maximizeWindow('demo-window')">□</div>
+        <div class="window-button" onclick="closeWindow('demo-window')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div style="text-align: center;">
+        <h3 style="margin-bottom: 16px;">See ResellAI In Action</h3>
+        
+        <div style="background: white; border: 2px inset #c0c0c0; padding: 20px; margin: 16px 0; min-height: 120px; display: flex; align-items: center; justify-content: center;">
+          <div id="demoContent">
+            <p style="margin-bottom: 16px;">📱 Drop an image here or click to upload</p>
+            <button class="btn-98 primary" onclick="runDemo()">Start Demo</button>
+          </div>
+        </div>
+        
+        <p style="font-size: 10px; color: #666;">Demo simulates AI analysis - no actual uploads processed</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Newsletter Window -->
+  <div class="window" id="newsletter-window" style="top: 80px; left: 400px; width: 400px; height: 320px;">
+    <div class="window-header">
+      <span>Join Waitlist - ResellAI</span>
+      <div class="window-controls">
+        <div class="window-button" onclick="minimizeWindow('newsletter-window')">_</div>
+        <div class="window-button" onclick="maximizeWindow('newsletter-window')">□</div>
+        <div class="window-button" onclick="closeWindow('newsletter-window')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="newsletter-form">
+        <h3 style="margin-bottom: 16px; text-align: center;">Get Early Access</h3>
+        <p style="margin-bottom: 16px; text-align: center;">Be among the first to experience ResellAI and transform your reselling business.</p>
+        
+        <form id="waitlistForm" onsubmit="submitWaitlist(event)">
+          <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" class="input-98" style="width: 100%;" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="name">Name (Optional):</label>
+            <input type="text" id="name" class="input-98" style="width: 100%;">
+          </div>
+          
+          <div style="text-align: center; margin-top: 16px;">
+            <button type="submit" class="btn-98 primary" id="submitBtn">
+              Join Waitlist
+              <span class="spinner-98" id="spinner" style="display: none;"></span>
+            </button>
+          </div>
+          
+          <div id="feedback" style="margin-top: 12px; text-align: center; color: #008000; display: none;"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Start Menu -->
+  <div class="start-menu" id="startMenu">
+    <div class="start-menu-header">ResellAI OS</div>
+    <ul class="start-menu-items">
+      <li class="start-menu-item" onclick="openWindow('resellai-window')">
+        <i class="fas fa-robot"></i>
+        <span>ResellAI</span>
+      </li>
+      <li class="start-menu-item" onclick="openWindow('features-window')">
+        <i class="fas fa-cog"></i>
+        <span>Features</span>
+      </li>
+      <li class="start-menu-item" onclick="openWindow('demo-window')">
+        <i class="fas fa-play-circle"></i>
+        <span>Demo</span>
+      </li>
+      <li class="start-menu-item" onclick="openWindow('newsletter-window')">
+        <i class="fas fa-envelope"></i>
+        <span>Join Waitlist</span>
+      </li>
+      <li class="start-menu-item" onclick="openTerms()">
+        <i class="fas fa-file-contract"></i>
+        <span>Legal</span>
+      </li>
+      <li class="start-menu-item" onclick="showAbout()">
+        <i class="fas fa-info-circle"></i>
+        <span>About</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Taskbar -->
+  <div class="taskbar">
+    <div class="start-button" onclick="toggleStartMenu()">
+      <span>🚀</span>
+      <span>Start</span>
+    </div>
+    <div class="taskbar-separator"></div>
+    <div class="taskbar-buttons" id="taskbarButtons"></div>
+    <div class="system-tray">
+      <div class="tray-icon">🔊</div>
+      <div class="tray-icon">📶</div>
+      <div class="clock" id="clock"></div>
+    </div>
+  </div>
+
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            win98blue: '#0080FF',
-            win98gray: '#C0C0C0',
-            win98darkgray: '#808080',
-            win98lightgray: '#D3D3D3',
-            win98white: '#FFFFFF',
-            win98black: '#000000',
-          },
-          fontFamily: {
-            'win98': ['"MS Sans Serif"', 'sans-serif'],
-          },
-          boxShadow: {
-            'win98': 'inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #FFFFFF, 2px 2px 0 #808080, -2px -2px 0 #808080',
-            'win98-pop': 'inset 2px 2px 0 #FFFFFF, inset -2px -2px 0 #FFFFFF, 4px 4px 0 #808080, -4px -4px 0 #808080',
-          },
+    // Boot sequence
+    window.addEventListener('load', function() {
+      const loadingScreen = document.getElementById('loadingScreen');
+      const progressFill = document.getElementById('progressFill');
+      const loadingStatus = document.getElementById('loadingStatus');
+      
+      const bootMessages = [
+        'Loading Windows 98...',
+        'Initializing ResellAI modules...',
+        'Connecting to eBay API...',
+        'Starting AI engine...',
+        'Welcome to ResellAI OS!'
+      ];
+      
+      let progress = 0;
+      let messageIndex = 0;
+      
+      const bootInterval = setInterval(() => {
+        progress += 20;
+        progressFill.style.width = progress + '%';
+        
+        if (messageIndex < bootMessages.length) {
+          loadingStatus.textContent = bootMessages[messageIndex];
+          messageIndex++;
+        }
+        
+        if (progress >= 100) {
+          clearInterval(bootInterval);
+          setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            updateClock();
+            setInterval(updateClock, 1000);
+          }, 500);
+        }
+      }, 800);
+    });
+
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      document.getElementById('clock').textContent = timeString;
+    }
+
+    // Window Management
+    let activeWindow = null;
+    let windowZIndex = 1000;
+
+    function openWindow(windowId) {
+      const window = document.getElementById(windowId);
+      if (window) {
+        window.style.display = 'block';
+        window.classList.add('opening');
+        setActiveWindow(windowId);
+        updateTaskbar();
+        
+        setTimeout(() => {
+          window.classList.remove('opening');
+        }, 300);
+      }
+    }
+
+    function closeWindow(windowId) {
+      const window = document.getElementById(windowId);
+      if (window) {
+        window.style.display = 'none';
+        if (activeWindow === windowId) {
+          activeWindow = null;
+        }
+        updateTaskbar();
+      }
+    }
+
+    function minimizeWindow(windowId) {
+      const window = document.getElementById(windowId);
+      if (window) {
+        window.style.display = 'none';
+        updateTaskbar();
+      }
+    }
+
+    function maximizeWindow(windowId) {
+      const window = document.getElementById(windowId);
+      if (window) {
+        if (window.style.width === '100vw') {
+          // Restore
+          window.style.width = '600px';
+          window.style.height = '400px';
+          window.style.top = '100px';
+          window.style.left = '100px';
+        } else {
+          // Maximize
+          window.style.width = '100vw';
+          window.style.height = 'calc(100vh - 40px)';
+          window.style.top = '0';
+          window.style.left = '0';
         }
       }
     }
-  </script>
 
-  <!-- Fonts & Icons -->
-  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/ms-sans-serif" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.cdnfonts.com https://fonts.googleapis.com; font-src https://fonts.cdnfonts.com https://fonts.gstatic.com; connect-src 'self' https://api.netlify.com;" />
-
-  <style>
-    html { scroll-behavior: smooth; }
-    body { background: #0080FF; color: #000000; font-family: win98, sans-serif; }
-
-    .bg-win98 {
-      background: linear-gradient(to bottom, #0080FF, #000080);
-      border: 2px outset #FFFFFF;
-      padding: 10px;
+    function setActiveWindow(windowId) {
+      // Remove active class from all windows
+      document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+      
+      // Set active window
+      const window = document.getElementById(windowId);
+      if (window) {
+        window.classList.add('active');
+        window.style.zIndex = ++windowZIndex;
+        activeWindow = windowId;
+      }
     }
 
-    .btn-win98 {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border: 2px outset #FFFFFF;
-      border-radius: 0;
-      font-weight: bold;
-      color: #000000;
-      background: linear-gradient(to bottom, #D3D3D3, #C0C0C0);
-      box-shadow: win98-pop;
-      text-align: center;
-      cursor: hand;
-      transition: transform 0.1s ease, box-shadow 0.1s ease;
-    }
-    .btn-win98:hover {
-      transform: translateY(-1px);
-      box-shadow: inset 2px 2px 0 #FFFFFF, inset -2px -2px 0 #FFFFFF, 6px 6px 0 #808080, -6px -6px 0 #808080;
-    }
-    .btn-win98:active {
-      transform: translateY(1px);
-      box-shadow: inset 1px 1px 0 #808080, inset -1px -1px 0 #808080, 2px 2px 0 #FFFFFF, -2px -2px 0 #FFFFFF;
-      border-style: inset;
-    }
-
-    .btn-ghost {
-      border: 2px solid #FFFFFF;
-      padding: 0.5rem 1rem;
-      color: #000000;
-      background: #C0C0C0;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-    }
-    .btn-ghost:hover {
-      background: #D3D3D3;
-      border-color: #808080;
-      transform: translateY(-1px);
-    }
-
-    .card {
-      background: #C0C0C0;
-      border: 2px outset #FFFFFF;
-      border-radius: 0;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.7s ease; }
-    .reveal.show { opacity: 1; transform: translateY(0); }
-
-    .spinner {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      border: 2px solid rgba(0, 128, 255, 0.2);
-      border-top: 2px solid #0080FF;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-  </style>
-</head>
-<body class="font-win98 antialiased bg-win98" aria-label="ResellAI Website">
-
-  <!-- NAV -->
-  <header class="fixed top-0 z-50 w-full border-b-2 border-win98darkgray bg-win98gray/80" role="banner">
-    <div class="mx-auto max-w-7xl px-6 py-2 flex items-center justify-between">
-      <div class="text-xl font-bold">ResellAI</div>
-      <nav class="hidden md:flex items-center gap-6 text-sm text-win98black" aria-label="Main navigation">
-        <a href="#how" class="hover:underline">How It Works</a>
-        <a href="#features" class="hover:underline">Features</a>
-        <a href="#faq" class="hover:underline">FAQ</a>
-        <a href="#newsletter" class="hover:underline">Waitlist</a>
-      </nav>
-      <a href="#newsletter" class="btn-win98 text-sm" aria-label="Get early access">Get Started</a>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section class="mx-auto max-w-7xl px-6 py-20 text-center" role="main">
-    <div class="bg-win98lightgray p-6">
-      <h1 class="text-4xl font-bold">
-        Resell, Automated
-      </h1>
-      <p class="mt-4 text-lg max-w-xl mx-auto">
-        AI lists, prices, and posts to eBay. Just upload a photo.
-      </p>
-      <div class="mt-6 flex justify-center gap-4">
-        <a href="#newsletter" class="btn-win98 flex items-center gap-2" aria-label="Download for free">
-          <i class="fa-solid fa-download"></i> Download Now
-        </a>
-        <a href="#how" class="btn-ghost" aria-label="Learn more">Discover More</a>
-      </div>
-      <div class="mt-3 text-sm">Free to start. No spam.</div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section id="how" class="mx-auto max-w-7xl px-6 py-20">
-    <h2 class="text-3xl font-bold text-center">How It Works</h2>
-    <p class="text-center mt-2 max-w-2xl mx-auto">Three seamless steps to automated reselling.</p>
-    <div class="mt-10 space-y-20">
-      <!-- Step 1 -->
-      <div class="grid md:grid-cols-2 gap-6 items-center">
-        <div class="card p-4 reveal">
-          <div class="text-win98blue text-3xl mb-4"><i class="fa-solid fa-camera"></i></div>
-          <h3 class="text-2xl font-bold mb-2">Step 1: Upload a photo</h3>
-          <p class="text-lg">Snap a picture or upload from your phone or computer.</p>
-        </div>
-        <div class="relative flex justify-center">
-          <div class="card p-4" style="aspect-ratio: 9 / 16; width: 200px;">
-            <video autoplay muted loop playsinline class="w-full h-full object-cover" poster="https://via.placeholder.com/200x354?text=Demo+Video+2" loading="lazy" onerror="this.src='https://via.placeholder.com/200x354?text=Video+Unavailable';">
-              <source src="" type="video/mp4" />
-            </video>
-          </div>
-        </div>
-      </div>
-      <!-- Step 2 -->
-      <div class="grid md:grid-cols-2 gap-6 items-center">
-        <div class="card p-4 reveal">
-          <div class="text-win98blue text-3xl mb-4"><i class="fa-solid fa-brain"></i></div>
-          <h3 class="text-2xl font-bold mb-2">Step 2: AI analyzes item</h3>
-          <p class="text-lg">AI finds comps, writes the listing, and suggests pricing.</p>
-        </div>
-        <div class="relative flex justify-center">
-          <div class="card p-4" style="aspect-ratio: 9 / 16; width: 200px;">
-            <video autoplay muted loop playsinline class="w-full h-full object-cover" poster="https://via.placeholder.com/200x354?text=Demo+Video+3" loading="lazy" onerror="this.src='https://via.placeholder.com/200x354?text=Video+Unavailable';">
-              <source src="" type="video/mp4" />
-            </video>
-          </div>
-        </div>
-      </div>
-      <!-- Step 3 -->
-      <div class="grid md:grid-cols-2 gap-6 items-center">
-        <div class="card p-4 reveal">
-          <div class="text-win98blue text-3xl mb-4"><i class="fa-solid fa-rocket"></i></div>
-          <h3 class="text-2xl font-bold mb-2">Step 3: List & track</h3>
-          <p class="text-lg">Posts to eBay and tracks your sales, all hands-off.</p>
-        </div>
-        <div class="relative flex justify-center">
-          <div class="card p-4" style="aspect-ratio: 9 / 16; width: 200px;">
-            <video autoplay muted loop playsinline class="w-full h-full object-cover" poster="https://via.placeholder.com/200x354?text=Demo+Video+4" loading="lazy" onerror="this.src='https://via.placeholder.com/200x354?text=Video+Unavailable';">
-              <source src="" type="video/mp4" />
-            </video>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section id="features" class="mx-auto max-w-7xl px-6 py-20">
-    <h2 class="text-3xl font-bold text-center">Key Features</h2>
-    <p class="text-center mt-2 max-w-2xl mx-auto">Power your reselling with cutting-edge tools.</p>
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-      <div class="card p-4 reveal">
-        <div class="text-win98blue text-2xl mb-2"><i class="fa-solid fa-image"></i></div>
-        <h3 class="text-xl font-bold">Photo Recognition</h3>
-        <p class="mt-1">AI-powered item identification.</p>
-      </div>
-      <div class="card p-4 reveal">
-        <div class="text-win98blue text-2xl mb-2"><i class="fa-solid fa-chart-line"></i></div>
-        <h3 class="text-xl font-bold">Dynamic Pricing</h3>
-        <p class="mt-1">Market-adaptive pricing models.</p>
-      </div>
-      <div class="card p-4 reveal">
-        <div class="text-win98blue text-2xl mb-2"><i class="fa-solid fa-robot"></i></div>
-        <h3 class="text-xl font-bold">Automation</h3>
-        <p class="mt-1">Seamless listing creation.</p>
-      </div>
-      <div class="card p-4 reveal">
-        <div class="text-win98blue text-2xl mb-2"><i class="fa-solid fa-truck-fast"></i></div>
-        <h3 class="text-xl font-bold">Sales Insights</h3>
-        <p class="mt-1">Real-time performance tracking.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="mx-auto max-w-5xl px-6 py-20">
-    <h2 class="text-3xl font-bold text-center">Frequently Asked</h2>
-    <div class="mt-6 space-y-4">
-      <div class="card p-4 reveal">
-        <h3 class="text-xl font-bold">What is ResellAI?</h3>
-        <p class="mt-1">A premium AI tool for eBay reselling—identify, price, list, and track with ease.</p>
-      </div>
-      <div class="card p-4 reveal">
-        <h3 class="text-xl font-bold">Is there a free plan?</h3>
-        <p class="mt-1">Yes, with advanced features available via subscription.</p>
-      </div>
-      <div class="card p-4 reveal">
-        <h3 class="text-xl font-bold">Which platforms are supported?</h3>
-        <p class="mt-1">Currently eBay, with more to come.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- NEWSLETTER / WAITLIST -->
-  <section id="newsletter" class="mx-auto max-w-3xl px-6 py-20">
-    <div class="card p-6">
-      <h2 class="text-3xl font-bold">Join the Elite Waitlist</h2>
-      <p class="mt-2">Be among the first to experience ResellAI. No spam, ever.</p>
-      <form name="newsletter" method="POST" data-netlify="true" class="mt-4 grid sm:grid-cols-[1fr_auto] gap-2" aria-label="Newsletter signup">
-        <input type="hidden" name="form-name" value="newsletter" />
-        <input type="email" name="email" placeholder="your@email.com" required class="w-full border-2 border-win98darkgray bg-win98lightgray px-2 py-1 text-black placeholder-win98black" aria-label="Email address" />
-        <button type="submit" class="btn-win98 flex items-center gap-2" aria-label="Join waitlist">
-          <span>Join Now</span>
-          <span class="spinner hidden" aria-hidden="true"></span>
-        </button>
-      </form>
-      <p id="form-feedback" class="mt-2 text-sm hidden">Processing your request...</p>
-      <script>
-        document.querySelector('form[name="newsletter"]').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const button = e.target.querySelector('button');
-          const spinner = button.querySelector('.spinner');
-          const feedback = document.getElementById('form-feedback');
-          button.disabled = true;
-          spinner.classList.remove('hidden');
-          feedback.classList.remove('hidden');
-          feedback.textContent = 'Submitting...';
-          fetch('/', {
-            method: 'POST',
-            body: new FormData(e.target),
-          }).then(response => {
-            if (response.ok) {
-              feedback.textContent = 'Success! Welcome to the waitlist.';
-              e.target.reset();
+    function updateTaskbar() {
+      const taskbarButtons = document.getElementById('taskbarButtons');
+      taskbarButtons.innerHTML = '';
+      
+      document.querySelectorAll('.window').forEach(window => {
+        if (window.style.display !== 'none') {
+          const button = document.createElement('div');
+          button.className = 'taskbar-button';
+          if (window.id === activeWindow) {
+            button.classList.add('active');
+          }
+          
+          const title = window.querySelector('.window-header span').textContent;
+          button.textContent = title;
+          button.onclick = () => {
+            if (window.style.display === 'none') {
+              openWindow(window.id);
             } else {
-              feedback.textContent = 'Error. Please try again.';
+              setActiveWindow(window.id);
             }
-          }).catch(() => {
-            feedback.textContent = 'Error. Please try again.';
-          }).finally(() => {
-            button.disabled = false;
-            spinner.classList.add('hidden');
-            setTimeout(() => feedback.classList.add('hidden'), 4000);
-          });
-        });
-      </script>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="border-t-2 border-win98darkgray bg-win98gray">
-    <div class="mx-auto max-w-7xl px-6 py-4 text-center">
-      <p class="text-sm">© 2025 ResellAI. All rights reserved.</p>
-      <div class="mt-2 flex justify-center gap-4 text-sm">
-        <a href="#faq" class="hover:underline">FAQ</a>
-        <a href="/privacy" class="hover:underline">Privacy</a>
-        <a href="/terms" class="hover:underline">Terms</a>
-        <a href="https://twitter.com/ResellAI" target="_blank" rel="noopener noreferrer" class="hover:underline"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://instagram.com/ResellAI" target="_blank" rel="noopener noreferrer" class="hover:underline"><i class="fa-brands fa-instagram"></i></a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Sitemap Reference -->
-  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-
-  <!-- Reveal on scroll -->
-  <script>
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add('show');
-          io.unobserve(e.target);
+          };
+          
+          taskbarButtons.appendChild(button);
         }
       });
-    }, { threshold: 0.3 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    }
+
+    // Start Menu
+    function toggleStartMenu() {
+      const startMenu = document.getElementById('startMenu');
+      startMenu.style.display = startMenu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Close start menu when clicking elsewhere
+    document.addEventListener('click', function(e) {
+      const startMenu = document.getElementById('startMenu');
+      const startButton = document.querySelector('.start-button');
+      
+      if (!startMenu.contains(e.target) && !startButton.contains(e.target)) {
+        startMenu.style.display = 'none';
+      }
+    });
+
+    // Desktop Icon Management
+    document.querySelectorAll('.desktop-icon').forEach(icon => {
+      icon.addEventListener('click', function() {
+        const windowId = this.getAttribute('data-window');
+        if (windowId) {
+          openWindow(windowId);
+        }
+      });
+
+      icon.addEventListener('dblclick', function() {
+        const windowId = this.getAttribute('data-window');
+        if (windowId) {
+          openWindow(windowId);
+        }
+      });
+    });
+
+    // Window Dragging
+    let isDragging = false;
+    let currentWindow = null;
+    let startX, startY, startWindowX, startWindowY;
+
+    document.addEventListener('mousedown', function(e) {
+      const header = e.target.closest('.window-header');
+      if (header && !e.target.classList.contains('window-button')) {
+        isDragging = true;
+        currentWindow = header.parentNode;
+        
+        const rect = currentWindow.getBoundingClientRect();
+        startX = e.clientX;
+        startY = e.clientY;
+        startWindowX = rect.left;
+        startWindowY = rect.top;
+        
+        setActiveWindow(currentWindow.id);
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (isDragging && currentWindow) {
+        const deltaX = e.clientX - startX;
+        const deltaY = e.clientY - startY;
+        
+        currentWindow.style.left = (startWindowX + deltaX) + 'px';
+        currentWindow.style.top = Math.max(0, startWindowY + deltaY) + 'px';
+      }
+    });
+
+    document.addEventListener('mouseup', function() {
+      isDragging = false;
+      currentWindow = null;
+    });
+
+    // Demo functionality
+    function runDemo() {
+      const demoContent = document.getElementById('demoContent');
+      
+      demoContent.innerHTML = '<p>🔄 Analyzing image...</p>';
+      
+      setTimeout(() => {
+        demoContent.innerHTML = `
+          <div style="text-align: left;">
+            <h4>✅ Analysis Complete!</h4>
+            <p><strong>Item:</strong> Vintage Nike Shoes</p>
+            <p><strong>Condition:</strong> Good</p>
+            <p><strong>Estimated Value:</strong> $75-$120</p>
+            <p><strong>Suggested Price:</strong> $95</p>
+            <br>
+            <button class="btn-98 primary" onclick="openWindow('newsletter-window')">Get Full Version</button>
+          </div>
+        `;
+      }, 2000);
+    }
+
+    // Waitlist form
+    function submitWaitlist(event) {
+      event.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      const spinner = document.getElementById('spinner');
+      const feedback = document.getElementById('feedback');
+      const email = document.getElementById('email').value;
+      
+      submitBtn.disabled = true;
+      spinner.style.display = 'inline-block';
+      feedback.style.display = 'none';
+      
+      // Simulate API call
+      setTimeout(() => {
+        feedback.style.display = 'block';
+        feedback.style.color = '#008000';
+        feedback.textContent = '✅ Welcome to the waitlist!';
+        
+        submitBtn.disabled = false;
+        spinner.style.display = 'none';
+        
+        setTimeout(() => {
+          feedback.style.display = 'none';
+          document.getElementById('waitlistForm').reset();
+        }, 3000);
+      }, 1500);
+    }
+
+    // External links
+    function openTerms() {
+      window.open('terms.html', '_blank');
+    }
+
+    function showAbout() {
+      alert('ResellAI OS v2.0\n\nBuilt for the modern reseller\n© 2025 ResellAI');
+    }
+
+    // Click window to focus
+    document.querySelectorAll('.window').forEach(window => {
+      window.addEventListener('mousedown', () => {
+        setActiveWindow(window.id);
+      });
+    });
   </script>
 </body>
 </html>

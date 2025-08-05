@@ -3,92 +3,498 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResellAI - Connection Failed</title>
+    <title>ResellAI - Authorization Error</title>
+    
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-            color: white;
+        @import url('https://fonts.cdnfonts.com/css/ms-sans-serif');
+        
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
-            min-height: 100vh;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'MS Sans Serif', sans-serif;
+            font-size: 11px;
+            background: linear-gradient(45deg, #008080 0%, #004040 100%);
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+        }
+
+        .desktop-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #008080 0%, #004040 100%);
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%);
+        }
+
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #c0c0c0;
+            border-top: 1px solid #808080;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+            z-index: 10000;
+        }
+
+        .start-button {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 4px 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+
+        .taskbar-separator {
+            width: 2px;
+            height: 32px;
+            background: linear-gradient(to bottom, #808080, #ffffff);
+            margin: 0 4px;
+        }
+
+        .system-tray {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+            padding: 0 8px;
+            border: 1px inset #c0c0c0;
+            height: 32px;
+        }
+
+        .clock {
+            font-size: 11px;
+            min-width: 60px;
             text-align: center;
         }
-        .container {
-            max-width: 400px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+
+        .error-dialog {
+            position: relative;
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+            width: 400px;
+            z-index: 20000;
+            animation: errorAppear 0.3s ease-out;
         }
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #39FF14;
+
+        @keyframes errorAppear {
+            from {
+                transform: scale(0.1);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
-        .error-icon {
-            font-size: 3rem;
-            margin: 20px 0;
-        }
-        .message {
-            font-size: 1.1rem;
-            margin: 20px 0;
-        }
-        .actions {
-            margin-top: 30px;
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.2);
+
+        .dialog-header {
+            background: linear-gradient(90deg, #800000 0%, #400000 100%);
             color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            margin: 5px;
+            padding: 2px 4px;
             font-weight: bold;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 18px;
+            font-size: 11px;
         }
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+
+        .dialog-title {
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
-        .btn-primary {
-            background: #39FF14;
-            color: #000;
+
+        .dialog-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .dialog-button {
+            width: 16px;
+            height: 14px;
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            font-size: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: black;
+        }
+
+        .dialog-button:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        .dialog-content {
+            padding: 16px;
+            background: #c0c0c0;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .error-icon {
+            font-size: 32px;
+            color: #ff0000;
+            flex-shrink: 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .error-message {
+            flex: 1;
+        }
+
+        .error-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #800000;
+        }
+
+        .error-text {
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .error-details {
+            background: white;
+            border: 2px inset #c0c0c0;
+            padding: 8px;
+            margin: 8px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 9px;
+            color: #000080;
+        }
+
+        .dialog-buttons {
+            background: #c0c0c0;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            border-top: 1px solid #808080;
+        }
+
+        .btn-98 {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 4px 16px;
+            font-family: 'MS Sans Serif', sans-serif;
+            font-size: 11px;
+            cursor: pointer;
+            min-width: 75px;
+        }
+
+        .btn-98:hover {
+            background: #d0d0d0;
+        }
+
+        .btn-98:active {
+            border: 2px inset #c0c0c0;
+        }
+
+        .btn-98.primary {
+            background: #0080ff;
+            color: white;
+            border: 2px outset #0080ff;
+            font-weight: bold;
+        }
+
+        .btn-98.primary:hover {
+            background: #0090ff;
+        }
+
+        .btn-98.primary:active {
+            border: 2px inset #0080ff;
+        }
+
+        .loading-dots {
+            display: inline-block;
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+
+        .progress-container {
+            margin: 12px 0;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 16px;
+            background: white;
+            border: 2px inset #c0c0c0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #0080ff;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .countdown {
+            text-align: center;
+            margin-top: 8px;
+            color: #666;
+            font-size: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .error-dialog {
+                width: 90%;
+                max-width: 350px;
+            }
+            
+            .dialog-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .error-icon {
+                margin-bottom: 8px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">ResellAI</div>
-        <div class="error-icon">⚠️</div>
-        <div class="message">
-            Failed to connect your eBay account. This could be because you declined the authorization or there was a technical issue.
+    <div class="desktop-background"></div>
+    
+    <!-- Error Dialog -->
+    <div class="error-dialog">
+        <div class="dialog-header">
+            <div class="dialog-title">
+                <span>⚠️</span>
+                <span>ResellAI - eBay Authorization Error</span>
+            </div>
+            <div class="dialog-controls">
+                <div class="dialog-button" onclick="closeDialog()">×</div>
+            </div>
         </div>
-        <div class="actions">
-            <a href="#" onclick="openApp()" class="btn">Open ResellAI</a>
-            <a href="https://auth.ebay.com/oauth2/authorize?client_id=AlecRodr-resell-PRD-d0bc91504-be3e553a&response_type=code&runame=Alec_Rodriguez-AlecRodr-resell-yinuaueco&scope=https://api.ebay.com/oauth/api_scope/sell.inventory%20https://api.ebay.com/oauth/api_scope/sell.account%20https://api.ebay.com/oauth/api_scope/sell.fulfillment" class="btn btn-primary">Try Again</a>
+        
+        <div class="dialog-content">
+            <div class="error-icon">🛑</div>
+            <div class="error-message">
+                <div class="error-title">eBay Authorization Failed</div>
+                <div class="error-text">
+                    The eBay authorization process was not completed successfully. 
+                    This could be because:
+                </div>
+                <ul style="margin: 8px 0 8px 20px; font-size: 10px;">
+                    <li>You declined the authorization request</li>
+                    <li>The authorization session timed out</li>
+                    <li>A technical error occurred during the process</li>
+                    <li>Network connectivity issues</li>
+                </ul>
+                
+                <div class="error-details">
+                    Error Code: EBAY_AUTH_DECLINED<br>
+                    Timestamp: <span id="timestamp"></span><br>
+                    Session ID: RAI-<span id="sessionId"></span><br>
+                    Redirect URL: resellai://auth/ebay
+                </div>
+                
+                <div class="progress-container" id="progressContainer">
+                    <div>Preparing to redirect to ResellAI<span class="loading-dots"></span></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="countdown" id="countdown"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dialog-buttons">
+            <button class="btn-98 primary" onclick="retryAuthorization()">Try Again</button>
+            <button class="btn-98" onclick="openApp()">Open ResellAI</button>
+            <button class="btn-98" onclick="getHelp()">Help</button>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <div class="start-button">
+            <span>🚀</span>
+            <span>Start</span>
+        </div>
+        <div class="taskbar-separator"></div>
+        <div style="flex: 1;"></div>
+        <div class="system-tray">
+            <div style="width: 16px; height: 16px;">🔊</div>
+            <div style="width: 16px; height: 16px;">📶</div>
+            <div class="clock" id="clock"></div>
         </div>
     </div>
 
     <script>
-        function openApp() {
-            const params = new URLSearchParams(window.location.search);
+        // Initialize page
+        window.addEventListener('load', function() {
+            updateClock();
+            setInterval(updateClock, 1000);
             
-            // Build the deep link to your app with error info
-            let appURL = 'resellai://auth/ebay?error=declined';
+            // Set timestamp
+            const now = new Date();
+            document.getElementById('timestamp').textContent = now.toLocaleString();
             
-            console.log('Redirecting to app with error:', appURL);
-            window.location.href = appURL;
+            // Generate random session ID
+            const sessionId = Math.random().toString(36).substr(2, 9).toUpperCase();
+            document.getElementById('sessionId').textContent = sessionId;
+            
+            // Auto-redirect after 10 seconds
+            startAutoRedirect();
+            
+            // Classic Windows error sound simulation
+            console.log('🔊 Windows error sound: ding!');
+        });
+
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('clock').textContent = timeString;
         }
 
-        // Auto-redirect to app after 3 seconds
-        setTimeout(openApp, 3000);
+        function startAutoRedirect() {
+            const progressContainer = document.getElementById('progressContainer');
+            const progressFill = document.getElementById('progressFill');
+            const countdown = document.getElementById('countdown');
+            
+            let seconds = 10;
+            progressContainer.style.display = 'block';
+            
+            const interval = setInterval(() => {
+                const progress = ((10 - seconds) / 10) * 100;
+                progressFill.style.width = progress + '%';
+                countdown.textContent = `Auto-redirecting in ${seconds} seconds...`;
+                
+                seconds--;
+                
+                if (seconds < 0) {
+                    clearInterval(interval);
+                    openApp();
+                }
+            }, 1000);
+        }
+
+        function retryAuthorization() {
+            console.log('Retrying eBay authorization...');
+            
+            // Simulate loading
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = 'Connecting...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                // Redirect to eBay auth URL
+                window.location.href = 'https://auth.ebay.com/oauth2/authorize?client_id=AlecRodr-resell-PRD-d0bc91504-be3e553a&response_type=code&runame=Alec_Rodriguez-AlecRodr-resell-yinuaueco&scope=https://api.ebay.com/oauth/api_scope/sell.inventory%20https://api.ebay.com/oauth/api_scope/sell.account%20https://api.ebay.com/oauth/api_scope/sell.fulfillment';
+            }, 1500);
+        }
+
+        function openApp() {
+            console.log('Opening ResellAI app...');
+            
+            // Try deep link first
+            const appURL = 'resellai://auth/ebay?error=declined';
+            window.location.href = appURL;
+            
+            // Fallback to website after a delay
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2000);
+        }
+
+        function getHelp() {
+            const helpDialog = `
+ResellAI Help - eBay Authorization
+
+Common solutions:
+• Make sure you're logged into your eBay account
+• Check your internet connection
+• Clear your browser cache and cookies
+• Disable any ad blockers
+• Try using a different browser
+
+If the problem persists:
+• Contact support: support@resellaiapp.com
+• Visit our FAQ: resellaiapp.com/help
+• Check system status: status.resellaiapp.com
+
+Error Code: EBAY_AUTH_DECLINED
+            `.trim();
+            
+            alert(helpDialog);
+        }
+
+        function closeDialog() {
+            if (confirm('Close this error dialog?\n\nYou will be redirected to the ResellAI homepage.')) {
+                window.location.href = '/';
+            }
+        }
+
+        // Classic Windows 98 behavior - prevent F5 refresh during error
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F5') {
+                e.preventDefault();
+                alert('Please use the "Try Again" button to retry the authorization.');
+            }
+        });
+
+        // Add some classic Windows sounds simulation
+        function playErrorSound() {
+            // In a real app, you'd play an actual sound file
+            console.log('🔊 Playing Windows error sound...');
+        }
+
+        // Easter egg - Ctrl+Alt+D shows debug info
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.altKey && e.key === 'd') {
+                const debug = `
+DEBUG INFORMATION:
+==================
+User Agent: ${navigator.userAgent}
+Screen: ${screen.width}x${screen.height}
+Viewport: ${window.innerWidth}x${window.innerHeight}
+Referrer: ${document.referrer || 'Direct access'}
+Timestamp: ${new Date().toISOString()}
+Error Type: eBay OAuth Decline
+                `.trim();
+                
+                alert(debug);
+            }
+        });
     </script>
 </body>
 </html>
