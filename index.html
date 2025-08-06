@@ -29,7 +29,66 @@
       position: relative;
     }
 
-    /* Theme backgrounds - Only working ones */
+    /* Loading Screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: #00ff00;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Courier New', monospace;
+      z-index: 10000;
+      animation: fadeOut 1s ease-in-out 4s forwards;
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    .boot-text {
+      font-size: clamp(12px, 2vw, 16px);
+      margin: 10px 0;
+      opacity: 0;
+      animation: typeIn 0.8s ease-in-out forwards;
+    }
+
+    .boot-text:nth-child(1) { animation-delay: 0.5s; }
+    .boot-text:nth-child(2) { animation-delay: 1.2s; }
+    .boot-text:nth-child(3) { animation-delay: 1.8s; }
+    .boot-text:nth-child(4) { animation-delay: 2.8s; }
+
+    @keyframes typeIn {
+      to { opacity: 1; }
+    }
+
+    .progress-bar {
+      width: 300px;
+      height: 20px;
+      background: #333;
+      border: 2px solid #00ff00;
+      margin: 20px 0;
+      position: relative;
+      max-width: 80vw;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #00ff00;
+      width: 0;
+      animation: fillProgress 2s ease-in-out 1.5s forwards;
+    }
+
+    @keyframes fillProgress {
+      to { width: 100%; }
+    }
+
+    /* Theme backgrounds */
     body.theme-teal { 
       background: linear-gradient(45deg, #008080 0%, #004040 100%);
     }
@@ -54,11 +113,11 @@
       100% { background-position: 0% 50%; } 
     }
 
-    /* Desktop Layout - Mobile First */
+    /* Perfect Mobile Desktop Layout */
     .desktop {
       position: relative;
-      height: calc(100vh - 50px);
-      padding: 15px;
+      height: calc(100vh - 40px);
+      padding: 10px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
@@ -66,17 +125,19 @@
     .desktop-icons {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      gap: 15px;
       max-width: 100%;
       justify-items: center;
       align-content: start;
       min-height: 100%;
+      padding: 10px 0;
     }
 
     @media (min-width: 768px) {
       .desktop {
         padding: 40px;
         overflow: visible;
+        height: calc(100vh - 50px);
       }
       
       .desktop-icons {
@@ -86,67 +147,71 @@
       }
     }
 
-    /* Desktop Icons - Perfect Mobile Sizing */
+    /* Perfect Mobile Icon Sizing */
     .desktop-icon {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px 15px;
+      padding: 15px 10px;
       cursor: pointer;
       user-select: none;
-      width: 150px;
-      min-height: 130px;
+      width: 140px;
+      min-height: 120px;
       background: rgba(255, 255, 255, 0.12);
-      border-radius: 15px;
+      border-radius: 12px;
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
       border: 2px solid rgba(255, 255, 255, 0.25);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      color: white;
+      text-align: center;
     }
 
     @media (min-width: 768px) {
       .desktop-icon {
         position: absolute;
-        width: 100px;
-        min-height: 90px;
+        width: 80px;
+        min-height: 80px;
         background: transparent;
         border: none;
         backdrop-filter: none;
         border-radius: 0;
         box-shadow: none;
-        padding: 15px 10px;
+        padding: 10px;
       }
     }
 
     .desktop-icon:hover {
       background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-5px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     }
 
     @media (min-width: 768px) {
       .desktop-icon:hover {
         background: rgba(255, 255, 255, 0.15);
-        border-radius: 10px;
+        border-radius: 8px;
         transform: translateY(-3px);
       }
     }
 
-    .desktop-icon:active {
-      transform: scale(0.95);
+    /* Desktop positioning for larger screens */
+    @media (min-width: 768px) {
+      .desktop-icon.pos-1 { top: 20px; left: 20px; }
+      .desktop-icon.pos-2 { top: 120px; left: 20px; }
+      .desktop-icon.pos-3 { top: 220px; left: 20px; }
+      .desktop-icon.pos-4 { top: 20px; right: 20px; }
+      .desktop-icon.pos-5 { top: 120px; right: 20px; }
+      .desktop-icon.pos-6 { top: 220px; right: 20px; }
+      .desktop-icon.pos-7 { top: 320px; left: 20px; }
     }
 
-    .desktop-icon.selected {
-      background: rgba(0, 0, 139, 0.4);
-      border: 3px dotted white;
-    }
-
-    /* Authentic Windows 98 Folder Icons */
+    /* Folder Icons - Mobile Optimized */
     .folder-icon {
       position: relative;
-      width: 70px;
-      height: 55px;
-      margin-bottom: 15px;
+      width: 60px;
+      height: 48px;
+      margin-bottom: 12px;
     }
 
     @media (min-width: 768px) {
@@ -169,7 +234,7 @@
       box-shadow: 
         inset 2px 2px 0 #FFFFFF, 
         inset -2px -2px 0 #999999,
-        4px 4px 10px rgba(0,0,0,0.5);
+        3px 3px 8px rgba(0,0,0,0.4);
       border-radius: 3px;
     }
 
@@ -198,16 +263,16 @@
         box-shadow: 
           inset 2px 2px 0 #FFFFFF, 
           inset -2px -2px 0 #999999,
-          4px 4px 10px rgba(0,0,0,0.5),
-          0 0 25px rgba(64,255,64,0.4);
+          3px 3px 8px rgba(0,0,0,0.4),
+          0 0 20px rgba(64,255,64,0.3);
       }
       50% { 
         box-shadow: 
           inset 2px 2px 0 #FFFFFF, 
           inset -2px -2px 0 #999999,
-          4px 4px 15px rgba(0,0,0,0.7),
-          0 0 40px rgba(64,255,64,0.7);
-        transform: scale(1.08);
+          3px 3px 12px rgba(0,0,0,0.6),
+          0 0 30px rgba(64,255,64,0.6);
+        transform: scale(1.05);
       }
     }
 
@@ -219,45 +284,14 @@
       background: linear-gradient(135deg, #FFE080 0%, #FFD060 30%, #FFC040 70%, #FFB020 100%);
     }
 
-    /* App Icons */
-    .app-icon {
-      position: relative;
-      width: 70px;
-      height: 70px;
-      margin-bottom: 15px;
-      background: linear-gradient(135deg, #E0E0E0 0%, #C0C0C0 50%, #A0A0A0 100%);
-      border: 3px solid;
-      border-color: #FFFFFF #808080 #808080 #FFFFFF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 35px;
-      box-shadow: 
-        inset 2px 2px 0 #F0F0F0, 
-        inset -2px -2px 0 #808080,
-        4px 4px 10px rgba(0,0,0,0.5);
-      border-radius: 4px;
-    }
-
-    @media (min-width: 768px) {
-      .app-icon {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 10px;
-        font-size: 25px;
-        border: 2px solid;
-      }
-    }
-
     /* Icon labels */
     .icon-label {
-      color: white;
-      font-size: 14px;
+      font-size: 12px;
       text-align: center;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
-      max-width: 130px;
+      max-width: 120px;
       word-wrap: break-word;
-      line-height: 1.3;
+      line-height: 1.2;
       font-weight: bold;
     }
 
@@ -268,24 +302,24 @@
       }
     }
 
-    .icon-label.selected {
-      background: #000080;
-      color: white;
-      padding: 4px 8px;
-      border-radius: 3px;
-    }
-
-    /* Windows - Perfect Mobile Fit */
+    /* Windows - Perfect Mobile Sizing with Dragging */
     .window {
       position: fixed;
       background: #C0C0C0;
-      border: 3px outset #C0C0C0;
-      box-shadow: 8px 8px 20px rgba(0,0,0,0.6);
-      min-width: 300px;
-      min-height: 200px;
+      border: 2px outset #C0C0C0;
+      box-shadow: 4px 4px 15px rgba(0,0,0,0.5);
       display: none;
-      z-index: 100;
-      border-radius: 0;
+      z-index: 1000;
+      min-width: 300px;
+      max-width: 95vw;
+      max-height: 95vh;
+      overflow: hidden;
+      
+      /* Default desktop sizing */
+      width: 550px;
+      height: 500px;
+      top: 100px;
+      left: 150px;
     }
 
     .window.active {
@@ -293,70 +327,78 @@
     }
 
     .window.focused {
-      z-index: 1000;
+      z-index: 1001;
+      border-color: #000080;
     }
 
-    /* Mobile window sizing - Perfect fit */
+    .window.unfocused {
+      border-color: #808080;
+    }
+
     @media (max-width: 767px) {
       .window {
-        width: 96vw !important;
-        height: calc(92vh - 50px) !important;
-        top: 4vh !important;
-        left: 2vw !important;
-        max-height: calc(92vh - 50px);
+        /* Mobile perfect sizing */
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: 100vw;
+        max-height: 100vh;
       }
     }
 
-    .window-titlebar {
-      height: 30px;
-      background: linear-gradient(90deg, #0A246A 0%, #A6CAF0 3%, #1A56B8 6%, #1A56B8 94%, #A6CAF0 97%, #0A246A 100%);
-      border-bottom: 1px solid #808080;
+    .window-header {
+      background: linear-gradient(90deg, #0080FF 0%, #0060C0 100%);
+      color: white;
+      padding: 4px 8px;
+      font-weight: bold;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      padding: 4px 10px;
+      height: 28px;
+      font-size: 11px;
+      flex-shrink: 0;
       cursor: move;
-      user-select: none;
     }
 
-    .window.unfocused .window-titlebar {
-      background: linear-gradient(90deg, #808080 0%, #C0C0C0 3%, #A0A0A0 6%, #A0A0A0 94%, #C0C0C0 97%, #808080 100%);
+    .window.focused .window-header {
+      background: linear-gradient(90deg, #0080FF 0%, #0060C0 100%);
     }
 
-    .window-icon {
-      width: 20px;
-      height: 20px;
-      margin-right: 10px;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .window.unfocused .window-header {
+      background: linear-gradient(90deg, #808080 0%, #606060 100%);
+    }
+
+    @media (max-width: 767px) {
+      .window-header {
+        height: 32px;
+        cursor: default;
+      }
     }
 
     .window-title {
-      color: white;
-      font-size: 12px;
-      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       flex: 1;
-      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-
-    .window.unfocused .window-title {
-      color: #808080;
+      white-space: nowrap;
     }
 
     .window-controls {
       display: flex;
-      gap: 4px;
+      gap: 2px;
+      flex-shrink: 0;
     }
 
-    .window-control-btn {
-      width: 22px;
-      height: 20px;
+    .window-button {
+      width: 20px;
+      height: 18px;
       background: #C0C0C0;
       border: 1px outset #C0C0C0;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: bold;
       display: flex;
       align-items: center;
@@ -365,1274 +407,1259 @@
       color: black;
     }
 
-    .window-control-btn:hover {
-      background: #DFDFDF;
+    @media (max-width: 767px) {
+      .window-button {
+        width: 24px;
+        height: 22px;
+        font-size: 14px;
+      }
     }
 
-    .window-control-btn:active {
+    .window-button:hover {
+      background: #d0d0d0;
+    }
+
+    .window-button:active {
       border: 1px inset #C0C0C0;
-      background: #A0A0A0;
     }
 
     .window-content {
-      padding: 20px;
+      padding: 16px;
       background: #C0C0C0;
-      height: calc(100% - 30px);
+      height: calc(100% - 28px);
       overflow-y: auto;
-      border-top: 1px solid #DFDFDF;
       -webkit-overflow-scrolling: touch;
-    }
-
-    /* Alerts and notifications */
-    .critical-alert {
-      background: #FFCCCC;
-      border: 3px solid #FF0000;
-      padding: 15px;
-      margin: 15px 0;
-      font-weight: bold;
-      animation: blink-red 2s ease-in-out infinite;
-      border-radius: 4px;
-      font-size: 12px;
-    }
-
-    @keyframes blink-red {
-      0%, 50% { background: #FFCCCC; }
-      51%, 100% { background: #FFE0E0; }
-    }
-
-    .warning-alert {
-      background: #FFFFCC;
-      border: 3px solid #FFAA00;
-      padding: 15px;
-      margin: 15px 0;
-      font-weight: bold;
-      border-radius: 4px;
-      font-size: 12px;
-    }
-
-    .success-alert {
-      background: #CCFFCC;
-      border: 3px solid #00AA00;
-      padding: 15px;
-      margin: 15px 0;
-      font-weight: bold;
-      border-radius: 4px;
-      font-size: 12px;
-    }
-
-    /* Progress bars */
-    .progress-container {
-      background: #808080;
-      border: 2px inset #C0C0C0;
-      height: 30px;
-      margin: 15px 0;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 26px;
-      background: linear-gradient(90deg, #0000FF 0%, #0000CC 50%, #000088 100%);
-      transition: width 0.8s ease;
-      position: relative;
-    }
-
-    .progress-bar.success {
-      background: linear-gradient(90deg, #00AA00 0%, #008800 50%, #006600 100%);
-    }
-
-    .progress-bar.danger {
-      background: linear-gradient(90deg, #FF0000 0%, #CC0000 50%, #880000 100%);
-    }
-
-    /* Buttons */
-    .btn-98 {
-      background: #C0C0C0;
-      border: 3px outset #C0C0C0;
-      padding: 10px 20px;
-      font-family: 'MS Sans Serif', sans-serif;
-      font-size: 12px;
-      cursor: pointer;
-      margin: 8px;
-      min-height: 36px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 2px;
-    }
-
-    .btn-98:hover {
-      background: #DFDFDF;
-    }
-
-    .btn-98:active {
-      border: 3px inset #C0C0C0;
-      background: #A0A0A0;
-    }
-
-    .download-btn {
-      background: linear-gradient(180deg, #00FF00 0%, #00CC00 100%);
-      border: 3px outset #00CC00;
-      color: black;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      padding: 15px 25px;
-      font-weight: bold;
-      font-size: 16px;
-      box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
-      font-family: 'MS Sans Serif', sans-serif;
-      cursor: pointer;
-      animation: download-pulse 3s ease-in-out infinite;
-      min-height: 45px;
-      border-radius: 3px;
-    }
-
-    @keyframes download-pulse {
-      0%, 100% { 
-        transform: scale(1);
-        box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
-      }
-      50% { 
-        transform: scale(1.05);
-        box-shadow: 8px 8px 20px rgba(0,0,0,0.6), 0 0 30px rgba(0,255,0,0.5);
-      }
-    }
-
-    .download-btn:hover {
-      background: linear-gradient(180deg, #33FF33 0%, #00DD00 100%);
-    }
-
-    .download-btn:active {
-      border: 3px inset #00CC00;
-      background: linear-gradient(180deg, #00CC00 0%, #009900 100%);
-    }
-
-    /* Content layouts */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 15px;
-      margin: 20px 0;
-    }
-
-    .stat-card {
-      background: #F0F0F0;
-      border: 3px inset #C0C0C0;
-      padding: 15px;
-      text-align: center;
-      border-radius: 3px;
-    }
-
-    .stat-number {
-      font-size: 26px;
-      font-weight: bold;
-      color: #000080;
-    }
-
-    .stat-label {
-      font-size: 11px;
-      color: #000080;
-      margin-top: 5px;
-    }
-
-    .highlight-box {
-      background: #FFFFCC;
-      border: 3px inset #C0C0C0;
-      padding: 18px;
-      margin: 18px 0;
-      border-radius: 3px;
-    }
-
-    .highlight-box h4 {
-      color: #000080;
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-
-    .highlight-box p {
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-      margin: 20px 0;
-    }
-
-    .feature-card {
-      background: #F0F0F0;
-      border: 3px inset #C0C0C0;
-      padding: 15px;
-      text-align: center;
-      border-radius: 3px;
-    }
-
-    .feature-card h4 {
-      color: #000080;
-      margin-bottom: 10px;
-      font-size: 13px;
-    }
-
-    .feature-card p {
       font-size: 12px;
       line-height: 1.4;
     }
 
-    /* Terminal */
-    .terminal {
-      background: #000000;
-      color: #00FF00;
-      font-family: 'Courier New', monospace;
-      padding: 15px;
-      border: 3px inset #C0C0C0;
-      margin: 15px 0;
-      font-size: 12px;
-      height: 150px;
-      overflow-y: auto;
-      border-radius: 3px;
+    @media (max-width: 767px) {
+      .window-content {
+        padding: 12px;
+        font-size: 13px;
+        height: calc(100% - 32px);
+      }
     }
 
-    .terminal-cursor {
-      animation: cursor-blink 1s infinite;
-    }
-
-    @keyframes cursor-blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-
-    /* Taskbar */
+    /* Taskbar - Mobile Optimized with Window Buttons */
     .taskbar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 50px;
-      background: #C0C0C0;
-      border-top: 2px solid #DFDFDF;
+      height: 40px;
+      background: linear-gradient(180deg, #D0D0D0 0%, #A0A0A0 100%);
+      border-top: 2px outset #C0C0C0;
       display: flex;
       align-items: center;
-      padding: 5px;
-      z-index: 2000;
-      box-shadow: inset 0 2px 0 #FFFFFF;
+      padding: 0 8px;
+      z-index: 5000;
+      font-size: 11px;
+    }
+
+    @media (min-width: 768px) {
+      .taskbar {
+        height: 50px;
+        padding: 0 10px;
+      }
     }
 
     .start-button {
-      background: #C0C0C0;
-      border: 3px outset #C0C0C0;
-      padding: 10px 16px;
+      background: linear-gradient(180deg, #DFDFDF 0%, #C0C0C0 45%, #A0A0A0 55%, #C0C0C0 100%);
+      border: 1px outset #C0C0C0;
+      padding: 4px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 6px;
+      font-size: 11px;
+      height: 28px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 13px;
-      box-shadow: inset 2px 2px 0 #DFDFDF;
-      border-radius: 3px;
+      gap: 4px;
+      flex-shrink: 0;
+      font-family: 'MS Sans Serif', sans-serif;
+      color: #000;
     }
 
-    .start-button:active, .start-button.pressed {
-      border: 3px inset #C0C0C0;
-      box-shadow: inset -2px -2px 0 #DFDFDF;
+    .start-button:hover {
+      background: linear-gradient(180deg, #E8E8E8 0%, #D0D0D0 45%, #B0B0B0 55%, #D0D0D0 100%);
+    }
+
+    @media (max-width: 767px) {
+      .start-button {
+        padding: 4px 12px;
+        height: 24px;
+        font-size: 10px;
+      }
+    }
+
+    .start-button:active {
+      border: 1px inset #C0C0C0;
+      background: linear-gradient(180deg, #A0A0A0 0%, #808080 45%, #606060 55%, #808080 100%);
     }
 
     .taskbar-separator {
-      width: 4px;
-      height: 38px;
-      background: #808080;
-      border-right: 1px solid #DFDFDF;
-      margin: 0 10px;
+      width: 2px; 
+      height: 24px; 
+      border-left: 1px inset #C0C0C0; 
+      margin: 0 4px;
     }
 
     .taskbar-buttons {
       display: flex;
-      gap: 4px;
+      gap: 2px;
       flex: 1;
-      overflow: hidden;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 2px;
+    }
+
+    .taskbar-buttons::-webkit-scrollbar {
+      display: none;
     }
 
     .taskbar-button {
-      background: #C0C0C0;
-      border: 2px outset #C0C0C0;
-      padding: 8px 15px;
+      background: linear-gradient(180deg, #DFDFDF 0%, #C0C0C0 45%, #A0A0A0 55%, #C0C0C0 100%);
+      border: 1px outset #C0C0C0;
+      padding: 4px 8px;
+      font-weight: normal;
       cursor: pointer;
       font-size: 11px;
-      max-width: 200px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      height: 28px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      border-radius: 2px;
+      gap: 6px;
+      white-space: nowrap;
+      min-width: 120px;
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-shrink: 0;
+      color: #000;
+      font-family: 'MS Sans Serif', sans-serif;
+    }
+
+    .taskbar-button:hover {
+      background: linear-gradient(180deg, #E8E8E8 0%, #D0D0D0 45%, #B0B0B0 55%, #D0D0D0 100%);
     }
 
     .taskbar-button.active {
-      border: 2px inset #C0C0C0;
-      background: #A0A0A0;
+      border: 1px inset #C0C0C0;
+      background: linear-gradient(180deg, #A0A0A0 0%, #808080 45%, #606060 55%, #808080 100%);
+      color: #000;
     }
 
-    .taskbar-button:hover:not(.active) {
-      background: #DFDFDF;
+    @media (max-width: 767px) {
+      .taskbar-button {
+        min-width: 100px;
+        max-width: 120px;
+        font-size: 10px;
+        height: 24px;
+      }
     }
 
-    .system-tray {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .taskbar-time {
       margin-left: auto;
-      padding: 0 10px;
-      border: 2px inset #C0C0C0;
-      background: #C0C0C0;
-      height: 32px;
-      border-radius: 2px;
+      font-size: 11px;
+      padding: 4px 8px;
+      background: #D0D0D0;
+      border: 1px inset #C0C0C0;
+      min-width: 80px;
+      text-align: center;
+      flex-shrink: 0;
+      font-weight: bold;
+      color: #000;
     }
 
-    .system-tray-item {
-      font-size: 14px;
-      cursor: pointer;
-      padding: 4px 6px;
-    }
-
-    .clock {
-      font-size: 12px;
-      padding: 8px 12px;
-      border: 2px inset #C0C0C0;
-      background: #C0C0C0;
-      border-radius: 2px;
+    @media (max-width: 767px) {
+      .taskbar-time {
+        font-size: 10px;
+        min-width: 70px;
+        padding: 2px 6px;
+      }
     }
 
     /* Start Menu */
     .start-menu {
       position: fixed;
-      bottom: 50px;
-      left: 5px;
-      width: 260px;
+      bottom: 42px;
+      left: 2px;
+      width: 200px;
       background: #C0C0C0;
-      border: 3px outset #C0C0C0;
-      box-shadow: 10px 10px 25px rgba(0,0,0,0.6);
-      z-index: 3000;
+      border: 2px outset #C0C0C0;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
       display: none;
-      border-radius: 2px;
+      z-index: 6000;
     }
 
-    .start-menu.show {
-      display: block;
-      animation: startMenuSlide 0.3s ease-out;
-    }
-
-    @keyframes startMenuSlide {
-      from { opacity: 0; transform: translateY(25px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .start-menu-banner {
-      background: linear-gradient(90deg, #000080 0%, #000040 100%);
+    .start-menu-header {
+      background: linear-gradient(90deg, #0080FF 0%, #0060C0 100%);
       color: white;
-      padding: 15px;
+      padding: 8px 12px;
       font-weight: bold;
-      font-size: 24px;
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      width: 35px;
-      height: 260px;
-      float: left;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
-    .start-menu-items {
-      margin-left: 35px;
-      padding: 10px 0;
+      font-size: 12px;
     }
 
     .start-menu-item {
-      padding: 12px 20px 12px 45px;
+      padding: 8px 12px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      font-size: 13px;
-      position: relative;
-      border-bottom: 1px solid #E0E0E0;
-    }
-
-    .start-menu-item::before {
-      content: attr(data-icon);
-      position: absolute;
-      left: 15px;
-      font-size: 20px;
-      width: 20px;
-      text-align: center;
+      gap: 8px;
+      font-size: 11px;
+      border-bottom: 1px solid #A0A0A0;
     }
 
     .start-menu-item:hover {
-      background: #0000AA;
+      background: #0080FF;
       color: white;
     }
 
-    .start-menu-item.separator {
-      height: 2px;
-      background: #808080;
-      margin: 8px 15px;
-      padding: 0;
-      border: none;
-    }
-
-    /* Popups */
-    .popup {
-      position: fixed;
-      background: #C0C0C0;
-      border: 3px outset #C0C0C0;
-      box-shadow: 10px 10px 25px rgba(0,0,0,0.7);
-      z-index: 5000;
-      display: none;
-      min-width: 360px;
-      max-width: 450px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border-radius: 2px;
-    }
-
-    .popup.show {
-      display: block;
-      animation: popupAppear 0.4s ease-out;
-    }
-
-    @keyframes popupAppear {
-      from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
-      to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-    }
-
-    .popup-titlebar {
-      height: 28px;
-      background: linear-gradient(90deg, #FF6600 0%, #CC4400 100%);
-      border-bottom: 1px solid #808080;
-      display: flex;
-      align-items: center;
-      padding: 4px 10px;
-      cursor: move;
-    }
-
-    .popup-titlebar.alert {
-      background: linear-gradient(90deg, #FF0000 0%, #CC0000 100%);
-    }
-
-    .popup-icon {
-      width: 20px;
-      height: 20px;
-      margin-right: 10px;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .popup-title {
-      color: white;
-      font-size: 13px;
+    /* Content Styles */
+    .success-alert {
+      background: #E0FFE0;
+      border: 2px inset #C0C0C0;
+      padding: 12px;
+      margin: 15px 0;
       font-weight: bold;
-      flex: 1;
+      color: #008000;
+      border-radius: 0;
     }
 
-    .popup-content {
-      padding: 25px;
+    .highlight-box {
+      background: linear-gradient(135deg, #FFE080 0%, #FFD060 100%);
+      border: 2px outset #C0C0C0;
+      padding: 15px;
+      margin: 15px 0;
+      font-weight: bold;
+    }
+
+    .feature-list {
+      background: #F0F0F0;
+      border: 2px inset #C0C0C0;
+      padding: 15px;
+      margin: 15px 0;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    @media (max-width: 768px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .feature-card {
+      background: white;
+      border: 2px inset #C0C0C0;
+      padding: 16px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature-card h4 {
+      color: #000080;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .feature-card p {
+      color: #666;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .button {
+      background: linear-gradient(135deg, #C0C0C0 0%, #A0A0A0 100%);
+      border: 2px outset #C0C0C0;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 12px;
+      margin: 5px;
+      display: inline-block;
+      font-family: inherit;
+    }
+
+    .button:active {
+      border: 2px inset #C0C0C0;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, #0080FF 0%, #0060C0 100%);
+      color: white;
+    }
+
+    .button.download {
+      background: linear-gradient(135deg, #00C000 0%, #008000 100%);
+      color: white;
+      font-size: 14px;
+      padding: 10px 20px;
+      animation: pulse-button 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-button {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .stat-card {
+      background: white;
+      border: 2px inset #C0C0C0;
+      padding: 12px 8px;
       text-align: center;
     }
 
-    .popup-content h3 {
-      color: #000080;
-      margin-bottom: 20px;
+    .stat-number {
+      font-size: clamp(16px, 3vw, 20px);
+      font-weight: bold;
+      color: #0080FF;
+    }
+
+    .stat-label {
+      font-size: clamp(8px, 1.5vw, 10px);
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .video-placeholder {
+      background: #000;
+      border: 2px inset #C0C0C0;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      margin: 20px 0;
+      position: relative;
+      font-size: 14px;
+    }
+
+    .video-placeholder::before {
+      content: "📹";
+      font-size: 2em;
+      margin-right: 10px;
+    }
+
+    /* You've Got Mail Notification */
+    .mail-notification {
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      background: #FFFF80;
+      border: 2px outset #C0C0C0;
+      padding: 12px;
+      border-radius: 0;
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+      font-weight: bold;
+      z-index: 3000;
+      cursor: pointer;
+      display: none;
+      animation: mail-bounce 0.5s ease-out;
+    }
+
+    @keyframes mail-bounce {
+      0% { transform: translateY(-50px) scale(0.8); opacity: 0; }
+      50% { transform: translateY(10px) scale(1.1); }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    /* Clippy Assistant */
+    .clippy-assistant {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 200px;
+      background: #FFFFA0;
+      border: 2px solid #000;
+      border-radius: 15px;
+      padding: 12px;
+      font-size: 11px;
+      display: none;
+      z-index: 3000;
+      animation: clippy-appear 0.6s ease-out;
+    }
+
+    @keyframes clippy-appear {
+      0% { transform: scale(0) rotate(180deg); opacity: 0; }
+      50% { transform: scale(1.1) rotate(-10deg); }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    .clippy-character {
+      width: 40px;
+      height: 40px;
+      float: left;
+      margin-right: 10px;
+      background: linear-gradient(45deg, #C0C0C0, #808080);
+      border-radius: 50% 50% 50% 10px;
+      position: relative;
+      animation: clippy-wiggle 2s ease-in-out infinite;
+    }
+
+    @keyframes clippy-wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(5deg); }
+      75% { transform: rotate(-5deg); }
+    }
+
+    .clippy-character::before {
+      content: "📎";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+    }
+
+    .clippy-close {
+      float: right;
+      cursor: pointer;
+      font-weight: bold;
+      width: 16px;
+      height: 16px;
+      background: #FF4040;
+      color: white;
+      text-align: center;
+      line-height: 14px;
+      font-size: 10px;
+    }
+
+    /* Enhanced Scandalous Growth Popup */
+    .growth-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 420px;
+      max-height: 80vh;
+      background: #FF1493;
+      border: 3px solid #DC143C;
+      box-shadow: 8px 8px 25px rgba(0,0,0,0.7);
+      z-index: 4000;
+      display: none;
+      animation: popup-flash 0.8s ease-out;
+      overflow: hidden;
+    }
+
+    @keyframes popup-flash {
+      0% { 
+        transform: translate(-50%, -50%) scale(0.3) rotate(15deg); 
+        opacity: 0; 
+        filter: hue-rotate(0deg) brightness(2);
+      }
+      30% { 
+        transform: translate(-50%, -50%) scale(1.15) rotate(-5deg); 
+        filter: hue-rotate(180deg) brightness(1.5);
+      }
+      60% { 
+        transform: translate(-50%, -50%) scale(0.95) rotate(2deg); 
+        filter: hue-rotate(360deg) brightness(1.2);
+      }
+      100% { 
+        transform: translate(-50%, -50%) scale(1) rotate(0deg); 
+        opacity: 1; 
+        filter: hue-rotate(0deg) brightness(1);
+      }
+    }
+
+    .growth-popup-header {
+      background: linear-gradient(45deg, #FF1493 0%, #DC143C 25%, #FF69B4 50%, #FF1493 75%, #DC143C 100%);
+      background-size: 200% 200%;
+      animation: rainbow-gradient 2s ease infinite;
+      color: white;
+      padding: 12px;
+      font-weight: bold;
+      text-align: center;
       font-size: 16px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      border-bottom: 2px solid #8B0000;
     }
 
-    .popup-content p {
-      font-size: 13px;
+    @keyframes rainbow-gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .growth-popup-content {
+      padding: 20px;
+      background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 50%, #FFB6C1 100%);
+      color: #000080;
+      font-weight: bold;
+      line-height: 1.4;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .growth-story {
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid #FF1493;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      font-size: 11px;
       line-height: 1.5;
-      margin-bottom: 15px;
     }
 
-    .popup-buttons {
+    .testimonial {
+      background: rgba(255, 255, 255, 0.5);
+      border-left: 4px solid #32CD32;
+      padding: 10px 15px;
+      margin: 12px 0;
+      font-style: italic;
+      position: relative;
+    }
+
+    .testimonial::before {
+      content: "💰";
+      position: absolute;
+      left: -12px;
+      top: 8px;
+      background: #32CD32;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+
+    .growth-popup-buttons {
+      padding: 18px;
+      text-align: center;
+      background: linear-gradient(135deg, #FFB6C1 0%, #FF1493 100%);
+      border-top: 2px solid #8B0000;
+    }
+
+    .growth-popup button {
+      background: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
+      color: white;
+      border: 2px outset #32CD32;
+      padding: 10px 18px;
+      margin: 0 6px 8px 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 13px;
+      border-radius: 4px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      animation: button-throb 1.5s ease-in-out infinite;
+    }
+
+    @keyframes button-throb {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(50, 205, 50, 0.6); }
+    }
+
+    .growth-popup button:active {
+      border: 2px inset #32CD32;
+      transform: scale(0.98);
+    }
+
+    .growth-popup button.decline {
+      background: linear-gradient(135deg, #FF4500 0%, #B22222 100%);
+      border: 2px outset #FF4500;
+      animation: none;
+    }
+
+    .growth-popup button.decline:active {
+      border: 2px inset #FF4500;
+    }
+
+    /* Virus Popup */
+    .virus-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #C0C0C0;
+      border: 2px outset #C0C0C0;
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      display: none;
+      width: 90%;
+      max-width: 400px;
+      animation: virusShake 0.5s ease-in-out;
+    }
+
+    @keyframes virusShake {
+      0%, 100% { transform: translate(-50%, -50%); }
+      25% { transform: translate(-52%, -48%); }
+      75% { transform: translate(-48%, -52%); }
+    }
+
+    .virus-header {
+      background: red;
+      color: white;
+      padding: 8px 12px;
+      font-weight: bold;
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .virus-content {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .virus-icon {
+      font-size: 3em;
+      color: red;
+      margin-bottom: 10px;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .virus-buttons {
       display: flex;
       gap: 10px;
       justify-content: center;
-      margin-top: 25px;
-      flex-wrap: wrap;
+      margin-top: 15px;
     }
 
-    /* Hidden audio */
-    .audio-hidden {
-      position: absolute;
-      left: -9999px;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
+    @media (max-width: 767px) {
+      .growth-popup {
+        width: 95vw;
+        max-width: 380px;
+      }
+      
+      .mail-notification {
+        top: 40px;
+        right: 10px;
+        font-size: 10px;
+        padding: 8px;
+      }
+      
+      .clippy-assistant {
+        bottom: 60px;
+        right: 10px;
+        width: 180px;
+        font-size: 10px;
+      }
     }
   </style>
 </head>
-<body id="body" class="theme-teal">
-  
-  <!-- Hidden Audio Elements -->
-  <audio id="clickSound" class="audio-hidden" preload="auto">
-    <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+D2xm0jAyu6yO3eoyEAB2m29N6RQwsbWLDr7qZSAgA+n+b5zm8lAWqw2OvgpyEAV7Lr5aVYAgA7k9/3x2whASeq1O/hmyEAZ7nh8N1+KgAH" type="audio/wav">
-  </audio>
-  <audio id="openSound" class="audio-hidden" preload="auto">
-    <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+D2xm0jAyu6yO3eoyEAB2m29N6RQwsbWLDr7qZSEgE+nx95zm8lAWqw2OvgpyUAV7Lr5aVYEgI7k9/3x2whASeq1O/hmyEAZ7nh8N1+KgEH" type="audio/wav">
-  </audio>
-  <audio id="errorSound" class="audio-hidden" preload="auto">
-    <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+D2xm0jAyu6yO3eoyEAB2m29N6RQwsbWLDr7qZSEgE+nx95zm8lAWqw2OvgpyUAV7Lr5aVYEgI7k9/3x2whASeq1O/hmyEAZ7nh8N1+KgEH" type="audio/wav">
-  </audio>
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="boot-text">ResellAI OS v3.0 Loading...</div>
+    <div class="boot-text">Initializing AI modules...</div>
+    <div class="boot-text">Loading eBay integration...</div>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="boot-text">Ready to revolutionize reselling!</div>
+  </div>
 
   <!-- Desktop -->
   <div class="desktop" id="desktop">
     <div class="desktop-icons">
-      
       <!-- What is ResellAI -->
-      <div class="desktop-icon" style="top: 40px; left: 40px;" onclick="openWindow('what-is-window')">
+      <div class="desktop-icon pos-1" onclick="openWindow('main-window')">
         <div class="folder-icon">
           <div class="folder-tab"></div>
           <div class="folder-body"></div>
         </div>
-        <div class="icon-label">What is ResellAI</div>
+        <div class="icon-label">ResellAI</div>
       </div>
 
-      <!-- Why You Need This -->
-      <div class="desktop-icon" style="top: 40px; left: 200px;" onclick="openWindow('why-need-window')">
+      <!-- Features -->
+      <div class="desktop-icon pos-2" onclick="openWindow('features-window')">
         <div class="folder-icon urgent">
           <div class="folder-tab"></div>
           <div class="folder-body"></div>
         </div>
-        <div class="icon-label">Why You Need This</div>
+        <div class="icon-label">AI Features</div>
       </div>
 
-      <!-- How It Works -->
-      <div class="desktop-icon" style="top: 180px; left: 40px;" onclick="openWindow('how-works-window')">
-        <div class="folder-icon">
-          <div class="folder-tab"></div>
-          <div class="folder-body"></div>
-        </div>
-        <div class="icon-label">How It Works</div>
-      </div>
-
-      <!-- Download ResellAI -->
-      <div class="desktop-icon" style="top: 180px; left: 200px;" onclick="openWindow('download-window')">
-        <div class="folder-icon download">
-          <div class="folder-tab"></div>
-          <div class="folder-body"></div>
-        </div>
-        <div class="icon-label">Download ResellAI</div>
-      </div>
-
-      <!-- Pricing & ROI -->
-      <div class="desktop-icon" style="top: 320px; left: 40px;" onclick="openWindow('pricing-window')">
+      <!-- Pricing -->
+      <div class="desktop-icon pos-3" onclick="openWindow('pricing-window')">
         <div class="folder-icon system">
           <div class="folder-tab"></div>
           <div class="folder-body"></div>
         </div>
-        <div class="icon-label">Pricing & ROI</div>
+        <div class="icon-label">Pricing</div>
       </div>
 
-      <!-- System Check -->
-      <div class="desktop-icon" style="top: 320px; left: 200px;" onclick="openWindow('system-check-window')">
-        <div class="app-icon">🔍</div>
-        <div class="icon-label">System Check</div>
+      <!-- Download ResellAI -->
+      <div class="desktop-icon pos-4" onclick="openWindow('download-window')">
+        <div class="folder-icon download">
+          <div class="folder-tab"></div>
+          <div class="folder-body"></div>
+        </div>
+        <div class="icon-label">Get App</div>
+      </div>
+
+      <!-- System Alert -->
+      <div class="desktop-icon pos-5" onclick="showVirusPopup()">
+        <div class="folder-icon urgent">
+          <div class="folder-tab"></div>
+          <div class="folder-body"></div>
+        </div>
+        <div class="icon-label">System Alert</div>
       </div>
 
       <!-- Themes -->
-      <div class="desktop-icon" style="top: 40px; right: 40px;" onclick="openWindow('themes-window')">
-        <div class="app-icon">🎨</div>
+      <div class="desktop-icon pos-6" onclick="openWindow('themes-window')">
+        <div class="folder-icon">
+          <div class="folder-tab"></div>
+          <div class="folder-body"></div>
+        </div>
         <div class="icon-label">Themes</div>
       </div>
 
+      <!-- Sounds -->
+      <div class="desktop-icon pos-7" onclick="playSound('success')">
+        <div class="folder-icon">
+          <div class="folder-tab"></div>
+          <div class="folder-body"></div>
+        </div>
+        <div class="icon-label">Sounds</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mail Notification -->
+  <div class="mail-notification" id="mailNotification" onclick="hideMailNotification()">
+    📧 You've Got Mail! New ResellAI profit reports available!
+  </div>
+
+  <!-- Clippy Assistant -->
+  <div class="clippy-assistant" id="clippyAssistant">
+    <div class="clippy-close" onclick="hideClippy()">×</div>
+    <div class="clippy-character"></div>
+    <div style="clear: both; padding-top: 5px;">
+      <strong>It looks like you're trying to grow your business!</strong><br><br>
+      Would you like help putting your reselling on complete autopilot? I can show you how ResellAI handles everything automatically! 
+      <br><br>
+      <em>*winks knowingly*</em>
+    </div>
+  </div>
+
+  <!-- Enhanced Scandalous Growth Popup -->
+  <div class="growth-popup" id="growthPopup">
+    <div class="growth-popup-header">
+      🔥 HOT BUSINESS SINGLES IN YOUR AREA! 🔥
+    </div>
+    <div class="growth-popup-content">
+      <div style="text-align: center; font-size: 16px; margin-bottom: 15px; color: #8B0000;">
+        <strong>These Local Businesses Are Getting ROCK HARD Results! 😏</strong>
+      </div>
+      
+      <div class="growth-story">
+        <strong>🍑 Sarah from Tampa - Premium Denim Co.</strong><br>
+        "I was struggling to get my jeans business <em>up</em> before ResellAI. Now I'm experiencing <strong>MASSIVE growth</strong> - went from $2K to $15K monthly! My business is so <em>hard working</em> now, I barely have to touch it. The automated listings get customers <strong>hot and bothered</strong> to buy!" 
+        <div style="color: #008000; font-weight: bold; margin-top: 8px;">💰 500% Growth in 3 months!</div>
+      </div>
+
+      <div class="testimonial">
+        <strong>"My tight margins became THROBBING profits!"</strong><br>
+        - Mike, Hot Button Apparel (Jacksonville)<br>
+        <span style="color: #008000;">Now earning $8,247/month passively!</span>
+      </div>
+
+      <div class="growth-story">
+        <strong>These businesses are getting HARDER and BIGGER every day:</strong><br>
+        🔥 <strong>Stiff Competition Clothing</strong> - UP 847% in 6 months<br>
+        💪 <strong>Rigid Denim Works</strong> - ROCK SOLID $12K/month profits<br>
+        🍆 <strong>Big Growth Apparel</strong> - SWELLING to new heights daily<br>
+        🌶️ <strong>Spicy Threads</strong> - SO HOT they can't keep inventory!
+      </div>
+
+      <div style="background: rgba(255,255,255,0.8); padding: 12px; margin: 15px 0; border-radius: 8px; border: 2px dashed #FF1493;">
+        <div style="text-align: center; font-size: 14px; color: #8B0000;">
+          <strong>🔥 WARNING: This Growth May Cause Excitement! 🔥</strong><br>
+          <span style="font-size: 11px;">Side effects include: Uncontrollable profit increases, freedom from manual work, and neighbors asking about your sudden success</span>
+        </div>
+      </div>
+
+      <div style="text-align: center; color: #000080; font-weight: bold; font-size: 13px;">
+        Your business could be this <strong><em>HARD</em></strong> working too!<br>
+        <span style="font-size: 11px;">*Results not typical. Individual performance may vary. Growth measured in business metrics.*</span>
+      </div>
+    </div>
+    <div class="growth-popup-buttons">
+      <button onclick="acceptGrowth()">YES! I Want This Growth! 🍆💦</button>
+      <button class="decline" onclick="hideGrowthPopup()">No thanks... I'll stay small 😔</button>
+    </div>
+  </div>
+
+  <!-- Virus Popup -->
+  <div class="virus-popup" id="virusPopup">
+    <div class="virus-header">
+      <span>⚠️ SYSTEM ALERT - URGENT!</span>
+      <div class="window-button" onclick="closeVirusPopup()">×</div>
+    </div>
+    <div class="virus-content">
+      <div class="virus-icon">🦠</div>
+      <h3 style="color: red; margin-bottom: 10px;">VIRUS DETECTED!</h3>
+      <p><strong>SLOW_LISTING.EXE</strong> is draining your profits!</p>
+      <p style="margin: 10px 0;">This virus causes manual listing, wasted time, and reduced earnings!</p>
+      <p style="color: green; font-weight: bold;">Click "Remove Virus" to install ResellAI protection!</p>
+      
+      <div class="virus-buttons">
+        <button class="button download" onclick="openWindow('download-window'); closeVirusPopup(); playSound('success');">
+          🛡️ Remove Virus
+        </button>
+        <button class="button" onclick="closeVirusPopup()">Ignore (Not Recommended)</button>
+      </div>
     </div>
   </div>
 
   <!-- Windows -->
 
-  <!-- What is ResellAI Window -->
-  <div class="window" id="what-is-window" style="top: 80px; left: 150px; width: 550px; height: 500px;">
-    <div class="window-titlebar">
-      <div class="window-icon">💎</div>
-      <div class="window-title">What is ResellAI - Your Business on Complete Autopilot</div>
+  <!-- Main ResellAI Window -->
+  <div class="window" id="main-window" style="top: 100px; left: 100px; width: 600px; height: 500px;">
+    <div class="window-header">
+      <div class="window-title">
+        <span>🤖</span>
+        <span>ResellAI - Turn Photos Into Profit</span>
+      </div>
       <div class="window-controls">
-        <div class="window-control-btn" onclick="minimizeWindow('what-is-window')">_</div>
-        <div class="window-control-btn" onclick="maximizeWindow('what-is-window')">□</div>
-        <div class="window-control-btn" onclick="closeWindow('what-is-window')">×</div>
+        <div class="window-button" onclick="minimizeWindow('main-window')">_</div>
+        <div class="window-button" onclick="maximizeWindow('main-window')">□</div>
+        <div class="window-button" onclick="closeWindow('main-window')">×</div>
       </div>
     </div>
     <div class="window-content">
-      <h2 style="color: #000080; margin-bottom: 20px; font-size: 18px;">🚀 Put Your Entire Resell Business on Autopilot</h2>
-      
-      <div class="success-alert">
-        ✅ The ONLY app that does EVERYTHING after you source items
-      </div>
-      
-      <p style="margin-bottom: 20px; font-size: 14px; line-height: 1.5;"><strong>Stop doing busywork. Start scaling your business:</strong></p>
-      
-      <div style="background: #F0F0F0; border: 3px inset #C0C0C0; padding: 20px; margin: 20px 0; text-align: center;">
-        <div style="font-size: 32px; margin-bottom: 15px;">📱 → 🤖 → 💰</div>
-        <p style="font-weight: bold; color: #000080; font-size: 16px;">Source Items → Take Photo → AI Handles Everything → Get Paid</p>
-      </div>
-      
-      <div class="highlight-box">
-        <h4>What ResellAI Does For You (100% Automated):</h4>
-        <p><strong>✅ AI Identifies Everything</strong> (brand, model, condition, defects, value)<br>
-        <strong>✅ Writes Perfect Descriptions</strong> (SEO-optimized, compelling copy)<br>
-        <strong>✅ Sets Optimal Prices</strong> (real-time market analysis)<br>
-        <strong>✅ Posts to All Platforms</strong> (eBay, Mercari, Facebook, Poshmark)<br>
-        <strong>✅ Manages Your Listings</strong> (price drops, relisting, promotions)</p>
-      </div>
+      <div style="text-align: center; margin-bottom: 30px;">
+        <h1 style="font-size: clamp(18px, 4vw, 24px); color: #000080; margin-bottom: 10px; font-weight: bold;">🚀 The AI That Sells For You</h1>
+        <p style="font-size: clamp(12px, 2.5vw, 16px); color: #666; margin-bottom: 20px; line-height: 1.4;">Take a photo. Get a listing. Make money. ResellAI does everything from writing descriptions to pricing your items using advanced AI.</p>
+        
+        <div class="video-placeholder">
+          <span>App Demo Video Coming Soon</span>
+        </div>
 
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-number">30sec</div>
-          <div class="stat-label">Total Time Required</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">5x</div>
+            <div class="stat-label">Faster Listings</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Accuracy Rate</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">$500</div>
+            <div class="stat-label">Avg Monthly Saved</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">Happy Sellers</div>
+          </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-number">0min</div>
-          <div class="stat-label">Writing Time</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">0min</div>
-          <div class="stat-label">Research Time</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">0min</div>
-          <div class="stat-label">Posting Time</div>
-        </div>
-      </div>
 
-      <div style="text-align: center; margin-top: 25px;">
-        <a href="#" class="download-btn" onclick="openWindow('download-window')">
-          💾 GET RESELLAI FREE
-        </a>
-        <button class="btn-98" onclick="openWindow('how-works-window')">How It Works</button>
+        <div class="highlight-box">
+          <h4 style="color: #000080; margin-bottom: 8px;">🎯 Perfect For:</h4>
+          <p>eBay sellers, thrift flippers, garage sale pros, estate sale hunters, and anyone who wants to 5x their reselling speed!</p>
+        </div>
+
+        <div style="margin-top: 20px;">
+          <button class="button download" onclick="openWindow('download-window')">
+            📱 Download Free Now
+          </button>
+          <button class="button" onclick="openWindow('features-window')">See Features</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Why You Need This Window -->
-  <div class="window" id="why-need-window" style="top: 120px; left: 200px; width: 520px; height: 520px;">
-    <div class="window-titlebar">
-      <div class="window-icon">⚠️</div>
-      <div class="window-title">Why You NEED This - Stop Wasting Your Life</div>
+  <!-- Features Window -->
+  <div class="window" id="features-window" style="top: 150px; left: 200px; width: 550px; height: 450px;">
+    <div class="window-header">
+      <div class="window-title">
+        <span>✨</span>
+        <span>ResellAI Features - AI Magic for Resellers</span>
+      </div>
       <div class="window-controls">
-        <div class="window-control-btn" onclick="minimizeWindow('why-need-window')">_</div>
-        <div class="window-control-btn" onclick="maximizeWindow('why-need-window')">□</div>
-        <div class="window-control-btn" onclick="closeWindow('why-need-window')">×</div>
+        <div class="window-button" onclick="minimizeWindow('features-window')">_</div>
+        <div class="window-button" onclick="maximizeWindow('features-window')">□</div>
+        <div class="window-button" onclick="closeWindow('features-window')">×</div>
       </div>
     </div>
     <div class="window-content">
-      <div class="critical-alert">
-        🚨 BRUTAL REALITY: You're working 30x harder than you need to
-      </div>
+      <h3 style="color: #000080; margin-bottom: 16px;">🧠 AI-Powered Listing Engine</h3>
       
-      <h3 style="color: #FF0000; margin-bottom: 20px;">The Manual Listing Nightmare:</h3>
-      
-      <div style="background: #FFEEEE; border: 3px solid #FF0000; padding: 18px; margin: 15px 0;">
-        <p style="font-weight: bold; margin-bottom: 12px;">What you do now (PER ITEM):</p>
-        <p style="font-size: 13px; line-height: 1.6;">
-          ⏰ 8 minutes taking/editing photos<br>
-          ⏰ 5 minutes researching comparable prices<br>
-          ⏰ 12 minutes writing descriptions<br>
-          ⏰ 3 minutes posting to each platform<br>
-          <span style="color: #FF0000; font-weight: bold; font-size: 18px;">= 15+ MINUTES PER ITEM!</span>
-        </p>
-      </div>
-
-      <div class="warning-alert">
-        💡 REALITY CHECK: At 20 items/week, you're spending 5+ HOURS on busywork alone
-      </div>
-
-      <div class="feature-grid" style="grid-template-columns: 1fr 1fr;">
-        <div style="background: #FFEEEE; border: 3px solid #FF0000; padding: 15px;">
-          <h4 style="color: #FF0000;">❌ Manual Way</h4>
-          <p style="font-size: 12px;">
-            • 15+ min per listing<br>
-            • Guess at prices<br>
-            • Boring descriptions<br>
-            • Can't scale<br>
-            • Burnout inevitable
-          </p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h4>📸 Photo-to-Listing AI</h4>
+          <p>Upload photos and watch AI identify brand, model, condition, and more with computer vision</p>
         </div>
-        <div style="background: #EEFFEE; border: 3px solid #00AA00; padding: 15px;">
-          <h4 style="color: #00AA00;">✅ ResellAI Way</h4>
-          <p style="font-size: 12px;">
-            • 30 sec per listing<br>
-            • AI sets perfect prices<br>
-            • Compelling copy<br>
-            • Scale infinitely<br>
-            • Pure profit focus
-          </p>
+        
+        <div class="feature-card">
+          <h4>🧾 Auto-Generated Content</h4>
+          <p>AI writes high-converting, eBay-optimized titles and descriptions that sell fast</p>
+        </div>
+        
+        <div class="feature-card">
+          <h4>💰 Smart Pricing</h4>
+          <p>Automatically fetches sold listings and recommends pricing for maximum profit</p>
+        </div>
+        
+        <div class="feature-card">
+          <h4>🛒 One-Tap Publishing</h4>
+          <p>Post live to your eBay account instantly - no copy/paste needed</p>
+        </div>
+        
+        <div class="feature-card">
+          <h4>🔍 Rare Item Detection</h4>
+          <p>AI estimates value for vintage and niche items with no sold comps</p>
+        </div>
+        
+        <div class="feature-card">
+          <h4>📊 Usage Tracking</h4>
+          <p>Monitor your listings, track success rates, and scale your business</p>
         </div>
       </div>
 
-      <div class="terminal">
-CALCULATING YOUR WASTED TIME...<br>
-Manual: 15 min/item × 100 items = 25 hours<br>
-ResellAI: 0.5 min/item × 100 items = 0.8 hours<br>
-TIME SAVED: 24.2 HOURS<br>
-LIFE RECLAIMED: 3+ FULL WORK DAYS<br>
-HOURLY VALUE: $500+ in saved labor<br>
-<span class="terminal-cursor">█</span>
-      </div>
-
-      <div class="critical-alert">
-        ⏱️ Every day you wait = 2+ hours of your life you'll never get back
+      <div class="highlight-box">
+        <h4 style="color: #000080; margin-bottom: 8px;">⚡ The Result:</h4>
+        <p><strong>"Go from pile of product photos to fully live eBay listings in minutes — no research, no writing, no stress."</strong></p>
       </div>
 
       <div style="text-align: center; margin-top: 20px;">
-        <a href="#" class="download-btn" onclick="openWindow('download-window')">
-          ⚡ SAVE MY TIME NOW
-        </a>
-        <button class="btn-98" onclick="openWindow('pricing-window')">See ROI</button>
+        <button class="button download" onclick="triggerGrowthPopup()">
+          🚀 Start Selling Smarter
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- How It Works Window -->
-  <div class="window" id="how-works-window" style="top: 160px; left: 250px; width: 500px; height: 450px;">
-    <div class="window-titlebar">
-      <div class="window-icon">📋</div>
-      <div class="window-title">How ResellAI Works - Dead Simple Process</div>
+  <!-- Pricing Window -->
+  <div class="window" id="pricing-window" style="top: 200px; left: 300px; width: 500px; height: 400px;">
+    <div class="window-header">
+      <div class="window-title">
+        <span>💎</span>
+        <span>ResellAI Pricing - Free to Start!</span>
+      </div>
       <div class="window-controls">
-        <div class="window-control-btn" onclick="minimizeWindow('how-works-window')">_</div>
-        <div class="window-control-btn" onclick="maximizeWindow('how-works-window')">□</div>
-        <div class="window-control-btn" onclick="closeWindow('how-works-window')">×</div>
+        <div class="window-button" onclick="minimizeWindow('pricing-window')">_</div>
+        <div class="window-button" onclick="maximizeWindow('pricing-window')">□</div>
+        <div class="window-button" onclick="closeWindow('pricing-window')">×</div>
       </div>
     </div>
     <div class="window-content">
-      <h3 style="color: #000080; margin-bottom: 20px;">📱 The 30-Second Process:</h3>
+      <h3 style="color: #000080; margin-bottom: 16px; text-align: center;">Choose Your Plan</h3>
       
-      <div class="feature-grid" style="grid-template-columns: 1fr; gap: 20px;">
-        <div style="background: #E6F3FF; border: 3px inset #C0C0C0; padding: 18px; display: flex; align-items: center; gap: 18px;">
-          <div style="font-size: 40px;">📸</div>
-          <div>
-            <h4 style="color: #000080; margin-bottom: 8px;">STEP 1: Take One Photo (10 seconds)</h4>
-            <p style="font-size: 13px;">Snap a pic of your item. Our computer vision AI instantly identifies brand, condition, defects, and current market value.</p>
-          </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h4>🆓 Free</h4>
+          <p><strong>$0/month</strong></p>
+          <p>• 5 listings per month<br>• Basic AI features<br>• eBay integration<br>• Perfect for side hustlers</p>
         </div>
         
-        <div style="background: #FFF0E6; border: 3px inset #C0C0C0; padding: 18px; display: flex; align-items: center; gap: 18px;">
-          <div style="font-size: 40px;">🤖</div>
-          <div>
-            <h4 style="color: #000080; margin-bottom: 8px;">STEP 2: AI Does Everything (15 seconds)</h4>
-            <p style="font-size: 13px;">ResellAI writes descriptions, researches optimal pricing, and creates listings for multiple platforms. Zero input needed.</p>
-          </div>
+        <div class="feature-card" style="border: 3px solid #FF6B35;">
+          <h4>⭐ Starter</h4>
+          <p><strong>$19/month</strong></p>
+          <p>• 50 listings per month<br>• Advanced AI analysis<br>• Priority pricing data<br>• Email support</p>
         </div>
         
-        <div style="background: #E6FFE6; border: 3px inset #C0C0C0; padding: 18px; display: flex; align-items: center; gap: 18px;">
-          <div style="font-size: 40px;">💰</div>
-          <div>
-            <h4 style="color: #000080; margin-bottom: 8px;">STEP 3: Review & Publish (5 seconds)</h4>
-            <p style="font-size: 13px;">Quick review, then publish to eBay, Mercari, Facebook, Poshmark simultaneously. AI handles all tedious work.</p>
-          </div>
+        <div class="feature-card">
+          <h4>🚀 Pro</h4>
+          <p><strong>$49/month</strong></p>
+          <p>• 250 listings per month<br>• Premium AI features<br>• Bulk operations<br>• Phone support</p>
         </div>
-      </div>
-
-      <div class="success-alert">
-        ✨ TOTAL TIME: 30 seconds. TOTAL EFFORT: Take one photo, tap publish.
       </div>
 
       <div class="highlight-box">
-        <h4>What Happens Behind the Scenes:</h4>
-        <p style="font-size: 12px;">• Computer vision analyzes 200,000+ similar items<br>
-        • AI writes descriptions that sell 3x faster than human copy<br>
-        • Pricing engine finds perfect balance: quick sale + maximum profit<br>
-        • Auto-posts to all platforms with optimized titles and keywords<br>
-        • Manages price drops, promotions, and relisting automatically</p>
+        <h4 style="color: #000080; margin-bottom: 8px;">💡 Pro Tip:</h4>
+        <p>Most users save $500+ per month in VA costs and listing time. ResellAI pays for itself instantly!</p>
       </div>
 
       <div style="text-align: center; margin-top: 20px;">
-        <a href="#" class="download-btn" onclick="openWindow('download-window')">
-          🚀 START AUTOPILOT MODE
-        </a>
-        <button class="btn-98" onclick="openWindow('pricing-window')">See Plans</button>
+        <button class="button download" onclick="openWindow('download-window')">
+          💎 Start Free Trial
+        </button>
       </div>
     </div>
   </div>
 
   <!-- Download Window -->
-  <div class="window" id="download-window" style="top: 100px; left: 350px; width: 480px; height: 420px;">
-    <div class="window-titlebar">
-      <div class="window-icon">💾</div>
-      <div class="window-title">Download ResellAI - Installation Center</div>
+  <div class="window" id="download-window" style="top: 80px; left: 400px; width: 450px; height: 350px;">
+    <div class="window-header">
+      <div class="window-title">
+        <span>📱</span>
+        <span>Get ResellAI Now - iOS & Android</span>
+      </div>
       <div class="window-controls">
-        <div class="window-control-btn" onclick="minimizeWindow('download-window')">_</div>
-        <div class="window-control-btn" onclick="maximizeWindow('download-window')">□</div>
-        <div class="window-control-btn" onclick="closeWindow('download-window')">×</div>
+        <div class="window-button" onclick="minimizeWindow('download-window')">_</div>
+        <div class="window-button" onclick="maximizeWindow('download-window')">□</div>
+        <div class="window-button" onclick="closeWindow('download-window')">×</div>
       </div>
     </div>
     <div class="window-content">
       <div style="text-align: center;">
-        <div class="critical-alert">
-          🔥 FREE TO START: Get 5 AI listings to experience the magic
+        <h3 style="margin-bottom: 16px; color: #000080;">🎯 Ready to 5x Your Reselling Speed?</h3>
+        
+        <div class="video-placeholder" style="height: 120px; margin: 16px 0;">
+          <span>App Preview Video</span>
         </div>
         
-        <h3 style="margin-bottom: 20px; color: #000080;">📱 Get ResellAI on Your Phone</h3>
+        <p style="margin-bottom: 20px; font-weight: bold;">Join 10,000+ sellers already using ResellAI!</p>
         
-        <div class="terminal" style="text-align: left;">
-Initializing ResellAI installation...<br>
-Checking device compatibility... ✅<br>
-Downloading autopilot_engine.pkg... ✅<br>
-Installing ai_listing_system... ✅<br>
-Configuring profit_maximizer... ✅<br>
-<br>
-Ready for installation!<br>
-Your productivity is about to increase 30x...<br>
-<span class="terminal-cursor">█</span>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <button class="button download" onclick="window.open('https://apps.apple.com/placeholder', '_blank'); playSound('success');">
+            🍎 iOS App Store
+          </button>
+          <button class="button download" onclick="window.open('https://play.google.com/placeholder', '_blank'); playSound('success');">
+            🤖 Google Play
+          </button>
         </div>
         
-        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin: 25px 0;">
-          <a href="https://apps.apple.com" class="download-btn" target="_blank">
-            🍎 Download for iPhone
-          </a>
-          <a href="https://play.google.com" class="download-btn" target="_blank">
-            🤖 Download for Android
-          </a>
+        <div class="success-alert" style="margin-top: 16px;">
+          <p style="font-size: 11px;"><strong>✅ Free to download</strong><br>
+          ✅ No credit card required<br>
+          ✅ 5 free listings to get started</p>
         </div>
-        
-        <div class="success-alert">
-          ✅ 100% FREE to start • No credit card • 5 free AI listings included
-        </div>
-
-        <div style="font-size: 12px; color: #666; margin-top: 18px; line-height: 1.5;">
-          <p>⭐ 4.9/5 stars in app stores</p>
-          <p>🏆 #1 Productivity App for Resellers</p>
-          <p>🔒 Bank-level security & privacy</p>
-          <p>📱 Works on iOS 13+ and Android 8+</p>
-        </div>
-
-        <div style="margin-top: 20px;">
-          <button class="btn-98" onclick="openWindow('pricing-window')">See Pricing</button>
-          <button class="btn-98" onclick="openWindow('system-check-window')">System Check</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Pricing Window with Fixed Calculator -->
-  <div class="window" id="pricing-window" style="top: 140px; left: 400px; width: 450px; height: 460px;">
-    <div class="window-titlebar">
-      <div class="window-icon">💰</div>
-      <div class="window-title">Pricing & ROI Calculator</div>
-      <div class="window-controls">
-        <div class="window-control-btn" onclick="minimizeWindow('pricing-window')">_</div>
-        <div class="window-control-btn" onclick="maximizeWindow('pricing-window')">□</div>
-        <div class="window-control-btn" onclick="closeWindow('pricing-window')">×</div>
-      </div>
-    </div>
-    <div class="window-content">
-      <h3 style="color: #000080; margin-bottom: 20px;">💎 See Your Time & Money Savings</h3>
-      
-      <div style="border: 3px inset #C0C0C0; padding: 15px; margin-bottom: 20px;">
-        <p style="font-size: 13px; margin-bottom: 10px; font-weight: bold;">Items you could list per month:</p>
-        <input type="range" min="10" max="500" value="50" style="width: 100%; height: 25px;" oninput="calculateROI(this.value)">
-        <p style="text-align: center; font-size: 16px; font-weight: bold; margin-top: 10px;" id="itemCount">50 items</p>
-      </div>
-
-      <div class="stats-grid" style="grid-template-columns: 1fr 1fr;">
-        <div class="stat-card">
-          <div class="stat-number" id="manualTime">12.5 hrs</div>
-          <div class="stat-label">Manual Time Wasted</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" id="aiTime">25 min</div>
-          <div class="stat-label">Time With ResellAI</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" id="timeSaved">12 hrs</div>
-          <div class="stat-label">Time Reclaimed</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" id="moneySaved">$250</div>
-          <div class="stat-label">Value of Time Saved</div>
-        </div>
-      </div>
-
-      <div class="feature-grid" style="grid-template-columns: 1fr 1fr;">
-        <div class="feature-card">
-          <h4>🆓 Starter (FREE)</h4>
-          <p><strong>$0/month</strong></p>
-          <p style="font-size: 11px;">• 5 AI listings<br>• Test the magic<br>• All core features<br>• Perfect for trying</p>
-        </div>
-        <div class="feature-card" style="border: 3px solid #00AA00;">
-          <h4>⭐ Pro ($19/month)</h4>
-          <p><strong>Unlimited listings</strong></p>
-          <p style="font-size: 11px;">• All platforms<br>• Priority processing<br>• Advanced analytics<br>• Business scaling</p>
-        </div>
-      </div>
-
-      <div class="success-alert">
-        💡 Pro plan pays for itself with time saved on just 4 listings
-      </div>
-
-      <div style="text-align: center; margin-top: 20px;">
-        <a href="#" class="download-btn" onclick="openWindow('download-window')">
-          💎 START FREE NOW
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- System Check Window -->
-  <div class="window" id="system-check-window" style="top: 180px; left: 120px; width: 480px; height: 480px;">
-    <div class="window-titlebar">
-      <div class="window-icon">🔍</div>
-      <div class="window-title">System Performance Check - Issues Detected</div>
-      <div class="window-controls">
-        <div class="window-control-btn" onclick="minimizeWindow('system-check-window')">_</div>
-        <div class="window-control-btn" onclick="maximizeWindow('system-check-window')">□</div>
-        <div class="window-control-btn" onclick="closeWindow('system-check-window')">×</div>
-      </div>
-    </div>
-    <div class="window-content">
-      <div class="critical-alert">
-        🚨 CRITICAL: MANUAL_LISTING.exe detected - consuming 95% of your productivity!
-      </div>
-      
-      <h3 style="color: #FF0000; margin-bottom: 20px;">⚠️ System Scan Results:</h3>
-      
-      <div class="terminal">
-C:\> Scanning selling efficiency...<br>
-<br>
-THREAT DETECTED: manual_research.exe<br>
-THREAT DETECTED: slow_typing.dll<br>
-THREAT DETECTED: price_guessing.sys<br>
-THREAT DETECTED: time_waster.bat<br>
-THREAT DETECTED: burnout_generator.exe<br>
-<br>
-PRODUCTIVITY LOSS: 95%<br>
-TIME WASTE: 12+ hours/week<br>
-SYSTEM STATUS: SEVERELY COMPROMISED<br>
-<br>
-RECOMMENDED: Install ResellAI.exe<br>
-<span class="terminal-cursor">█</span>
-      </div>
-      
-      <div style="margin: 20px 0;">
-        <p style="font-weight: bold; margin-bottom: 15px;">Current Performance Analysis:</p>
-        
-        <p style="font-size: 12px;">Listing Speed:</p>
-        <div class="progress-container">
-          <div class="progress-bar danger" style="width: 5%"></div>
-        </div>
-        
-        <p style="font-size: 12px;">Price Accuracy:</p>
-        <div class="progress-container">
-          <div class="progress-bar danger" style="width: 8%"></div>
-        </div>
-        
-        <p style="font-size: 12px;">Business Automation:</p>
-        <div class="progress-container">
-          <div class="progress-bar danger" style="width: 0%"></div>
-        </div>
-      </div>
-      
-      <div class="warning-alert">
-        ⚡ SOLUTION FOUND: ResellAI.exe will boost performance by 3,000% and reclaim your life
-      </div>
-
-      <div class="highlight-box">
-        <h4>After Installing ResellAI:</h4>
-        <p style="font-size: 12px;">✅ Listing Speed: 3,000% faster (15 min → 30 sec)<br>
-        ✅ Price Accuracy: 97% optimal pricing via AI<br>
-        ✅ Business Automation: 100% hands-off operation<br>
-        ✅ Life Balance: Reclaim 12+ hours every week</p>
-      </div>
-      
-      <div style="text-align: center; margin-top: 20px;">
-        <a href="#" class="download-btn" onclick="closeWindow('system-check-window')">
-          🛠️ FIX ALL ISSUES NOW
-        </a>
-        <button class="btn-98" onclick="closeWindow('system-check-window')">Ignore (High Risk)</button>
       </div>
     </div>
   </div>
 
   <!-- Themes Window -->
-  <div class="window" id="themes-window" style="top: 120px; left: 480px; width: 420px; height: 340px;">
-    <div class="window-titlebar">
-      <div class="window-icon">🎨</div>
-      <div class="window-title">Display Properties - Customize Experience</div>
+  <div class="window" id="themes-window" style="top: 120px; left: 250px; width: 400px; height: 300px;">
+    <div class="window-header">
+      <div class="window-title">
+        <span>🎨</span>
+        <span>Desktop Themes</span>
+      </div>
       <div class="window-controls">
-        <div class="window-control-btn" onclick="minimizeWindow('themes-window')">_</div>
-        <div class="window-control-btn" onclick="maximizeWindow('themes-window')">□</div>
-        <div class="window-control-btn" onclick="closeWindow('themes-window')">×</div>
+        <div class="window-button" onclick="minimizeWindow('themes-window')">_</div>
+        <div class="window-button" onclick="maximizeWindow('themes-window')">□</div>
+        <div class="window-button" onclick="closeWindow('themes-window')">×</div>
       </div>
     </div>
     <div class="window-content">
-      <h3 style="margin-bottom: 20px;">🎨 Choose Your Desktop Theme:</h3>
+      <h2 style="color: #000080; margin-bottom: 20px;">🎨 Choose Your Desktop Theme</h2>
       
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px;">
-        <div onclick="changeTheme('teal')" style="cursor: pointer; text-align: center; padding: 12px; border: 2px solid #808080;">
-          <div style="width: 80px; height: 50px; background: linear-gradient(45deg, #008080, #004040); border: 1px solid #808080; margin: 0 auto 10px; border-radius: 3px;"></div>
-          <span style="font-size: 12px;">ResellAI Classic</span>
-        </div>
-        <div onclick="changeTheme('sunset')" style="cursor: pointer; text-align: center; padding: 12px; border: 2px solid #808080;">
-          <div style="width: 80px; height: 50px; background: linear-gradient(45deg, #ff6b9d, #40407a); border: 1px solid #808080; margin: 0 auto 10px; border-radius: 3px;"></div>
-          <span style="font-size: 12px;">80s Sunset</span>
-        </div>
-        <div onclick="changeTheme('matrix')" style="cursor: pointer; text-align: center; padding: 12px; border: 2px solid #808080;">
-          <div style="width: 80px; height: 50px; background: #000; border: 1px solid #808080; margin: 0 auto 10px; position: relative; border-radius: 3px;">
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #0f4; font-size: 10px;">⚌⚌⚌</div>
-          </div>
-          <span style="font-size: 12px;">Hacker Matrix</span>
-        </div>
+      <p style="margin-bottom: 20px;">Customize your ResellAI experience with these retro themes:</p>
+      
+      <div style="display: flex; gap: 15px; flex-wrap: wrap; margin: 20px 0;">
+        <button class="button" onclick="changeTheme('teal')" style="background: linear-gradient(45deg, #008080, #004040); color: white;">
+          🌊 Classic Teal
+        </button>
+        <button class="button" onclick="changeTheme('sunset')" style="background: linear-gradient(45deg, #ff6b9d, #f8b500); color: white;">
+          🌅 Retro Sunset
+        </button>
+        <button class="button" onclick="changeTheme('matrix')" style="background: #000; color: #0f4;">
+          💚 Matrix Code
+        </button>
       </div>
       
-      <div class="highlight-box">
-        <h4>🎨 Personalize Your Workspace</h4>
-        <p>Choose a theme that matches your style while ResellAI automates your business!</p>
-      </div>
-      
-      <div style="text-align: center; margin-top: 20px;">
-        <button class="btn-98" onclick="closeWindow('themes-window')">Apply Theme</button>
-        <button class="btn-98" onclick="resetTheme()">Reset Default</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Welcome Popup -->
-  <div class="popup" id="welcomePopup">
-    <div class="popup-titlebar alert">
-      <div class="popup-icon">⚠️</div>
-      <div class="popup-title">PRODUCTIVITY ALERT</div>
-      <div class="window-control-btn" onclick="closePopup('welcomePopup')">×</div>
-    </div>
-    <div class="popup-content">
-      <h3>Are you still manually listing items?</h3>
-      <p style="margin: 20px 0;">If YES, you're spending 15+ minutes per item doing what AI can do in 30 seconds.</p>
-      
-      <div style="margin: 20px 0;">
-        <label style="display: block; margin: 12px 0; font-size: 13px; text-align: left;">
-          <input type="radio" name="listingMethod" value="manual" style="margin-right: 12px;">
-          😭 Yes, I waste 15+ minutes per listing (manual way)
-        </label>
-        <label style="display: block; margin: 12px 0; font-size: 13px; text-align: left;">
-          <input type="radio" name="listingMethod" value="ai" style="margin-right: 12px;">
-          😎 No, I use ResellAI (30 seconds per listing)
-        </label>
-      </div>
-      
-      <div class="popup-buttons">
-        <a href="#" class="download-btn" onclick="closePopup('welcomePopup'); openWindow('download-window');">
-          🚀 Show Me ResellAI
-        </a>
-        <button class="btn-98" onclick="closePopup('welcomePopup')">Close</button>
+      <div class="success-alert">
+        ✨ Themes are automatically saved to your preferences!
       </div>
     </div>
   </div>
 
   <!-- Start Menu -->
   <div class="start-menu" id="startMenu">
-    <div class="start-menu-banner">ResellAI</div>
-    <div class="start-menu-items">
-      <div class="start-menu-item" data-icon="💎" onclick="openWindow('what-is-window'); hideStartMenu();">What is ResellAI</div>
-      <div class="start-menu-item" data-icon="⚠️" onclick="openWindow('why-need-window'); hideStartMenu();">Why You Need This</div>
-      <div class="start-menu-item" data-icon="📋" onclick="openWindow('how-works-window'); hideStartMenu();">How It Works</div>
-      <div class="start-menu-item" data-icon="💾" onclick="openWindow('download-window'); hideStartMenu();">Download</div>
-      <div class="start-menu-item separator"></div>
-      <div class="start-menu-item" data-icon="💰" onclick="openWindow('pricing-window'); hideStartMenu();">Pricing & ROI</div>
-      <div class="start-menu-item" data-icon="🔍" onclick="openWindow('system-check-window'); hideStartMenu();">System Check</div>
-      <div class="start-menu-item" data-icon="🎨" onclick="openWindow('themes-window'); hideStartMenu();">Themes</div>
+    <div class="start-menu-header">ResellAI OS</div>
+    <div class="start-menu-item" onclick="openWindow('main-window')">
+      <span>🤖</span>
+      <span>ResellAI</span>
+    </div>
+    <div class="start-menu-item" onclick="openWindow('features-window')">
+      <span>✨</span>
+      <span>AI Features</span>
+    </div>
+    <div class="start-menu-item" onclick="openWindow('pricing-window')">
+      <span>💎</span>
+      <span>Pricing</span>
+    </div>
+    <div class="start-menu-item" onclick="openWindow('download-window')">
+      <span>📱</span>
+      <span>Get App</span>
+    </div>
+    <div class="start-menu-item" onclick="showAbout()">
+      <span>ℹ️</span>
+      <span>About</span>
     </div>
   </div>
 
   <!-- Taskbar -->
   <div class="taskbar">
-    <div class="start-button" id="startButton" onclick="toggleStartMenu()">
-      <span style="font-size: 20px;">🚀</span>
+    <div class="start-button" onclick="toggleStartMenu()">
+      <span style="font-size: 14px;">🚀</span>
       <span>Start</span>
     </div>
-    
     <div class="taskbar-separator"></div>
-    
     <div class="taskbar-buttons" id="taskbarButtons">
-      <!-- Dynamic taskbar buttons appear here -->
+      <!-- Dynamic window buttons will be added here -->
     </div>
-    
-    <div class="system-tray">
-      <div class="system-tray-item" onclick="toggleSound()" title="Volume Control">
-        <span id="volumeIcon">🔊</span>
-      </div>
-      <div class="system-tray-item" title="ResellAI Status" style="color: green;">●</div>
-      <div class="system-tray-item" title="Profit Monitor">💰</div>
+    <div class="taskbar-time" id="current-time">
+      12:34 PM
     </div>
-    
-    <div class="clock" id="clock">12:00 PM</div>
   </div>
 
   <script>
     // Global variables
-    let windowZIndex = 100;
     let openWindows = [];
-    let soundEnabled = true;
+    let windowZIndex = 1000;
     let startMenuOpen = false;
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-      updateClock();
-      setInterval(updateClock, 1000);
-      setupEventListeners();
-      
-      // Show welcome popup after 5 seconds
-      setTimeout(() => {
-        showPopup('welcomePopup');
-      }, 5000);
-      
-      // Auto-open system check after 25 seconds if no interaction
-      setTimeout(() => {
-        if (openWindows.length === 0) {
-          openWindow('system-check-window');
-        }
-      }, 25000);
-    });
+    // Sound effects using Web Audio API
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    const sounds = {
+      click: () => createBeep(800, 0.1, 0.1),
+      open: () => createBeep(600, 0.2, 0.1),
+      close: () => createBeep(400, 0.2, 0.1),
+      success: () => createChord([523, 659, 784], 0.3, 0.2),
+      alert: () => createBeep(1000, 0.5, 0.1)
+    };
 
-    function updateClock() {
-      const now = new Date();
-      const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-      document.getElementById('clock').textContent = timeString;
+    function createBeep(frequency, duration, volume = 0.1) {
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.value = frequency;
+      oscillator.type = 'square';
+      
+      gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+      gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.01);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + duration);
     }
 
-    // Sound system
-    function playSound(type) {
-      if (!soundEnabled) return;
-      
-      try {
-        const audio = document.getElementById(type + 'Sound');
-        if (audio) {
-          audio.currentTime = 0;
-          audio.play().catch(e => console.log('Audio play failed:', e));
-        }
-      } catch (e) {
-        console.log('Sound error:', e);
+    function createChord(frequencies, duration, volume = 0.1) {
+      frequencies.forEach(freq => createBeep(freq, duration, volume / frequencies.length));
+    }
+
+    function playSound(soundName) {
+      if (audioContext.state === 'suspended') {
+        audioContext.resume();
       }
-      
-      // Visual feedback
-      if (type === 'click') {
-        document.body.style.filter = 'brightness(1.1)';
-        setTimeout(() => document.body.style.filter = 'brightness(1)', 120);
+      if (sounds[soundName]) {
+        sounds[soundName]();
       }
     }
 
-    function toggleSound() {
-      soundEnabled = !soundEnabled;
-      const volumeIcon = document.getElementById('volumeIcon');
-      
-      if (soundEnabled) {
-        volumeIcon.textContent = '🔊';
-      } else {
-        volumeIcon.textContent = '🔇';
-      }
-      playSound('click');
-    }
-
-    // Theme system - Fixed and working
-    function changeTheme(theme) {
-      const body = document.getElementById('body');
-      // Remove all existing theme classes
-      body.className = body.className.replace(/theme-\w+/g, '');
-      // Add new theme class
-      body.classList.add(`theme-${theme}`);
-      localStorage.setItem('resellai-theme', theme);
-      playSound('click');
-    }
-
-    function resetTheme() {
-      changeTheme('teal');
-    }
-
-    // Load saved theme
-    const savedTheme = localStorage.getItem('resellai-theme');
-    if (savedTheme) {
-      changeTheme(savedTheme);
-    }
-
-    // Fixed ROI Calculator - 15 min manual vs 30 sec AI
-    function calculateROI(itemCount) {
-      const manualTimeHours = Math.round(itemCount * 0.25 * 10) / 10; // 15 min = 0.25 hours per item
-      const aiTimeMinutes = Math.round(itemCount * 0.5); // 30 sec = 0.5 minutes per item
-      const timeSavedHours = Math.round((manualTimeHours - (aiTimeMinutes/60)) * 10) / 10;
-      const moneySaved = Math.round(timeSavedHours * 20); // $20/hour value of time
-      
-      document.getElementById('itemCount').textContent = `${itemCount} items`;
-      document.getElementById('manualTime').textContent = `${manualTimeHours} hrs`;
-      document.getElementById('aiTime').textContent = `${aiTimeMinutes} min`;
-      document.getElementById('timeSaved').textContent = `${timeSavedHours} hrs`;
-      document.getElementById('moneySaved').textContent = `$${moneySaved}`;
-    }
-
-    // Window management with proper stacking and dragging
+    // Window management with dragging and taskbar
     function openWindow(windowId) {
       const window = document.getElementById(windowId);
       if (!window) return;
 
-      if (window.classList.contains('active')) {
+      playSound('open');
+      closeStartMenu();
+
+      // If window is already open, just focus it
+      if (openWindows.includes(windowId)) {
+        if (window.style.display === 'none') {
+          window.style.display = 'block';
+        }
         focusWindow(window);
         return;
       }
 
       // Calculate cascading position for desktop
       const openWindowCount = openWindows.length;
-      const offsetX = openWindowCount * 25;
-      const offsetY = openWindowCount * 25;
+      const offsetX = openWindowCount * 30;
+      const offsetY = openWindowCount * 30;
       
-      // Position windows with proper stacking
+      // Position windows with proper stacking (desktop only)
       if (window.innerWidth > 767) {
-        window.style.left = (150 + offsetX) + 'px';
-        window.style.top = (80 + offsetY) + 'px';
-      } else {
-        // Mobile: center and fit perfectly
-        window.style.left = '2vw';
-        window.style.top = '4vh';
-        window.style.width = '96vw';
-        window.style.height = 'calc(92vh - 50px)';
+        const startX = 100 + offsetX;
+        const startY = 100 + offsetY;
+        
+        // Keep within screen bounds
+        const maxX = window.innerWidth - 600;
+        const maxY = window.innerHeight - 550;
+        
+        window.style.left = Math.min(startX, Math.max(50, maxX)) + 'px';
+        window.style.top = Math.min(startY, Math.max(50, maxY)) + 'px';
       }
       
+      // Show and configure window
       window.classList.add('active');
+      window.style.display = 'block';
       window.style.zIndex = ++windowZIndex;
       
-      if (!openWindows.includes(windowId)) {
-        openWindows.push(windowId);
-        addTaskbarButton(windowId, window);
-      }
+      // Add to open windows and create taskbar button
+      openWindows.push(windowId);
+      addTaskbarButton(windowId, window);
       
+      // Focus and make draggable
       focusWindow(window);
-      playSound('open');
+      makeDraggable(window);
     }
 
     function closeWindow(windowId) {
       const window = document.getElementById(windowId);
       if (!window) return;
 
+      playSound('close');
       window.classList.remove('active');
+      window.style.display = 'none';
       openWindows = openWindows.filter(id => id !== windowId);
       removeTaskbarButton(windowId);
-      playSound('click');
+      
+      // Focus another window if available
+      if (openWindows.length > 0) {
+        const lastWindow = document.getElementById(openWindows[openWindows.length - 1]);
+        if (lastWindow) focusWindow(lastWindow);
+      }
     }
 
     function minimizeWindow(windowId) {
       const window = document.getElementById(windowId);
       if (!window) return;
 
-      window.style.display = 'none';
-      updateTaskbarButton(windowId, false);
       playSound('click');
+      window.style.display = 'none';
+      updateTaskbarButtons();
+      
+      // Focus another window if available
+      const visibleWindows = openWindows.filter(id => {
+        const w = document.getElementById(id);
+        return w && w.style.display !== 'none';
+      });
+      
+      if (visibleWindows.length > 0) {
+        const nextWindow = document.getElementById(visibleWindows[visibleWindows.length - 1]);
+        if (nextWindow) focusWindow(nextWindow);
+      }
     }
 
     function maximizeWindow(windowId) {
       const window = document.getElementById(windowId);
       if (!window) return;
 
+      playSound('click');
       if (window.dataset.maximized === 'true') {
         // Restore
-        window.style.width = window.dataset.originalWidth || '450px';
-        window.style.height = window.dataset.originalHeight || '380px';
+        window.style.width = window.dataset.originalWidth || '550px';
+        window.style.height = window.dataset.originalHeight || '500px';
         window.style.left = window.dataset.originalLeft || '150px';
         window.style.top = window.dataset.originalTop || '100px';
         window.dataset.maximized = 'false';
@@ -1645,19 +1672,18 @@ RECOMMENDED: Install ResellAI.exe<br>
         
         // Maximize
         if (window.innerWidth <= 767) {
-          window.style.width = '96vw';
-          window.style.height = 'calc(92vh - 50px)';
-          window.style.left = '2vw';
-          window.style.top = '4vh';
+          window.style.width = '100vw';
+          window.style.height = '100vh';
+          window.style.left = '0';
+          window.style.top = '0';
         } else {
           window.style.width = 'calc(100vw - 80px)';
-          window.style.height = 'calc(100vh - 140px)';
+          window.style.height = 'calc(100vh - 120px)';
           window.style.left = '40px';
           window.style.top = '40px';
         }
         window.dataset.maximized = 'true';
       }
-      playSound('click');
     }
 
     function focusWindow(window) {
@@ -1675,24 +1701,35 @@ RECOMMENDED: Install ResellAI.exe<br>
       updateTaskbarButtons();
     }
 
-    // Taskbar management
+    // Taskbar management - Windows 98 style
     function addTaskbarButton(windowId, window) {
+      // Don't add if already exists
+      if (document.getElementById(`taskbar-${windowId}`)) return;
+      
       const taskbarButtons = document.getElementById('taskbarButtons');
       const button = document.createElement('div');
       button.className = 'taskbar-button';
       button.id = `taskbar-${windowId}`;
       button.onclick = () => toggleWindow(windowId);
       
-      const icon = window.querySelector('.window-icon').textContent;
-      const title = window.querySelector('.window-title').textContent;
+      // Get icon and title from window
+      const titleSpans = window.querySelectorAll('.window-title span');
+      const icon = titleSpans[0] ? titleSpans[0].textContent : '🪟';
+      const title = titleSpans[1] ? titleSpans[1].textContent : 'Window';
       
-      button.innerHTML = `<span>${icon}</span><span>${title.slice(0, 18)}...</span>`;
+      button.innerHTML = `<span style="font-size: 14px;">${icon}</span><span>${title.length > 15 ? title.substring(0, 15) + '...' : title}</span>`;
       taskbarButtons.appendChild(button);
+      
+      // Update button state
+      updateTaskbarButtons();
     }
 
     function removeTaskbarButton(windowId) {
       const button = document.getElementById(`taskbar-${windowId}`);
-      if (button) button.remove();
+      if (button) {
+        button.remove();
+        updateTaskbarButtons();
+      }
     }
 
     function updateTaskbarButton(windowId, active) {
@@ -1707,10 +1744,12 @@ RECOMMENDED: Install ResellAI.exe<br>
     }
 
     function updateTaskbarButtons() {
+      // Remove active class from all buttons
       document.querySelectorAll('.taskbar-button').forEach(button => {
         button.classList.remove('active');
       });
       
+      // Add active class to focused window's button
       const focusedWindow = document.querySelector('.window.focused');
       if (focusedWindow) {
         const windowId = focusedWindow.id;
@@ -1723,140 +1762,279 @@ RECOMMENDED: Install ResellAI.exe<br>
       if (!window) return;
 
       if (window.style.display === 'none') {
+        // Restore minimized window
         window.style.display = 'block';
         focusWindow(window);
       } else if (window.classList.contains('focused')) {
+        // Minimize currently focused window
         minimizeWindow(windowId);
       } else {
+        // Focus unfocused window
         focusWindow(window);
       }
     }
 
-    // Start Menu
-    function toggleStartMenu() {
-      const startMenu = document.getElementById('startMenu');
-      const startButton = document.getElementById('startButton');
+    // Make windows draggable (desktop only)
+    function makeDraggable(element) {
+      if (window.innerWidth <= 768) return; // Don't drag on mobile
       
+      const header = element.querySelector('.window-header');
+      if (!header || header.dataset.draggable === 'true') return; // Already made draggable
+      
+      header.dataset.draggable = 'true';
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+      header.onmousedown = dragMouseDown;
+
+      function dragMouseDown(e) {
+        // Don't drag if clicking on window controls
+        if (e.target.closest('.window-controls')) return;
+        
+        e = e || window.event;
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        
+        // Bring window to front
+        focusWindow(element);
+        
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        
+        const newTop = element.offsetTop - pos2;
+        const newLeft = element.offsetLeft - pos1;
+        
+        element.style.top = Math.max(0, Math.min(newTop, window.innerHeight - 100)) + "px";
+        element.style.left = Math.max(0, Math.min(newLeft, window.innerWidth - 100)) + "px";
+      }
+
+      function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+
+    // Start menu
+    function toggleStartMenu() {
+      playSound('click');
+      const menu = document.getElementById('startMenu');
       startMenuOpen = !startMenuOpen;
       
       if (startMenuOpen) {
-        startMenu.classList.add('show');
-        startButton.classList.add('pressed');
+        menu.style.display = 'block';
       } else {
-        startMenu.classList.remove('show');
-        startButton.classList.remove('pressed');
+        menu.style.display = 'none';
       }
-      playSound('click');
     }
 
-    function hideStartMenu() {
-      const startMenu = document.getElementById('startMenu');
-      const startButton = document.getElementById('startButton');
-      
-      startMenu.classList.remove('show');
-      startButton.classList.remove('pressed');
+    function closeStartMenu() {
+      document.getElementById('startMenu').style.display = 'none';
       startMenuOpen = false;
     }
 
-    // Popup management
-    function showPopup(popupId) {
-      const popup = document.getElementById(popupId);
-      if (popup) {
-        popup.classList.add('show');
-        playSound('error');
+    // Close start menu when clicking outside
+    document.addEventListener('click', function(e) {
+      const startMenu = document.getElementById('startMenu');
+      const startButton = document.querySelector('.start-button');
+      if (!startMenu.contains(e.target) && !startButton.contains(e.target)) {
+        closeStartMenu();
       }
+    });
+
+    // Theme changing
+    function changeTheme(theme) {
+      playSound('click');
+      document.body.className = `theme-${theme}`;
+      localStorage.setItem('selectedTheme', theme);
     }
 
-    function closePopup(popupId) {
-      const popup = document.getElementById(popupId);
-      if (popup) {
-        popup.classList.remove('show');
-        playSound('click');
-      }
+    // Load saved theme
+    const savedTheme = localStorage.getItem('selectedTheme');
+    if (savedTheme) {
+      changeTheme(savedTheme);
     }
 
-    // Event listeners setup
-    function setupEventListeners() {
-      document.getElementById('desktop').addEventListener('click', function(e) {
-        if (e.target === this) {
-          hideStartMenu();
-        }
+    // Update time
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit', 
+        hour12: true 
       });
+      document.getElementById('current-time').textContent = timeString;
+    }
+    
+    updateClock();
+    setInterval(updateClock, 1000);
 
-      document.querySelectorAll('.desktop-icon').forEach(icon => {
-        icon.addEventListener('click', function(e) {
-          e.stopPropagation();
-          playSound('click');
-        });
+    // Virus popup
+    function showVirusPopup() {
+      playSound('alert');
+      document.getElementById('virusPopup').style.display = 'block';
+    }
 
-        icon.addEventListener('dblclick', function(e) {
-          e.stopPropagation();
-          if (this.onclick) this.onclick();
-        });
-      });
+    function closeVirusPopup() {
+      playSound('click');
+      document.getElementById('virusPopup').style.display = 'none';
+    }
 
+    // Nostalgic notifications and popups
+    function showMailNotification() {
+      document.getElementById('mailNotification').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('mailNotification').style.display = 'none';
+      }, 8000);
+    }
+
+    function hideMailNotification() {
+      document.getElementById('mailNotification').style.display = 'none';
+    }
+
+    function showClippy() {
+      document.getElementById('clippyAssistant').style.display = 'block';
+    }
+
+    function hideClippy() {
+      document.getElementById('clippyAssistant').style.display = 'none';
+      localStorage.setItem('clippyDismissed', 'true');
+    }
+
+    function showGrowthPopup() {
+      document.getElementById('growthPopup').style.display = 'block';
+    }
+
+    function hideGrowthPopup() {
+      document.getElementById('growthPopup').style.display = 'none';
+      localStorage.setItem('growthPopupSeen', 'true');
+    }
+
+    function acceptGrowth() {
+      playSound('success');
+      alert('🔥 Excellent choice! Your business is about to experience some SERIOUS growth and expansion! 📈💪\n\nGet ready for rock-hard profits and massive success! 🍆💦');
+      hideGrowthPopup();
+      openWindow('download-window');
+    }
+
+    function triggerGrowthPopup() {
+      setTimeout(() => {
+        showGrowthPopup();
+      }, 2000);
+    }
+
+    function showAbout() {
+      playSound('click');
+      alert('ResellAI OS v3.0\n\nThe ultimate AI-powered eBay reselling platform.\n\nTurn photos into profit with artificial intelligence!\n\n© 2024 ResellAI');
+      closeStartMenu();
+    }
+
+    // Show nostalgic elements with delays
+    setTimeout(showMailNotification, 4500);
+    
+    if (!localStorage.getItem('clippyDismissed')) {
+      setTimeout(showClippy, 8000);
+    }
+    
+    if (!localStorage.getItem('growthPopupSeen')) {
+      setTimeout(showGrowthPopup, 18000);
+    }
+
+    // Auto-open main window after loading
+    setTimeout(() => {
+      openWindow('main-window');
+    }, 5000);
+
+    // Auto-trigger virus popup after some time
+    setTimeout(() => {
+      if (Math.random() > 0.5) {
+        showVirusPopup();
+      }
+    }, 25000);
+
+    // Initialize window click handlers and dragging
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set up window focus handlers
       document.querySelectorAll('.window').forEach(window => {
-        window.addEventListener('mousedown', function() {
+        window.addEventListener('mousedown', function(e) {
+          // Don't focus if clicking window controls
+          if (e.target.closest('.window-controls')) return;
           focusWindow(this);
         });
       });
-
-      document.addEventListener('click', function(e) {
-        if (!e.target.closest('.start-menu') && !e.target.closest('.start-button')) {
-          hideStartMenu();
-        }
-      });
-
-      // Make windows draggable
+      
+      // Make all windows draggable on desktop
       document.querySelectorAll('.window').forEach(makeDraggable);
-    }
+      
+      console.log('🚀 ResellAI OS v3.0 initialized - drag windows around and use taskbar buttons!');
+    });
 
-    // Fixed window dragging
-    function makeDraggable(window) {
-      const titlebar = window.querySelector('.window-titlebar');
-      let isDragging = false;
-      let startX, startY;
-
-      titlebar.addEventListener('mousedown', function(e) {
-        if (e.target.closest('.window-controls')) return;
-        
-        isDragging = true;
-        startX = e.clientX - window.offsetLeft;
-        startY = e.clientY - window.offsetTop;
-        
-        focusWindow(window);
-        
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
-        e.preventDefault();
-      });
-
-      function onMouseMove(e) {
-        if (!isDragging) return;
-        
-        const newX = e.clientX - startX;
-        const newY = e.clientY - startY;
-        
-        // Keep window on screen with better bounds
-        const maxX = window.innerWidth - 150;
-        const maxY = window.innerHeight - 150;
-        
-        window.style.left = Math.max(0, Math.min(newX, maxX)) + 'px';
-        window.style.top = Math.max(0, Math.min(newY, maxY)) + 'px';
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        // Close all popups and windows
+        closeVirusPopup();
+        hideGrowthPopup();
+        closeStartMenu();
       }
+    });
 
-      function onMouseUp() {
-        isDragging = false;
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
+    // Konami code easter egg
+    const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+    let konamiIndex = 0;
+
+    document.addEventListener('keydown', function(e) {
+      if (e.keyCode === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+          playSound('success');
+          alert('🎉 KONAMI CODE ACTIVATED! 🎉\n\nSecret ResellAI power unlocked!\nYou\'re clearly a pro gamer AND a pro reseller!');
+          konamiIndex = 0;
+          
+          // Fun visual effect
+          document.body.style.background = 'linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ff00ff)';
+          document.body.style.backgroundSize = '400% 400%';
+          document.body.style.animation = 'rainbow 2s ease infinite';
+          
+          setTimeout(() => {
+            document.body.style.background = '';
+            document.body.style.animation = '';
+            // Restore theme
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) {
+              changeTheme(savedTheme);
+            }
+          }, 5000);
+        }
+      } else {
+        konamiIndex = 0;
       }
-    }
+    });
 
-    // Mobile touch support
+    // Add rainbow animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes rainbow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Touch support for mobile
     if ('ontouchstart' in window) {
-      document.querySelectorAll('.desktop-icon, .btn-98, .download-btn').forEach(element => {
+      // Add touch feedback
+      document.querySelectorAll('.desktop-icon, .button, .window-button').forEach(element => {
         element.addEventListener('touchstart', function() {
-          if (navigator.vibrate) navigator.vibrate(50);
           this.style.transform = 'scale(0.95)';
         });
         
@@ -1865,6 +2043,19 @@ RECOMMENDED: Install ResellAI.exe<br>
         });
       });
     }
+
+    // Mobile touch improvements
+    document.addEventListener('touchstart', function() {}, {passive: true});
+    
+    // Prevent zoom on double tap for mobile
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function (event) {
+      const now = (new Date()).getTime();
+      if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
   </script>
 </body>
 </html>
