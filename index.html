@@ -2,197 +2,286 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ResellAI - AI-Powered eBay Automation</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>ResellAI Desktop - Windows 98</title>
+  
   <style>
+    @import url('https://fonts.cdnfonts.com/css/ms-sans-serif');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+    
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
       font-family: 'MS Sans Serif', sans-serif;
-      background: linear-gradient(45deg, #008080 0%, #004040 100%);
-      overflow-x: hidden;
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-    }
-
-    /* Loading Screen */
-    .loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      color: #00ff00;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Courier New', monospace;
-      z-index: 10000;
-      animation: fadeOut 1s ease-in-out 3s forwards;
-    }
-
-    @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
-    }
-
-    .boot-text {
-      font-size: clamp(12px, 2vw, 16px);
-      margin: 10px 0;
-      opacity: 0;
-      animation: typeIn 0.8s ease-in-out forwards;
-    }
-
-    .boot-text:nth-child(1) { animation-delay: 0.5s; }
-    .boot-text:nth-child(2) { animation-delay: 1.2s; }
-    .boot-text:nth-child(3) { animation-delay: 1.8s; }
-
-    @keyframes typeIn {
-      to { opacity: 1; }
-    }
-
-    .progress-bar {
-      width: 300px;
-      height: 20px;
-      background: #333;
-      border: 2px solid #00ff00;
-      margin: 20px 0;
-      position: relative;
-      max-width: 80vw;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: #00ff00;
-      width: 0;
-      animation: fillProgress 2s ease-in-out 1.5s forwards;
-    }
-
-    @keyframes fillProgress {
-      to { width: 100%; }
-    }
-
-    /* Desktop/Mobile Container */
-    .desktop {
-      min-height: 100vh;
-      position: relative;
-      padding: 10px;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" fill="%23008080"/><rect x="19" y="19" width="1" height="1" fill="%23004040"/></svg>');
-    }
-
-    /* Mobile-First Design */
-    @media (max-width: 768px) {
-      .desktop {
-        padding: 5px;
-        background: linear-gradient(45deg, #008080 0%, #004040 100%);
-      }
-      
-      .desktop-icons {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-        gap: 15px;
-        margin-top: 20px;
-      }
-    }
-
-    @media (min-width: 769px) {
-      .desktop-icons {
-        position: relative;
-        height: calc(100vh - 60px);
-      }
-    }
-
-    /* Desktop Icons */
-    .desktop-icon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px;
-      color: white;
-      cursor: pointer;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      text-align: center;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    @media (min-width: 769px) {
-      .desktop-icon {
-        position: absolute;
-        width: 80px;
-        height: 80px;
-        background: transparent;
-        border: none;
-        backdrop-filter: none;
-      }
-    }
-
-    .desktop-icon:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .desktop-icon i {
-      font-size: clamp(24px, 4vw, 32px);
-      margin-bottom: 5px;
-      color: #fff;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .desktop-icon span {
-      font-size: clamp(10px, 2vw, 12px);
-      font-weight: bold;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    }
-
-    /* Windows */
-    .window {
-      position: fixed;
-      background: #c0c0c0;
-      border: 2px outset #c0c0c0;
-      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-      display: none;
-      min-width: 300px;
-      max-width: 95vw;
-      max-height: 95vh;
-      overflow: hidden;
-    }
-
-    @media (max-width: 768px) {
-      .window {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        max-width: 100vw;
-        max-height: 100vh;
-        border-radius: 0;
-      }
-    }
-
-    .window-header {
-      background: linear-gradient(90deg, #0080ff 0%, #0060c0 100%);
-      color: white;
-      padding: 8px 12px;
-      font-weight: bold;
       font-size: 11px;
+      background: linear-gradient(45deg, #008080 0%, #004040 100%);
+      height: 100vh;
+      overflow: hidden;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: default;
+    }
+
+    /* Theme backgrounds */
+    .theme-teal { background: linear-gradient(45deg, #008080 0%, #004040 100%); }
+    .theme-clouds { 
+      background: linear-gradient(0deg, #87CEEB 0%, #98D8E8 50%, #B0E0E6 100%);
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100"><circle cx="30" cy="30" r="20" fill="white" opacity="0.8"/><circle cx="50" cy="25" r="25" fill="white" opacity="0.7"/><circle cx="70" cy="30" r="15" fill="white" opacity="0.9"/></svg>');
+      background-size: 100% 100%, 200px 100px;
+    }
+    .theme-matrix { 
+      background: #000;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 20px, #0f4 21px, #0f4 22px);
+    }
+    .theme-retro { 
+      background: linear-gradient(45deg, #ff6b9d 0%, #c44569 25%, #f8b500 50%, #40407a 75%, #706fd3 100%);
+      background-size: 400% 400%;
+      animation: retro-gradient 8s ease infinite;
+    }
+    @keyframes retro-gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+    /* Desktop */
+    .desktop {
+      position: relative;
+      height: calc(100vh - 40px);
+      padding: 10px;
+      cursor: default;
+    }
+
+    /* Proper Windows 98 Folder Icons */
+    .desktop-icon {
+      position: absolute;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
+      padding: 4px;
+      cursor: pointer;
+      user-select: none;
+      width: 75px;
+      height: 65px;
+    }
+
+    .desktop-icon.selected {
+      background: rgba(0, 0, 139, 0.3);
+      border: 1px dotted white;
+    }
+
+    .folder-icon {
+      position: relative;
+      width: 32px;
+      height: 25px;
+      margin-bottom: 2px;
+    }
+
+    /* 3D Folder with proper Windows 98 styling */
+    .folder-body {
+      position: absolute;
+      width: 32px;
+      height: 20px;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(135deg, #FFFF80 0%, #FFFF60 50%, #FFFF40 100%);
+      border: 1px solid;
+      border-color: #FFFFFF #808080 #808080 #FFFFFF;
+      box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #808080;
+    }
+
+    .folder-tab {
+      position: absolute;
+      width: 14px;
+      height: 8px;
+      top: 0;
+      left: 1px;
+      background: linear-gradient(135deg, #FFFF80 0%, #FFFF60 50%, #FFFF40 100%);
+      border: 1px solid;
+      border-color: #FFFFFF #808080 transparent #FFFFFF;
+      border-bottom: none;
+      box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px 0 0 #808080;
+    }
+
+    .folder-icon::after {
+      content: attr(data-icon);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+      font-size: 14px;
+      z-index: 1;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+    }
+
+    /* App Icons (different from folders) */
+    .app-icon {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      margin-bottom: 2px;
+      background: #C0C0C0;
+      border: 2px solid;
+      border-color: #FFFFFF #808080 #808080 #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      box-shadow: inset 1px 1px 0 #DFDFDF, inset -1px -1px 0 #808080;
+    }
+
+    /* Document Icons */
+    .document-icon {
+      position: relative;
+      width: 24px;
+      height: 30px;
+      margin-bottom: 2px;
+      background: #FFFFFF;
+      border: 1px solid #808080;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .document-icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 6px;
+      height: 6px;
+      background: #C0C0C0;
+      border-left: 1px solid #808080;
+      border-bottom: 1px solid #808080;
+      clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    }
+
+    .document-icon::after {
+      content: attr(data-icon);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+    }
+
+    /* Special Icons */
+    .recycle-bin {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      margin-bottom: 2px;
+    }
+
+    .recycle-bin-body {
+      width: 24px;
+      height: 28px;
+      background: linear-gradient(180deg, #A0A0A0 0%, #606060 100%);
+      border: 1px solid #404040;
+      border-radius: 2px 2px 4px 4px;
+      position: relative;
+      margin: 2px auto 0;
+    }
+
+    .recycle-bin-lid {
+      position: absolute;
+      top: -3px;
+      left: -1px;
+      right: -1px;
+      height: 4px;
+      background: #808080;
+      border: 1px solid #404040;
+      border-radius: 2px 2px 0 0;
+    }
+
+    .recycle-bin-lid::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 3px;
+      background: #808080;
+      border: 1px solid #404040;
+      border-radius: 2px;
+    }
+
+    .icon-label {
+      color: white;
+      font-size: 10px;
+      text-align: center;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+      max-width: 70px;
+      word-wrap: break-word;
+      line-height: 1.2;
+      margin-top: 2px;
+    }
+
+    .icon-label.selected {
+      background: #000080;
+      color: white;
+      padding: 1px 2px;
+    }
+
+    /* Windows with proper stacking */
+    .window {
+      position: absolute;
+      background: #C0C0C0;
+      border: 2px outset #C0C0C0;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+      min-width: 300px;
+      min-height: 200px;
+      display: none;
+      z-index: 100;
+    }
+
+    .window.active {
+      display: block;
+    }
+
+    .window.focused {
+      z-index: 1000;
+    }
+
+    .window-titlebar {
+      height: 20px;
+      background: linear-gradient(90deg, #0A246A 0%, #A6CAF0 3%, #1A56B8 6%, #1A56B8 94%, #A6CAF0 97%, #0A246A 100%);
+      border-bottom: 1px solid #808080;
+      display: flex;
+      align-items: center;
+      padding: 2px 4px;
       cursor: move;
+      user-select: none;
+    }
+
+    .window.unfocused .window-titlebar {
+      background: linear-gradient(90deg, #808080 0%, #C0C0C0 3%, #A0A0A0 6%, #A0A0A0 94%, #C0C0C0 97%, #808080 100%);
+    }
+
+    .window-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .window-title {
+      color: white;
+      font-size: 11px;
+      font-weight: bold;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .window.unfocused .window-title {
+      color: #808080;
     }
 
     .window-controls {
@@ -200,189 +289,35 @@
       gap: 2px;
     }
 
-    .window-button {
-      width: 20px;
-      height: 18px;
-      background: #c0c0c0;
-      border: 1px outset #c0c0c0;
+    .window-control-btn {
+      width: 16px;
+      height: 14px;
+      background: #C0C0C0;
+      border: 1px outset #C0C0C0;
+      font-size: 8px;
+      font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 10px;
-      font-weight: bold;
+      color: black;
     }
 
-    .window-button:hover {
-      background: #d0d0d0;
+    .window-control-btn:hover {
+      background: #DFDFDF;
     }
 
-    .window-button:active {
-      border: 1px inset #c0c0c0;
+    .window-control-btn:active {
+      border: 1px inset #C0C0C0;
+      background: #A0A0A0;
     }
 
     .window-content {
-      padding: 16px;
-      background: #c0c0c0;
-      height: calc(100% - 34px);
-      overflow-y: auto;
-      font-size: clamp(11px, 2vw, 14px);
-    }
-
-    /* Feature Cards */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin: 20px 0;
-    }
-
-    @media (max-width: 768px) {
-      .feature-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-    }
-
-    .feature-card {
-      background: white;
-      border: 2px inset #c0c0c0;
-      padding: 16px;
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .feature-card i {
-      font-size: 2em;
-      color: #0080ff;
-      margin-bottom: 10px;
-    }
-
-    .feature-card h4 {
-      color: #000080;
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
-
-    .feature-card p {
-      color: #666;
-      font-size: 12px;
-      line-height: 1.4;
-    }
-
-    /* Buttons */
-    .btn-98 {
-      background: #c0c0c0;
-      border: 2px outset #c0c0c0;
-      padding: 8px 16px;
-      font-size: 11px;
-      cursor: pointer;
-      font-family: inherit;
-      margin: 4px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-98:hover {
-      background: #d0d0d0;
-    }
-
-    .btn-98:active {
-      border: 2px inset #c0c0c0;
-    }
-
-    .btn-98.primary {
-      background: linear-gradient(90deg, #0080ff 0%, #0060c0 100%);
-      color: white;
-      border: 2px outset #0080ff;
-      font-weight: bold;
-    }
-
-    .btn-98.primary:hover {
-      background: linear-gradient(90deg, #0090ff 0%, #0070d0 100%);
-    }
-
-    .download-btn {
-      background: linear-gradient(135deg, #ff6b35, #f7931e);
-      color: white;
-      border: 2px outset #ff6b35;
-      padding: 12px 24px;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: bold;
-      margin: 8px;
-      border-radius: 4px;
-      transition: all 0.3s ease;
-      font-size: clamp(12px, 2.5vw, 16px);
-    }
-
-    .download-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
-      background: linear-gradient(135deg, #ff7b45, #f8a31e);
-    }
-
-    /* Virus Popup */
-    .virus-popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #c0c0c0;
-      border: 2px outset #c0c0c0;
-      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-      z-index: 9999;
-      display: none;
-      width: 90%;
-      max-width: 400px;
-      animation: virusShake 0.5s ease-in-out;
-    }
-
-    @keyframes virusShake {
-      0%, 100% { transform: translate(-50%, -50%); }
-      25% { transform: translate(-52%, -48%); }
-      75% { transform: translate(-48%, -52%); }
-    }
-
-    .virus-header {
-      background: red;
-      color: white;
-      padding: 8px 12px;
-      font-weight: bold;
-      font-size: 11px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .virus-content {
-      padding: 20px;
-      text-align: center;
-    }
-
-    .virus-icon {
-      font-size: 3em;
-      color: red;
-      margin-bottom: 10px;
-      animation: pulse 1s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    .virus-buttons {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 15px;
+      padding: 8px;
+      background: #C0C0C0;
+      height: calc(100% - 20px);
+      overflow: auto;
+      border-top: 1px solid #DFDFDF;
     }
 
     /* Taskbar */
@@ -392,378 +327,693 @@
       left: 0;
       right: 0;
       height: 40px;
-      background: #c0c0c0;
-      border-top: 2px outset #c0c0c0;
+      background: #C0C0C0;
+      border-top: 1px solid #DFDFDF;
       display: flex;
       align-items: center;
-      z-index: 5000;
-      font-size: 11px;
+      padding: 2px;
+      z-index: 2000;
+      box-shadow: inset 0 1px 0 #FFFFFF;
     }
 
     .start-button {
-      background: #c0c0c0;
-      border: 2px outset #c0c0c0;
-      height: 32px;
-      padding: 0 12px;
+      background: #C0C0C0;
+      border: 2px outset #C0C0C0;
+      padding: 4px 8px;
       display: flex;
       align-items: center;
       gap: 4px;
       cursor: pointer;
       font-weight: bold;
-      margin: 2px;
-    }
-
-    .start-button:hover {
-      background: #d0d0d0;
+      font-size: 11px;
+      box-shadow: inset 1px 1px 0 #DFDFDF;
     }
 
     .start-button:active {
-      border: 2px inset #c0c0c0;
+      border: 2px inset #C0C0C0;
+      box-shadow: inset -1px -1px 0 #DFDFDF;
+    }
+
+    .start-button.pressed {
+      border: 2px inset #C0C0C0;
+      background: #A0A0A0;
+    }
+
+    .taskbar-separator {
+      width: 2px;
+      height: 32px;
+      background: #808080;
+      border-right: 1px solid #DFDFDF;
+      margin: 0 4px;
+    }
+
+    .taskbar-buttons {
+      display: flex;
+      gap: 2px;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .taskbar-button {
+      background: #C0C0C0;
+      border: 1px outset #C0C0C0;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 10px;
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .taskbar-button.active {
+      border: 1px inset #C0C0C0;
+      background: #A0A0A0;
+    }
+
+    .taskbar-button:hover:not(.active) {
+      background: #DFDFDF;
+    }
+
+    .system-tray {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+      padding: 0 4px;
+      border: 1px inset #C0C0C0;
+      background: #C0C0C0;
+      height: 22px;
+    }
+
+    .system-tray-item {
+      font-size: 10px;
+      cursor: pointer;
+      padding: 2px;
     }
 
     .clock {
-      margin-left: auto;
-      padding: 0 12px;
-      font-weight: bold;
-      color: #000;
+      font-size: 10px;
+      padding: 2px 4px;
+      border: 1px inset #C0C0C0;
+      background: #C0C0C0;
     }
 
     /* Start Menu */
     .start-menu {
       position: fixed;
-      bottom: 42px;
+      bottom: 40px;
       left: 2px;
       width: 200px;
-      background: #c0c0c0;
-      border: 2px outset #c0c0c0;
-      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+      background: #C0C0C0;
+      border: 2px outset #C0C0C0;
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+      z-index: 3000;
       display: none;
-      z-index: 6000;
     }
 
-    .start-menu-header {
-      background: linear-gradient(90deg, #0080ff 0%, #0060c0 100%);
+    .start-menu.show {
+      display: block;
+      animation: startMenuSlide 0.2s ease-out;
+    }
+
+    @keyframes startMenuSlide {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .start-menu-banner {
+      background: linear-gradient(90deg, #000080 0%, #000040 100%);
       color: white;
-      padding: 8px 12px;
+      padding: 8px;
       font-weight: bold;
-      font-size: 12px;
+      font-size: 18px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      width: 24px;
+      height: 200px;
+      float: left;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .start-menu-items {
+      margin-left: 24px;
+      padding: 4px 0;
     }
 
     .start-menu-item {
-      padding: 8px 12px;
+      padding: 6px 12px 6px 32px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
       font-size: 11px;
-      border-bottom: 1px solid #a0a0a0;
+      position: relative;
+      border-bottom: 1px solid #E0E0E0;
+    }
+
+    .start-menu-item::before {
+      content: attr(data-icon);
+      position: absolute;
+      left: 8px;
+      font-size: 16px;
+      width: 16px;
+      text-align: center;
     }
 
     .start-menu-item:hover {
-      background: #0080ff;
+      background: #0000AA;
       color: white;
     }
 
-    /* Hero Section */
-    .hero-content {
+    .start-menu-item.separator {
+      height: 1px;
+      background: #808080;
+      margin: 2px 8px;
+      padding: 0;
+      border: none;
+    }
+
+    /* Context Menu */
+    .context-menu {
+      position: absolute;
+      background: #C0C0C0;
+      border: 2px outset #C0C0C0;
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+      z-index: 4000;
+      display: none;
+      min-width: 120px;
+    }
+
+    .context-menu-item {
+      padding: 4px 8px 4px 24px;
+      cursor: pointer;
+      font-size: 11px;
+      position: relative;
+      border-bottom: 1px solid #E0E0E0;
+    }
+
+    .context-menu-item::before {
+      content: attr(data-icon);
+      position: absolute;
+      left: 4px;
+      width: 16px;
       text-align: center;
-      margin-bottom: 30px;
     }
 
-    .hero-title {
-      font-size: clamp(18px, 4vw, 24px);
-      color: #000080;
-      margin-bottom: 10px;
+    .context-menu-item:hover {
+      background: #0000AA;
+      color: white;
+    }
+
+    .context-menu-item.disabled {
+      color: #808080;
+      cursor: default;
+    }
+
+    .context-menu-item.disabled:hover {
+      background: #C0C0C0;
+      color: #808080;
+    }
+
+    .context-menu-separator {
+      height: 1px;
+      background: #808080;
+      border-top: 1px solid #FFFFFF;
+      margin: 2px 4px;
+    }
+
+    /* Buttons */
+    .btn-98 {
+      background: #C0C0C0;
+      border: 2px outset #C0C0C0;
+      padding: 4px 12px;
+      font-family: 'MS Sans Serif', sans-serif;
+      font-size: 11px;
+      cursor: pointer;
+      margin: 2px;
+      min-height: 23px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-98:hover {
+      background: #DFDFDF;
+    }
+
+    .btn-98:active {
+      border: 2px inset #C0C0C0;
+      background: #A0A0A0;
+    }
+
+    .btn-98:focus {
+      outline: 1px dotted black;
+      outline-offset: -4px;
+    }
+
+    .download-btn {
+      background: linear-gradient(180deg, #00FF00 0%, #00CC00 100%);
+      border: 2px outset #00CC00;
+      color: black;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
       font-weight: bold;
+      font-size: 11px;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-family: 'MS Sans Serif', sans-serif;
+      cursor: pointer;
     }
 
-    .hero-subtitle {
-      font-size: clamp(12px, 2.5vw, 16px);
-      color: #666;
-      margin-bottom: 20px;
-      line-height: 1.4;
+    .download-btn:hover {
+      background: linear-gradient(180deg, #33FF33 0%, #00DD00 100%);
+    }
+
+    .download-btn:active {
+      border: 2px inset #00CC00;
+      background: linear-gradient(180deg, #00CC00 0%, #009900 100%);
+    }
+
+    /* Feature content styling */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .feature-card {
+      background: #F0F0F0;
+      border: 2px inset #C0C0C0;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .feature-card h4 {
+      color: #000080;
+      margin-bottom: 4px;
+      font-size: 11px;
+    }
+
+    .feature-card p {
+      font-size: 10px;
+      line-height: 1.3;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 10px;
-      margin: 20px 0;
+      gap: 8px;
+      margin: 12px 0;
     }
 
     .stat-card {
-      background: white;
-      border: 2px inset #c0c0c0;
-      padding: 12px 8px;
+      background: #E0E0FF;
+      border: 2px inset #C0C0C0;
+      padding: 8px;
       text-align: center;
     }
 
     .stat-number {
-      font-size: clamp(16px, 3vw, 20px);
+      font-size: 18px;
       font-weight: bold;
-      color: #0080ff;
+      color: #000080;
     }
 
     .stat-label {
-      font-size: clamp(8px, 1.5vw, 10px);
-      color: #666;
-      margin-top: 4px;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 480px) {
-      .window-content {
-        padding: 12px;
-      }
-      
-      .feature-card {
-        padding: 12px;
-      }
-      
-      .btn-98 {
-        padding: 10px 12px;
-        font-size: 12px;
-      }
-    }
-
-    /* Video placeholder */
-    .video-placeholder {
-      background: #000;
-      border: 2px inset #c0c0c0;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      margin: 20px 0;
-      position: relative;
-    }
-
-    .video-placeholder::before {
-      content: "📹";
-      font-size: 3em;
-      margin-right: 10px;
+      font-size: 9px;
+      color: #000080;
     }
 
     .highlight-box {
-      background: #ffffcc;
-      border: 2px inset #c0c0c0;
-      padding: 16px;
-      margin: 16px 0;
-      border-left: 4px solid #ff6b35;
+      background: #FFFFCC;
+      border: 2px inset #C0C0C0;
+      padding: 8px;
+      margin: 8px 0;
     }
 
     .highlight-box h4 {
       color: #000080;
-      margin-bottom: 8px;
-      font-weight: bold;
+      margin-bottom: 4px;
+      font-size: 11px;
     }
 
-    /* Hidden by default, shown when windows are open */
-    .window.active {
+    .highlight-box p {
+      font-size: 10px;
+      line-height: 1.3;
+    }
+
+    /* Popups */
+    .popup {
+      position: fixed;
+      background: #C0C0C0;
+      border: 2px outset #C0C0C0;
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+      z-index: 5000;
+      display: none;
+      min-width: 300px;
+      max-width: 400px;
+    }
+
+    .popup.show {
       display: block;
+      animation: popupAppear 0.3s ease-out;
+    }
+
+    @keyframes popupAppear {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .popup-titlebar {
+      height: 20px;
+      background: linear-gradient(90deg, #FF0000 0%, #CC0000 100%);
+      border-bottom: 1px solid #808080;
+      display: flex;
+      align-items: center;
+      padding: 2px 4px;
+      cursor: move;
+    }
+
+    .popup-titlebar.warning {
+      background: linear-gradient(90deg, #FF6600 0%, #CC4400 100%);
+    }
+
+    .popup-titlebar.info {
+      background: linear-gradient(90deg, #0066FF 0%, #0044CC 100%);
+    }
+
+    .popup-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .popup-title {
+      color: white;
+      font-size: 11px;
+      font-weight: bold;
+      flex: 1;
+    }
+
+    .popup-content {
+      padding: 12px;
+      text-align: center;
+    }
+
+    .popup-content h3 {
+      color: #000080;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    .popup-content p {
+      font-size: 10px;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .popup-buttons {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    /* Mobile Optimizations */
+    @media (max-width: 768px) {
+      .desktop-icon {
+        position: relative !important;
+        width: 80px;
+        height: 70px;
+        margin: 8px;
+      }
+
+      .desktop {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 8px;
+        padding: 16px;
+        overflow-y: auto;
+      }
+
+      .window {
+        width: 95vw !important;
+        height: 80vh !important;
+        top: 10vh !important;
+        left: 2.5vw !important;
+      }
+
+      .start-menu {
+        width: 180px;
+      }
+
+      .taskbar-button {
+        max-width: 100px;
+        font-size: 9px;
+      }
+    }
+
+    /* Loading/animation states */
+    .loading {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loading::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: loading-shine 1.5s ease-in-out infinite;
+    }
+
+    @keyframes loading-shine {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* Selection rectangle */
+    .selection-rectangle {
+      position: absolute;
+      border: 1px dotted #000080;
+      background: rgba(0, 0, 139, 0.1);
+      pointer-events: none;
+      z-index: 50;
+      display: none;
     }
   </style>
 </head>
-<body>
-  <!-- Loading Screen -->
-  <div class="loading-screen" id="loadingScreen">
-    <div class="boot-text">ResellAI OS v3.0 Loading...</div>
-    <div class="boot-text">Initializing AI modules...</div>
-    <div class="boot-text">Loading eBay integration...</div>
-    <div class="progress-bar">
-      <div class="progress-fill"></div>
-    </div>
-    <div class="boot-text" id="loadingStatus">Ready to revolutionize reselling!</div>
-  </div>
-
+<body id="body" class="theme-teal">
+  
   <!-- Desktop -->
   <div class="desktop" id="desktop">
-    <div class="desktop-icons">
-      <!-- Desktop Icons -->
-      <div class="desktop-icon" data-window="main-window" style="top: 20px; left: 20px;">
-        <i class="fas fa-robot"></i>
-        <span>ResellAI</span>
+    
+    <!-- Desktop Icons -->
+    <div class="desktop-icon" style="top: 20px; left: 20px;" data-type="folder" onclick="openWindow('resellai-window')">
+      <div class="folder-icon" data-icon="🤖">
+        <div class="folder-tab"></div>
+        <div class="folder-body"></div>
       </div>
-
-      <div class="desktop-icon" data-window="features-window" style="top: 120px; left: 20px;">
-        <i class="fas fa-magic"></i>
-        <span>AI Features</span>
-      </div>
-
-      <div class="desktop-icon" data-window="pricing-window" style="top: 220px; left: 20px;">
-        <i class="fas fa-dollar-sign"></i>
-        <span>Pricing</span>
-      </div>
-
-      <div class="desktop-icon" data-window="download-window" style="top: 20px; right: 20px;">
-        <i class="fas fa-download"></i>
-        <span>Get App</span>
-      </div>
-
-      <div class="desktop-icon" onclick="showVirusPopup()" style="top: 120px; right: 20px;">
-        <i class="fas fa-exclamation-triangle"></i>
-        <span>System Alert</span>
-      </div>
-
-      <div class="desktop-icon" onclick="playSound('click')" style="top: 220px; right: 20px;">
-        <i class="fas fa-volume-up"></i>
-        <span>Sounds</span>
-      </div>
+      <div class="icon-label">ResellAI</div>
     </div>
+
+    <div class="desktop-icon" style="top: 90px; left: 20px;" data-type="folder" onclick="openWindow('features-window')">
+      <div class="folder-icon" data-icon="✨">
+        <div class="folder-tab"></div>
+        <div class="folder-body"></div>
+      </div>
+      <div class="icon-label">AI Features</div>
+    </div>
+
+    <div class="desktop-icon" style="top: 160px; left: 20px;" data-type="folder" onclick="openWindow('pricing-window')">
+      <div class="folder-icon" data-icon="💰">
+        <div class="folder-tab"></div>
+        <div class="folder-body"></div>
+      </div>
+      <div class="icon-label">Pricing</div>
+    </div>
+
+    <div class="desktop-icon" style="top: 20px; right: 20px;" data-type="app" onclick="openWindow('download-window')">
+      <div class="app-icon">📱</div>
+      <div class="icon-label">Get App</div>
+    </div>
+
+    <div class="desktop-icon" style="top: 90px; right: 20px;" data-type="app" onclick="openWindow('system-scan-window')">
+      <div class="app-icon">🔍</div>
+      <div class="icon-label">System Scan</div>
+    </div>
+
+    <div class="desktop-icon" style="top: 160px; right: 20px;" data-type="app" onclick="openWindow('performance-window')">
+      <div class="app-icon">📊</div>
+      <div class="icon-label">Performance</div>
+    </div>
+
+    <div class="desktop-icon" style="bottom: 100px; right: 20px;" data-type="special" onclick="openWindow('recycle-window')">
+      <div class="recycle-bin">
+        <div class="recycle-bin-lid"></div>
+        <div class="recycle-bin-body"></div>
+      </div>
+      <div class="icon-label">Recycle Bin</div>
+    </div>
+
+    <div class="desktop-icon" style="top: 230px; left: 20px;" data-type="app" onclick="openWindow('theme-window')">
+      <div class="app-icon">🎨</div>
+      <div class="icon-label">Themes</div>
+    </div>
+
+    <div class="desktop-icon" style="top: 300px; left: 20px;" data-type="document" onclick="openWindow('readme-window')">
+      <div class="document-icon" data-icon="📄"></div>
+      <div class="icon-label">ReadMe.txt</div>
+    </div>
+
+    <div class="desktop-icon" style="top: 230px; right: 20px;" data-type="app" onclick="openWindow('settings-window')">
+      <div class="app-icon">⚙️</div>
+      <div class="icon-label">Settings</div>
+    </div>
+
   </div>
 
-  <!-- Windows -->
+  <!-- Windows (Multiple can be open and stack) -->
   
-  <!-- Main ResellAI Window -->
-  <div class="window" id="main-window" style="top: 100px; left: 100px; width: 600px; height: 500px;">
-    <div class="window-header">
-      <span>🤖 ResellAI - Turn Photos Into Profit</span>
+  <!-- ResellAI Main Window -->
+  <div class="window" id="resellai-window" style="top: 50px; left: 100px; width: 550px; height: 400px;">
+    <div class="window-titlebar">
+      <div class="window-icon">🤖</div>
+      <div class="window-title">ResellAI - Turn Photos Into Profit</div>
       <div class="window-controls">
-        <div class="window-button" onclick="minimizeWindow('main-window')">_</div>
-        <div class="window-button" onclick="maximizeWindow('main-window')">□</div>
-        <div class="window-button" onclick="closeWindow('main-window')">×</div>
+        <div class="window-control-btn" onclick="minimizeWindow('resellai-window')">_</div>
+        <div class="window-control-btn" onclick="maximizeWindow('resellai-window')">□</div>
+        <div class="window-control-btn" onclick="closeWindow('resellai-window')">×</div>
       </div>
     </div>
     <div class="window-content">
-      <div class="hero-content">
-        <h1 class="hero-title">🚀 The AI That Sells For You</h1>
-        <p class="hero-subtitle">Take a photo. Get a listing. Make money. ResellAI does everything from writing descriptions to pricing your items using advanced AI.</p>
-        
-        <div class="video-placeholder">
-          <span>App Demo Video Coming Soon</span>
+      <h2 style="color: #000080; margin-bottom: 12px; font-size: 14px;">🚀 The AI That Sells For You</h2>
+      <p style="margin-bottom: 12px;">Take a photo. Get a listing. Make money. ResellAI does everything from writing descriptions to pricing your items using advanced AI.</p>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">5x</div>
+          <div class="stat-label">Faster Listings</div>
         </div>
+        <div class="stat-card">
+          <div class="stat-number">98%</div>
+          <div class="stat-label">Accuracy Rate</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">$500</div>
+          <div class="stat-label">Monthly Saved</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">10K+</div>
+          <div class="stat-label">Happy Sellers</div>
+        </div>
+      </div>
 
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-number">5x</div>
-            <div class="stat-label">Faster Listings</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">98%</div>
-            <div class="stat-label">Accuracy Rate</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">$500</div>
-            <div class="stat-label">Avg Monthly Saved</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">10K+</div>
-            <div class="stat-label">Happy Sellers</div>
-          </div>
-        </div>
+      <div class="highlight-box">
+        <h4>🎯 Perfect For:</h4>
+        <p>eBay sellers, thrift flippers, garage sale pros, estate sale hunters, and anyone who wants to 5x their reselling speed!</p>
+      </div>
 
-        <div class="highlight-box">
-          <h4>🎯 Perfect For:</h4>
-          <p>eBay sellers, thrift flippers, garage sale pros, estate sale hunters, and anyone who wants to 5x their reselling speed!</p>
-        </div>
-
-        <div style="margin-top: 20px;">
-          <a href="#" class="download-btn" onclick="showDownloadWindow()">
-            <span>📱</span>
-            <span>Download Free Now</span>
-          </a>
-          <button class="btn-98" onclick="showFeaturesWindow()">See Features</button>
-        </div>
+      <div style="text-align: center; margin-top: 16px;">
+        <a href="#" class="download-btn" onclick="openWindow('download-window')">
+          📱 Download Free Now
+        </a>
+        <button class="btn-98" onclick="openWindow('features-window')">See Features</button>
       </div>
     </div>
   </div>
 
   <!-- Features Window -->
-  <div class="window" id="features-window" style="top: 150px; left: 200px; width: 550px; height: 450px;">
-    <div class="window-header">
-      <span>✨ ResellAI Features - AI Magic for Resellers</span>
+  <div class="window" id="features-window" style="top: 80px; left: 150px; width: 500px; height: 380px;">
+    <div class="window-titlebar">
+      <div class="window-icon">✨</div>
+      <div class="window-title">ResellAI Features - AI Magic for Resellers</div>
       <div class="window-controls">
-        <div class="window-button" onclick="minimizeWindow('features-window')">_</div>
-        <div class="window-button" onclick="maximizeWindow('features-window')">□</div>
-        <div class="window-button" onclick="closeWindow('features-window')">×</div>
+        <div class="window-control-btn" onclick="minimizeWindow('features-window')">_</div>
+        <div class="window-control-btn" onclick="maximizeWindow('features-window')">□</div>
+        <div class="window-control-btn" onclick="closeWindow('features-window')">×</div>
       </div>
     </div>
     <div class="window-content">
-      <h3 style="color: #000080; margin-bottom: 16px;">🧠 AI-Powered Listing Engine</h3>
+      <h3 style="color: #000080; margin-bottom: 12px;">🧠 AI-Powered Listing Engine</h3>
       
       <div class="feature-grid">
         <div class="feature-card">
-          <i class="fas fa-camera"></i>
           <h4>📸 Photo-to-Listing AI</h4>
           <p>Upload photos and watch AI identify brand, model, condition, and more with computer vision</p>
         </div>
-        
         <div class="feature-card">
-          <i class="fas fa-pen-fancy"></i>
-          <h4>🧾 Auto-Generated Content</h4>
-          <p>AI writes high-converting, eBay-optimized titles and descriptions that sell fast</p>
+          <h4>✍️ Smart Descriptions</h4>
+          <p>AI writes compelling, keyword-optimized descriptions that actually sell your items</p>
         </div>
-        
         <div class="feature-card">
-          <i class="fas fa-chart-line"></i>
-          <h4>💰 Smart Pricing</h4>
-          <p>Automatically fetches sold listings and recommends pricing for maximum profit</p>
+          <h4>💰 Intelligent Pricing</h4>
+          <p>Real-time market analysis ensures you price competitively while maximizing profit</p>
         </div>
-        
         <div class="feature-card">
-          <i class="fas fa-rocket"></i>
-          <h4>🛒 One-Tap Publishing</h4>
-          <p>Post live to your eBay account instantly - no copy/paste needed</p>
-        </div>
-        
-        <div class="feature-card">
-          <i class="fas fa-gem"></i>
-          <h4>🔍 Rare Item Detection</h4>
-          <p>AI estimates value for vintage and niche items with no sold comps</p>
-        </div>
-        
-        <div class="feature-card">
-          <i class="fas fa-chart-bar"></i>
-          <h4>📊 Usage Tracking</h4>
-          <p>Monitor your listings, track success rates, and scale your business</p>
+          <h4>📦 One-Click Posting</h4>
+          <p>Instantly post to eBay, Mercari, Facebook Marketplace, and more platforms</p>
         </div>
       </div>
 
       <div class="highlight-box">
-        <h4>⚡ The Result:</h4>
-        <p><strong>"Go from pile of product photos to fully live eBay listings in minutes — no research, no writing, no stress."</strong></p>
+        <h4>⚡ Speed Comparison:</h4>
+        <p><strong>Manual Listing:</strong> 15-30 minutes per item<br>
+        <strong>With ResellAI:</strong> 30 seconds per item</p>
       </div>
 
-      <div style="text-align: center; margin-top: 20px;">
-        <a href="#" class="download-btn" onclick="triggerVirusPopup()">
-          <span>🚀</span>
-          <span>Start Selling Smarter</span>
+      <div style="text-align: center; margin-top: 12px;">
+        <a href="#" class="download-btn" onclick="openWindow('download-window')">
+          🚀 Start Selling Smarter
         </a>
       </div>
     </div>
   </div>
 
   <!-- Pricing Window -->
-  <div class="window" id="pricing-window" style="top: 200px; left: 300px; width: 500px; height: 400px;">
-    <div class="window-header">
-      <span>💎 ResellAI Pricing - Free to Start!</span>
+  <div class="window" id="pricing-window" style="top: 110px; left: 200px; width: 480px; height: 350px;">
+    <div class="window-titlebar">
+      <div class="window-icon">💰</div>
+      <div class="window-title">ResellAI Pricing - Free to Start!</div>
       <div class="window-controls">
-        <div class="window-button" onclick="minimizeWindow('pricing-window')">_</div>
-        <div class="window-button" onclick="maximizeWindow('pricing-window')">□</div>
-        <div class="window-button" onclick="closeWindow('pricing-window')">×</div>
+        <div class="window-control-btn" onclick="minimizeWindow('pricing-window')">_</div>
+        <div class="window-control-btn" onclick="maximizeWindow('pricing-window')">□</div>
+        <div class="window-control-btn" onclick="closeWindow('pricing-window')">×</div>
       </div>
     </div>
     <div class="window-content">
-      <h3 style="color: #000080; margin-bottom: 16px; text-align: center;">Choose Your Plan</h3>
+      <h3 style="color: #000080; margin-bottom: 12px; text-align: center;">Choose Your Plan</h3>
       
       <div class="feature-grid">
         <div class="feature-card">
           <h4>🆓 Free</h4>
           <p><strong>$0/month</strong></p>
-          <p>• 5 listings per month<br>• Basic AI features<br>• eBay integration<br>• Perfect for side hustlers</p>
+          <p style="font-size: 9px;">• 5 listings per month<br>• Basic AI features<br>• eBay integration<br>• Perfect for side hustlers</p>
         </div>
-        
-        <div class="feature-card" style="border: 3px solid #ff6b35;">
+        <div class="feature-card" style="border: 3px solid #FF6B35;">
           <h4>⭐ Starter</h4>
           <p><strong>$19/month</strong></p>
-          <p>• 50 listings per month<br>• Advanced AI analysis<br>• Priority pricing data<br>• Email support</p>
+          <p style="font-size: 9px;">• 50 listings per month<br>• Advanced AI analysis<br>• Priority pricing data<br>• Email support</p>
         </div>
-        
         <div class="feature-card">
           <h4>🚀 Pro</h4>
           <p><strong>$49/month</strong></p>
-          <p>• 250 listings per month<br>• Premium AI features<br>• Bulk operations<br>• Phone support</p>
+          <p style="font-size: 9px;">• 250 listings per month<br>• Premium AI features<br>• Bulk operations<br>• Phone support</p>
         </div>
       </div>
 
@@ -772,48 +1022,47 @@
         <p>Most users save $500+ per month in VA costs and listing time. ResellAI pays for itself instantly!</p>
       </div>
 
-      <div style="text-align: center; margin-top: 20px;">
-        <a href="#" class="download-btn" onclick="showDownloadWindow()">
-          <span>💎</span>
-          <span>Start Free Trial</span>
+      <div style="text-align: center; margin-top: 12px;">
+        <a href="#" class="download-btn" onclick="openWindow('download-window')">
+          💎 Start Free Trial
         </a>
       </div>
     </div>
   </div>
 
   <!-- Download Window -->
-  <div class="window" id="download-window" style="top: 80px; left: 400px; width: 450px; height: 350px;">
-    <div class="window-header">
-      <span>📱 Get ResellAI Now - iOS & Android</span>
+  <div class="window" id="download-window" style="top: 70px; left: 300px; width: 420px; height: 300px;">
+    <div class="window-titlebar">
+      <div class="window-icon">📱</div>
+      <div class="window-title">Get ResellAI Now - iOS & Android</div>
       <div class="window-controls">
-        <div class="window-button" onclick="minimizeWindow('download-window')">_</div>
-        <div class="window-button" onclick="maximizeWindow('download-window')">□</div>
-        <div class="window-button" onclick="closeWindow('download-window')">×</div>
+        <div class="window-control-btn" onclick="minimizeWindow('download-window')">_</div>
+        <div class="window-control-btn" onclick="maximizeWindow('download-window')">□</div>
+        <div class="window-control-btn" onclick="closeWindow('download-window')">×</div>
       </div>
     </div>
     <div class="window-content">
       <div style="text-align: center;">
-        <h3 style="margin-bottom: 16px; color: #000080;">🎯 Ready to 5x Your Reselling Speed?</h3>
+        <h3 style="margin-bottom: 12px; color: #000080;">🎯 Ready to 5x Your Reselling Speed?</h3>
         
-        <div class="video-placeholder" style="height: 120px; margin: 16px 0;">
-          <span>App Preview Video</span>
+        <div style="background: #000; color: #00ff00; padding: 20px; text-align: center; border: 2px inset #C0C0C0; margin: 12px 0; font-family: 'Courier New', monospace; position: relative;">
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; animation: blink 1s infinite;">▶</div>
+          📱 App Preview Video
         </div>
         
-        <p style="margin-bottom: 20px; font-weight: bold;">Join 10,000+ sellers already using ResellAI!</p>
+        <p style="margin-bottom: 16px; font-weight: bold;">Join 10,000+ sellers already using ResellAI!</p>
         
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
           <a href="https://apps.apple.com/placeholder" class="download-btn" target="_blank">
-            <span>🍎</span>
-            <span>iOS App Store</span>
+            🍎 iOS App Store
           </a>
           <a href="https://play.google.com/placeholder" class="download-btn" target="_blank">
-            <span>🤖</span>
-            <span>Google Play</span>
+            🤖 Google Play
           </a>
         </div>
         
-        <div style="background: #e0ffe0; border: 2px inset #c0c0c0; padding: 12px; margin-top: 16px;">
-          <p style="font-size: 11px; color: #006600;"><strong>✅ Free to download</strong><br>
+        <div style="background: #E0FFE0; border: 2px inset #C0C0C0; padding: 8px; margin-top: 12px;">
+          <p style="font-size: 10px; color: #006600;"><strong>✅ Free to download</strong><br>
           ✅ No credit card required<br>
           ✅ 5 free listings to get started</p>
         </div>
@@ -821,324 +1070,762 @@
     </div>
   </div>
 
-  <!-- Virus Popup -->
-  <div class="virus-popup" id="virusPopup">
-    <div class="virus-header">
-      <span>⚠️ SYSTEM ALERT - URGENT!</span>
-      <div class="window-button" onclick="closeVirusPopup()">×</div>
+  <!-- System Scan Window -->
+  <div class="window" id="system-scan-window" style="top: 120px; left: 80px; width: 400px; height: 320px;">
+    <div class="window-titlebar">
+      <div class="window-icon">🔍</div>
+      <div class="window-title">System Scanner - Scanning for Issues</div>
+      <div class="window-controls">
+        <div class="window-control-btn" onclick="minimizeWindow('system-scan-window')">_</div>
+        <div class="window-control-btn" onclick="maximizeWindow('system-scan-window')">□</div>
+        <div class="window-control-btn" onclick="closeWindow('system-scan-window')">×</div>
+      </div>
     </div>
-    <div class="virus-content">
-      <div class="virus-icon">🦠</div>
-      <h3 style="color: red; margin-bottom: 10px;">VIRUS DETECTED!</h3>
-      <p><strong>SLOW_LISTING.EXE</strong> is draining your profits!</p>
-      <p style="margin: 10px 0;">This virus causes manual listing, wasted time, and reduced earnings!</p>
-      <p style="color: green; font-weight: bold;">Click "Remove Virus" to install ResellAI protection!</p>
+    <div class="window-content">
+      <h3 style="color: #FF0000; margin-bottom: 12px;">⚠️ SLOW LISTING DETECTED!</h3>
+      <p style="margin-bottom: 8px;"><strong>MANUAL_LISTING.EXE</strong> is consuming 95% of your time!</p>
       
-      <div class="virus-buttons">
-        <a href="https://apps.apple.com/placeholder" class="download-btn" target="_blank" onclick="playSound('success')">
-          <span>🛡️</span>
-          <span>Remove Virus</span>
+      <div style="background: #000; color: #00ff00; padding: 8px; margin: 8px 0; font-family: 'Courier New', monospace; font-size: 9px;">
+        Scanning C:\Users\Seller\Desktop\...<br>
+        Found: slow_pricing.dll<br>
+        Found: manual_typing.exe<br>
+        Found: time_waster.sys<br>
+        CRITICAL: profit_killer.exe detected!
+      </div>
+      
+      <p style="margin: 8px 0; font-size: 10px;">Symptoms detected:</p>
+      <p style="font-size: 9px; margin-bottom: 12px;">
+        • 15-30 minutes per listing<br>
+        • Manual price research<br>
+        • Typing fatigue<br>
+        • Profit loss from delayed listings
+      </p>
+      
+      <div style="background: #FFCCCC; border: 2px inset #C0C0C0; padding: 8px; margin: 8px 0;">
+        <h4 style="color: #CC0000;">RECOMMENDED ACTION:</h4>
+        <p style="font-size: 10px;">Install ResellAI.exe to quarantine these issues!</p>
+      </div>
+      
+      <div style="text-align: center; margin-top: 12px;">
+        <a href="#" class="download-btn" onclick="closeWindow('system-scan-window')">
+          🛠️ Fix Now
         </a>
-        <button class="btn-98" onclick="closeVirusPopup()">Ignore (Not Recommended)</button>
+        <button class="btn-98" onclick="closeWindow('system-scan-window')">Ignore</button>
       </div>
     </div>
   </div>
 
+  <!-- Performance Window -->
+  <div class="window" id="performance-window" style="top: 90px; left: 350px; width: 380px; height: 280px;">
+    <div class="window-titlebar">
+      <div class="window-icon">📊</div>
+      <div class="window-title">Performance Monitor</div>
+      <div class="window-controls">
+        <div class="window-control-btn" onclick="minimizeWindow('performance-window')">_</div>
+        <div class="window-control-btn" onclick="maximizeWindow('performance-window')">□</div>
+        <div class="window-control-btn" onclick="closeWindow('performance-window')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <h3 style="color: #FF6600; margin-bottom: 12px;">📊 SPEED BOOST AVAILABLE!</h3>
+      <p style="margin-bottom: 8px;">Current System Performance:</p>
+      
+      <div style="font-size: 10px; margin-bottom: 12px;">
+        <p>Listing Speed: <span style="color: red; font-weight: bold;">SLOW</span></p>
+        <div style="width: 100%; height: 16px; background: #808080; border: 1px inset #C0C0C0; margin: 4px 0;">
+          <div style="width: 15%; height: 14px; background: linear-gradient(90deg, #FF0000, #CC0000);"></div>
+        </div>
+        
+        <p>Profit Optimization: <span style="color: red; font-weight: bold;">DISABLED</span></p>
+        <div style="width: 100%; height: 16px; background: #808080; border: 1px inset #C0C0C0; margin: 4px 0;">
+          <div style="width: 5%; height: 14px; background: linear-gradient(90deg, #FF0000, #CC0000);"></div>
+        </div>
+        
+        <p>AI Assistance: <span style="color: red; font-weight: bold;">NOT INSTALLED</span></p>
+        <div style="width: 100%; height: 16px; background: #808080; border: 1px inset #C0C0C0; margin: 4px 0;">
+          <div style="width: 0%; height: 14px; background: linear-gradient(90deg, #FF0000, #CC0000);"></div>
+        </div>
+      </div>
+      
+      <div style="background: #E0FFE0; border: 2px inset #C0C0C0; padding: 8px; margin: 8px 0;">
+        <p style="color: green; font-weight: bold; font-size: 10px;">With ResellAI.exe:</p>
+        <p style="font-size: 9px; color: green;">
+          ✅ 500% faster listings<br>
+          ✅ AI-optimized pricing<br>
+          ✅ Automated descriptions<br>
+          ✅ Multi-platform posting
+        </p>
+      </div>
+      
+      <div style="text-align: center; margin-top: 12px;">
+        <a href="#" class="download-btn" onclick="openWindow('download-window')">
+          ⚡ Boost Performance
+        </a>
+        <button class="btn-98" onclick="closeWindow('performance-window')">Later</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme Window -->
+  <div class="window" id="theme-window" style="top: 100px; left: 120px; width: 350px; height: 250px;">
+    <div class="window-titlebar">
+      <div class="window-icon">🎨</div>
+      <div class="window-title">Display Properties</div>
+      <div class="window-controls">
+        <div class="window-control-btn" onclick="minimizeWindow('theme-window')">_</div>
+        <div class="window-control-btn" onclick="maximizeWindow('theme-window')">□</div>
+        <div class="window-control-btn" onclick="closeWindow('theme-window')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <h3 style="margin-bottom: 12px;">Choose Your Desktop Theme:</h3>
+      
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px;">
+        <div onclick="changeTheme('teal')" style="cursor: pointer; text-align: center; padding: 6px; border: 1px solid #808080;">
+          <div style="width: 50px; height: 30px; background: linear-gradient(45deg, #008080, #004040); border: 1px solid #808080; margin: 0 auto 4px;"></div>
+          <span style="font-size: 9px;">Classic</span>
+        </div>
+        <div onclick="changeTheme('clouds')" style="cursor: pointer; text-align: center; padding: 6px; border: 1px solid #808080;">
+          <div style="width: 50px; height: 30px; background: linear-gradient(0deg, #87CEEB, #B0E0E6); border: 1px solid #808080; margin: 0 auto 4px;"></div>
+          <span style="font-size: 9px;">Clouds</span>
+        </div>
+        <div onclick="changeTheme('matrix')" style="cursor: pointer; text-align: center; padding: 6px; border: 1px solid #808080;">
+          <div style="width: 50px; height: 30px; background: #000; border: 1px solid #808080; margin: 0 auto 4px; position: relative;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #0f4; font-size: 6px;">⚌⚌</div>
+          </div>
+          <span style="font-size: 9px;">Matrix</span>
+        </div>
+        <div onclick="changeTheme('retro')" style="cursor: pointer; text-align: center; padding: 6px; border: 1px solid #808080;">
+          <div style="width: 50px; height: 30px; background: linear-gradient(45deg, #ff6b9d, #40407a); border: 1px solid #808080; margin: 0 auto 4px;"></div>
+          <span style="font-size: 9px;">80s Retro</span>
+        </div>
+        <div onclick="changeTheme('folder')" style="cursor: pointer; text-align: center; padding: 6px; border: 1px solid #808080;">
+          <div style="width: 50px; height: 30px; background: #c0c0c0; border: 1px solid #808080; margin: 0 auto 4px; position: relative;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8px;">📁</div>
+          </div>
+          <span style="font-size: 9px;">Office</span>
+        </div>
+      </div>
+      
+      <div style="text-align: center;">
+        <button class="btn-98" onclick="closeWindow('theme-window')">Apply</button>
+        <button class="btn-98" onclick="resetTheme()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ReadMe Window -->
+  <div class="window" id="readme-window" style="top: 60px; left: 250px; width: 450px; height: 300px;">
+    <div class="window-titlebar">
+      <div class="window-icon">📄</div>
+      <div class="window-title">ReadMe.txt - Notepad</div>
+      <div class="window-controls">
+        <div class="window-control-btn" onclick="minimizeWindow('readme-window')">_</div>
+        <div class="window-control-btn" onclick="maximizeWindow('readme-window')">□</div>
+        <div class="window-control-btn" onclick="closeWindow('readme-window')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div style="background: white; border: 2px inset #C0C0C0; padding: 8px; height: calc(100% - 4px); font-family: 'Courier New', monospace; font-size: 10px; overflow-y: auto;">
+========================================<br>
+RESELLAI.EXE - README FILE<br>
+========================================<br>
+<br>
+WHAT IS RESELLAI?<br>
+-----------------<br>
+ResellAI is revolutionary software that<br>
+automates your eBay selling process using<br>
+advanced artificial intelligence.<br>
+<br>
+SYSTEM REQUIREMENTS:<br>
+--------------------<br>
+- iOS 13.0+ or Android 8.0+<br>
+- Internet connection<br>
+- Camera (for photo recognition)<br>
+- Brain ready for 5x faster selling!<br>
+<br>
+FEATURES INCLUDED:<br>
+------------------<br>
+✓ AI photo recognition<br>
+✓ Smart pricing engine<br>
+✓ Auto-generated descriptions<br>
+✓ Multi-platform posting<br>
+✓ Real-time market analysis<br>
+<br>
+INSTALLATION:<br>
+-------------<br>
+1. Download from App Store/Google Play<br>
+2. Install ResellAI.exe<br>
+3. Watch your profits soar!<br>
+<br>
+SUPPORT:<br>
+--------<br>
+Email: support@resellaiapp.com<br>
+Web: resellaiapp.com<br>
+<br>
+© 2024 ResellAI Corporation<br>
+All rights reserved.
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Window -->
+  <div class="window" id="settings-window" style="top: 140px; left: 180px; width: 300px; height: 200px;">
+    <div class="window-titlebar">
+      <div class="window-icon">⚙️</div>
+      <div class="window-title">Settings</div>
+      <div class="window-controls">
+        <div class="window-control-btn" onclick="minimizeWindow('settings-window')">_</div>
+        <div class="window-control-btn" onclick="maximizeWindow('settings-window')">□</div>
+        <div class="window-control-btn" onclick="closeWindow('settings-window')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <h3 style="margin-bottom: 12px;">System Settings</h3>
+      
+      <div style="border: 1px inset #C0C0C0; padding: 8px; margin-bottom: 8px;">
+        <label style="display: flex; align-items: center; margin-bottom: 4px; font-size: 10px;">
+          <input type="checkbox" id="soundEnabled" checked onchange="toggleSoundSetting()" style="margin-right: 6px;">
+          Enable system sounds
+        </label>
+        <label style="display: flex; align-items: center; margin-bottom: 4px; font-size: 10px;">
+          <input type="checkbox" id="animationsEnabled" checked style="margin-right: 6px;">
+          Enable window animations
+        </label>
+        <label style="display: flex; align-items: center; font-size: 10px;">
+          <input type="checkbox" id="startupTips" checked style="margin-right: 6px;">
+          Show tips on startup
+        </label>
+      </div>
+      
+      <div style="text-align: center;">
+        <button class="btn-98" onclick="closeWindow('settings-window')">OK</button>
+        <button class="btn-98" onclick="closeWindow('settings-window')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recycle Bin Window -->
+  <div class="window" id="recycle-window" style="top: 80px; left: 400px; width: 320px; height: 200px;">
+    <div class="window-titlebar">
+      <div class="window-icon">🗑️</div>
+      <div class="window-title">Recycle Bin</div>
+      <div class="window-controls">
+        <div class="window-control-btn" onclick="minimizeWindow('recycle-window')">_</div>
+        <div class="window-control-btn" onclick="maximizeWindow('recycle-window')">□</div>
+        <div class="window-control-btn" onclick="closeWindow('recycle-window')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div style="text-align: center; padding: 20px;">
+        <div style="font-size: 48px; margin-bottom: 12px;">🗑️</div>
+        <h3>Recycle Bin is Empty</h3>
+        <p style="font-size: 10px; margin-top: 8px;">Good thing too - you don't want to throw away profit opportunities!</p>
+        <p style="font-size: 10px; margin-top: 8px; color: #666;">Try ResellAI to turn your unused items into cash instead!</p>
+        
+        <div style="margin-top: 16px;">
+          <a href="#" class="download-btn" onclick="openWindow('download-window')">
+            💰 Start Selling
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Context Menu -->
+  <div class="context-menu" id="contextMenu">
+    <div class="context-menu-item" data-icon="📂" onclick="handleContextAction('open')">Open</div>
+    <div class="context-menu-separator"></div>
+    <div class="context-menu-item" data-icon="✂️" onclick="handleContextAction('cut')">Cut</div>
+    <div class="context-menu-item" data-icon="📄" onclick="handleContextAction('copy')">Copy</div>
+    <div class="context-menu-item" data-icon="📋" onclick="handleContextAction('paste')">Paste</div>
+    <div class="context-menu-separator"></div>
+    <div class="context-menu-item" data-icon="🗑️" onclick="handleContextAction('delete')">Delete</div>
+    <div class="context-menu-item" data-icon="📋" onclick="handleContextAction('properties')">Properties</div>
+  </div>
+
   <!-- Start Menu -->
   <div class="start-menu" id="startMenu">
-    <div class="start-menu-header">ResellAI OS</div>
-    <div class="start-menu-item" onclick="openWindow('main-window')">
-      <i class="fas fa-robot"></i>
-      <span>ResellAI</span>
-    </div>
-    <div class="start-menu-item" onclick="openWindow('features-window')">
-      <i class="fas fa-magic"></i>
-      <span>AI Features</span>
-    </div>
-    <div class="start-menu-item" onclick="openWindow('pricing-window')">
-      <i class="fas fa-dollar-sign"></i>
-      <span>Pricing</span>
-    </div>
-    <div class="start-menu-item" onclick="openWindow('download-window')">
-      <i class="fas fa-download"></i>
-      <span>Get App</span>
-    </div>
-    <div class="start-menu-item" onclick="showAbout()">
-      <i class="fas fa-info-circle"></i>
-      <span>About</span>
+    <div class="start-menu-banner">ResellAI</div>
+    <div class="start-menu-items">
+      <div class="start-menu-item" data-icon="🤖" onclick="openWindow('resellai-window'); hideStartMenu();">ResellAI</div>
+      <div class="start-menu-item" data-icon="✨" onclick="openWindow('features-window'); hideStartMenu();">AI Features</div>
+      <div class="start-menu-item" data-icon="💰" onclick="openWindow('pricing-window'); hideStartMenu();">Pricing</div>
+      <div class="start-menu-item" data-icon="📱" onclick="openWindow('download-window'); hideStartMenu();">Get App</div>
+      <div class="start-menu-item separator"></div>
+      <div class="start-menu-item" data-icon="🎨" onclick="openWindow('theme-window'); hideStartMenu();">Themes</div>
+      <div class="start-menu-item" data-icon="⚙️" onclick="openWindow('settings-window'); hideStartMenu();">Settings</div>
+      <div class="start-menu-item" data-icon="📄" onclick="openWindow('readme-window'); hideStartMenu();">ReadMe</div>
+      <div class="start-menu-item separator"></div>
+      <div class="start-menu-item" data-icon="🔍" onclick="openWindow('system-scan-window'); hideStartMenu();">System Scan</div>
+      <div class="start-menu-item" data-icon="📊" onclick="openWindow('performance-window'); hideStartMenu();">Performance</div>
     </div>
   </div>
 
   <!-- Taskbar -->
   <div class="taskbar">
-    <div class="start-button" onclick="toggleStartMenu()">
-      <span>🚀</span>
+    <div class="start-button" id="startButton" onclick="toggleStartMenu()">
+      <span style="font-size: 16px;">🚀</span>
       <span>Start</span>
     </div>
+    
+    <div class="taskbar-separator"></div>
+    
+    <div class="taskbar-buttons" id="taskbarButtons">
+      <!-- Taskbar buttons will be dynamically added here -->
+    </div>
+    
+    <div class="system-tray">
+      <div class="system-tray-item" onclick="toggleSoundSetting()" title="Volume Control">
+        <span id="volumeIcon">🔊</span>
+      </div>
+      <div class="system-tray-item" title="Internet Connection">🌐</div>
+      <div class="system-tray-item" title="ResellAI Status">🤖</div>
+    </div>
+    
     <div class="clock" id="clock">12:00 PM</div>
   </div>
 
+  <!-- Selection Rectangle -->
+  <div class="selection-rectangle" id="selectionRect"></div>
+
   <script>
-    // Sound effects using Web Audio API
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    
-    const sounds = {
-      click: () => createBeep(800, 0.1, 0.1),
-      open: () => createBeep(600, 0.2, 0.1),
-      close: () => createBeep(400, 0.2, 0.1),
-      success: () => createChord([523, 659, 784], 0.3, 0.2),
-      alert: () => createBeep(1000, 0.5, 0.1)
-    };
+    // Global variables
+    let windowZIndex = 100;
+    let openWindows = [];
+    let selectedIcons = [];
+    let dragStartX, dragStartY;
+    let isDragging = false;
+    let soundEnabled = true;
+    let startMenuOpen = false;
+    let contextMenuTarget = null;
 
-    function createBeep(frequency, duration, volume = 0.1) {
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      updateClock();
+      setInterval(updateClock, 1000);
+      setupEventListeners();
       
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-      
-      oscillator.frequency.value = frequency;
-      oscillator.type = 'square';
-      
-      gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-      gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.01);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
-      
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + duration);
-    }
-
-    function createChord(frequencies, duration, volume = 0.1) {
-      frequencies.forEach(freq => createBeep(freq, duration, volume / frequencies.length));
-    }
-
-    function playSound(soundName) {
-      if (audioContext.state === 'suspended') {
-        audioContext.resume();
-      }
-      if (sounds[soundName]) {
-        sounds[soundName]();
-      }
-    }
-
-    // Window management
-    function openWindow(windowId) {
-      playSound('open');
-      document.getElementById(windowId).classList.add('active');
-      document.getElementById(windowId).style.display = 'block';
-      closeStartMenu();
-    }
-
-    function closeWindow(windowId) {
-      playSound('close');
-      document.getElementById(windowId).classList.remove('active');
-      document.getElementById(windowId).style.display = 'none';
-    }
-
-    function minimizeWindow(windowId) {
-      playSound('click');
-      closeWindow(windowId);
-    }
-
-    function maximizeWindow(windowId) {
-      playSound('click');
-      const window = document.getElementById(windowId);
-      if (window.style.width === '100vw') {
-        window.style.width = '';
-        window.style.height = '';
-        window.style.top = '';
-        window.style.left = '';
-      } else {
-        window.style.width = '100vw';
-        window.style.height = '100vh';
-        window.style.top = '0';
-        window.style.left = '0';
-      }
-    }
-
-    // Desktop icon clicks
-    document.querySelectorAll('.desktop-icon[data-window]').forEach(icon => {
-      icon.addEventListener('click', function() {
-        const windowId = this.getAttribute('data-window');
-        openWindow(windowId);
-      });
-    });
-
-    // Start menu
-    function toggleStartMenu() {
-      playSound('click');
-      const menu = document.getElementById('startMenu');
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function closeStartMenu() {
-      document.getElementById('startMenu').style.display = 'none';
-    }
-
-    // Close start menu when clicking outside
-    document.addEventListener('click', function(e) {
-      const startMenu = document.getElementById('startMenu');
-      const startButton = document.querySelector('.start-button');
-      if (!startMenu.contains(e.target) && !startButton.contains(e.target)) {
-        closeStartMenu();
-      }
-    });
-
-    // Virus popup
-    function showVirusPopup() {
-      playSound('alert');
-      document.getElementById('virusPopup').style.display = 'block';
-    }
-
-    function closeVirusPopup() {
-      playSound('click');
-      document.getElementById('virusPopup').style.display = 'none';
-    }
-
-    function triggerVirusPopup() {
+      // Auto-open main window after a delay
       setTimeout(() => {
-        showVirusPopup();
-      }, 2000);
-    }
+        openWindow('resellai-window');
+      }, 1000);
+    });
 
-    // Auto-trigger virus popup after some time
-    setTimeout(() => {
-      if (Math.random() > 0.5) {
-        showVirusPopup();
-      }
-    }, 15000);
-
-    // Helper functions
-    function showFeaturesWindow() {
-      openWindow('features-window');
-    }
-
-    function showDownloadWindow() {
-      openWindow('download-window');
-    }
-
-    function showAbout() {
-      playSound('click');
-      alert('ResellAI OS v3.0\n\nThe ultimate AI-powered eBay reselling platform.\n\nTurn photos into profit with artificial intelligence!\n\n© 2024 ResellAI');
-      closeStartMenu();
-    }
-
-    // Clock
     function updateClock() {
       const now = new Date();
-      const timeString = now.toLocaleTimeString('en-US', { 
-        hour: 'numeric', 
-        minute: '2-digit', 
-        hour12: true 
-      });
+      const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
       document.getElementById('clock').textContent = timeString;
     }
 
-    updateClock();
-    setInterval(updateClock, 1000);
-
-    // Auto-open main window after loading
-    setTimeout(() => {
-      openWindow('main-window');
-    }, 4000);
-
-    // Konami code easter egg
-    const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-    let konamiIndex = 0;
-
-    document.addEventListener('keydown', function(e) {
-      if (e.keyCode === konamiCode[konamiIndex]) {
-        konamiIndex++;
-        if (konamiIndex === konamiCode.length) {
-          playSound('success');
-          alert('🎉 KONAMI CODE ACTIVATED! 🎉\n\nSecret ResellAI power unlocked!\nYou\'re clearly a pro gamer AND a pro reseller!');
-          konamiIndex = 0;
-          
-          // Fun visual effect
-          document.body.style.background = 'linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ff00ff)';
-          document.body.style.backgroundSize = '400% 400%';
-          document.body.style.animation = 'rainbow 2s ease infinite';
-          
-          setTimeout(() => {
-            document.body.style.background = '';
-            document.body.style.animation = '';
-          }, 5000);
-        }
-      } else {
-        konamiIndex = 0;
-      }
-    });
-
-    // Add rainbow animation
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes rainbow {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-      }
-    `;
-    document.head.appendChild(style);
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        // Close all windows
-        document.querySelectorAll('.window.active').forEach(window => {
-          closeWindow(window.id);
-        });
-        closeVirusPopup();
-      }
-    });
-
-    // Make windows draggable on desktop
-    function makeDraggable(element) {
-      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-      const header = element.querySelector('.window-header');
+    // Sound system
+    function playSound(type) {
+      if (!soundEnabled) return;
+      console.log(`🔊 Playing ${type} sound`);
       
-      if (header) {
-        header.onmousedown = dragMouseDown;
-      }
-
-      function dragMouseDown(e) {
-        if (window.innerWidth <= 768) return; // Don't drag on mobile
-        e = e || window.event;
-        e.preventDefault();
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
-      }
-
-      function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        
-        const newTop = element.offsetTop - pos2;
-        const newLeft = element.offsetLeft - pos1;
-        
-        element.style.top = Math.max(0, Math.min(newTop, window.innerHeight - 100)) + "px";
-        element.style.left = Math.max(0, Math.min(newLeft, window.innerWidth - 100)) + "px";
-      }
-
-      function closeDragElement() {
-        document.onmouseup = null;
-        document.onmousemove = null;
+      // Visual feedback
+      if (type === 'click') {
+        document.body.style.filter = 'brightness(1.1)';
+        setTimeout(() => document.body.style.filter = 'brightness(1)', 100);
       }
     }
 
-    // Make all windows draggable
-    document.querySelectorAll('.window').forEach(makeDraggable);
+    function toggleSoundSetting() {
+      soundEnabled = !soundEnabled;
+      const volumeIcon = document.getElementById('volumeIcon');
+      const soundCheckbox = document.getElementById('soundEnabled');
+      
+      if (soundEnabled) {
+        volumeIcon.textContent = '🔊';
+        if (soundCheckbox) soundCheckbox.checked = true;
+      } else {
+        volumeIcon.textContent = '🔇';
+        if (soundCheckbox) soundCheckbox.checked = false;
+      }
+      playSound('click');
+    }
 
-    // Touch support for mobile
+    // Theme system
+    function changeTheme(theme) {
+      const body = document.getElementById('body');
+      body.className = `theme-${theme}`;
+      localStorage.setItem('resellai-theme', theme);
+      playSound('click');
+    }
+
+    function resetTheme() {
+      changeTheme('teal');
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('resellai-theme');
+    if (savedTheme) {
+      changeTheme(savedTheme.replace('theme-', ''));
+    }
+
+    // Window management with proper stacking
+    function openWindow(windowId) {
+      const window = document.getElementById(windowId);
+      if (!window) return;
+
+      // If window is already open, just focus it
+      if (window.classList.contains('active')) {
+        focusWindow(window);
+        return;
+      }
+
+      // Calculate cascading position
+      const openWindowCount = openWindows.length;
+      const offsetX = openWindowCount * 30;
+      const offsetY = openWindowCount * 30;
+      
+      // Position the window with cascade effect
+      window.style.left = (100 + offsetX) + 'px';
+      window.style.top = (50 + offsetY) + 'px';
+      
+      // Show and focus the window
+      window.classList.add('active');
+      window.style.zIndex = ++windowZIndex;
+      
+      // Add to open windows list
+      if (!openWindows.includes(windowId)) {
+        openWindows.push(windowId);
+        addTaskbarButton(windowId, window);
+      }
+      
+      focusWindow(window);
+      playSound('open');
+    }
+
+    function closeWindow(windowId) {
+      const window = document.getElementById(windowId);
+      if (!window) return;
+
+      window.classList.remove('active');
+      
+      // Remove from open windows
+      openWindows = openWindows.filter(id => id !== windowId);
+      removeTaskbarButton(windowId);
+      
+      playSound('close');
+    }
+
+    function minimizeWindow(windowId) {
+      const window = document.getElementById(windowId);
+      if (!window) return;
+
+      window.style.display = 'none';
+      updateTaskbarButton(windowId, false);
+      playSound('minimize');
+    }
+
+    function maximizeWindow(windowId) {
+      const window = document.getElementById(windowId);
+      if (!window) return;
+
+      if (window.dataset.maximized === 'true') {
+        // Restore
+        window.style.width = window.dataset.originalWidth || '500px';
+        window.style.height = window.dataset.originalHeight || '400px';
+        window.style.left = window.dataset.originalLeft || '100px';
+        window.style.top = window.dataset.originalTop || '50px';
+        window.dataset.maximized = 'false';
+      } else {
+        // Store original dimensions
+        window.dataset.originalWidth = window.style.width;
+        window.dataset.originalHeight = window.style.height;
+        window.dataset.originalLeft = window.style.left;
+        window.dataset.originalTop = window.style.top;
+        
+        // Maximize
+        window.style.width = 'calc(100vw - 20px)';
+        window.style.height = 'calc(100vh - 80px)';
+        window.style.left = '10px';
+        window.style.top = '10px';
+        window.dataset.maximized = 'true';
+      }
+      playSound('maximize');
+    }
+
+    function focusWindow(window) {
+      // Unfocus all windows
+      document.querySelectorAll('.window').forEach(w => {
+        w.classList.remove('focused');
+        w.classList.add('unfocused');
+      });
+      
+      // Focus the target window
+      window.classList.remove('unfocused');
+      window.classList.add('focused');
+      window.style.zIndex = ++windowZIndex;
+      
+      // Update taskbar
+      updateTaskbarButtons();
+    }
+
+    // Taskbar management
+    function addTaskbarButton(windowId, window) {
+      const taskbarButtons = document.getElementById('taskbarButtons');
+      const button = document.createElement('div');
+      button.className = 'taskbar-button';
+      button.id = `taskbar-${windowId}`;
+      button.onclick = () => toggleWindow(windowId);
+      
+      const icon = window.querySelector('.window-icon').textContent;
+      const title = window.querySelector('.window-title').textContent;
+      
+      button.innerHTML = `<span>${icon}</span><span>${title}</span>`;
+      taskbarButtons.appendChild(button);
+    }
+
+    function removeTaskbarButton(windowId) {
+      const button = document.getElementById(`taskbar-${windowId}`);
+      if (button) button.remove();
+    }
+
+    function updateTaskbarButton(windowId, active) {
+      const button = document.getElementById(`taskbar-${windowId}`);
+      if (button) {
+        if (active) {
+          button.classList.add('active');
+        } else {
+          button.classList.remove('active');
+        }
+      }
+    }
+
+    function updateTaskbarButtons() {
+      document.querySelectorAll('.taskbar-button').forEach(button => {
+        button.classList.remove('active');
+      });
+      
+      const focusedWindow = document.querySelector('.window.focused');
+      if (focusedWindow) {
+        const windowId = focusedWindow.id;
+        updateTaskbarButton(windowId, true);
+      }
+    }
+
+    function toggleWindow(windowId) {
+      const window = document.getElementById(windowId);
+      if (!window) return;
+
+      if (window.style.display === 'none') {
+        // Restore from minimize
+        window.style.display = 'block';
+        focusWindow(window);
+      } else if (window.classList.contains('focused')) {
+        // Minimize if already focused
+        minimizeWindow(windowId);
+      } else {
+        // Focus if not focused
+        focusWindow(window);
+      }
+    }
+
+    // Start Menu
+    function toggleStartMenu() {
+      const startMenu = document.getElementById('startMenu');
+      const startButton = document.getElementById('startButton');
+      
+      startMenuOpen = !startMenuOpen;
+      
+      if (startMenuOpen) {
+        startMenu.classList.add('show');
+        startButton.classList.add('pressed');
+      } else {
+        startMenu.classList.remove('show');
+        startButton.classList.remove('pressed');
+      }
+      playSound('click');
+    }
+
+    function hideStartMenu() {
+      const startMenu = document.getElementById('startMenu');
+      const startButton = document.getElementById('startButton');
+      
+      startMenu.classList.remove('show');
+      startButton.classList.remove('pressed');
+      startMenuOpen = false;
+    }
+
+    // Desktop icon selection
+    function selectIcon(icon) {
+      // Clear previous selection
+      selectedIcons.forEach(i => {
+        i.classList.remove('selected');
+        i.querySelector('.icon-label').classList.remove('selected');
+      });
+      
+      // Select new icon
+      icon.classList.add('selected');
+      icon.querySelector('.icon-label').classList.add('selected');
+      selectedIcons = [icon];
+    }
+
+    function clearSelection() {
+      selectedIcons.forEach(icon => {
+        icon.classList.remove('selected');
+        icon.querySelector('.icon-label').classList.remove('selected');
+      });
+      selectedIcons = [];
+    }
+
+    // Context menu
+    function showContextMenu(x, y, target) {
+      const contextMenu = document.getElementById('contextMenu');
+      contextMenu.style.display = 'block';
+      contextMenu.style.left = x + 'px';
+      contextMenu.style.top = y + 'px';
+      contextMenuTarget = target;
+    }
+
+    function hideContextMenu() {
+      const contextMenu = document.getElementById('contextMenu');
+      contextMenu.style.display = 'none';
+      contextMenuTarget = null;
+    }
+
+    function handleContextAction(action) {
+      hideContextMenu();
+      
+      switch(action) {
+        case 'open':
+          if (contextMenuTarget && contextMenuTarget.onclick) {
+            contextMenuTarget.onclick();
+          }
+          break;
+        case 'delete':
+          if (contextMenuTarget) {
+            contextMenuTarget.style.opacity = '0.5';
+            setTimeout(() => {
+              contextMenuTarget.style.display = 'none';
+            }, 300);
+          }
+          break;
+        case 'properties':
+          alert('Properties\n\nType: Desktop Icon\nSize: 32x32 pixels\nCreated: Today\nModified: Just now');
+          break;
+        default:
+          console.log(`Context action: ${action}`);
+      }
+      playSound('click');
+    }
+
+    // Event listeners
+    function setupEventListeners() {
+      // Desktop click handling
+      document.getElementById('desktop').addEventListener('click', function(e) {
+        if (e.target === this) {
+          clearSelection();
+          hideStartMenu();
+          hideContextMenu();
+        }
+      });
+
+      // Desktop icon interactions
+      document.querySelectorAll('.desktop-icon').forEach(icon => {
+        icon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          selectIcon(this);
+          playSound('click');
+        });
+
+        icon.addEventListener('dblclick', function(e) {
+          e.stopPropagation();
+          if (this.onclick) this.onclick();
+        });
+
+        icon.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+          selectIcon(this);
+          showContextMenu(e.pageX, e.pageY, this);
+        });
+      });
+
+      // Window click handling for focus
+      document.querySelectorAll('.window').forEach(window => {
+        window.addEventListener('mousedown', function() {
+          focusWindow(this);
+        });
+      });
+
+      // Global click handling
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.start-menu') && !e.target.closest('.start-button')) {
+          hideStartMenu();
+        }
+        if (!e.target.closest('.context-menu')) {
+          hideContextMenu();
+        }
+      });
+
+      // Make windows draggable
+      document.querySelectorAll('.window').forEach(makeDraggable);
+    }
+
+    // Window dragging
+    function makeDraggable(window) {
+      const titlebar = window.querySelector('.window-titlebar');
+      let isDragging = false;
+      let startX, startY;
+
+      titlebar.addEventListener('mousedown', function(e) {
+        if (e.target.closest('.window-controls')) return;
+        
+        isDragging = true;
+        startX = e.clientX - window.offsetLeft;
+        startY = e.clientY - window.offsetTop;
+        
+        focusWindow(window);
+        
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      });
+
+      function onMouseMove(e) {
+        if (!isDragging) return;
+        
+        const newX = e.clientX - startX;
+        const newY = e.clientY - startY;
+        
+        window.style.left = Math.max(0, Math.min(newX, window.innerWidth - 100)) + 'px';
+        window.style.top = Math.max(0, Math.min(newY, window.innerHeight - 100)) + 'px';
+      }
+
+      function onMouseUp() {
+        isDragging = false;
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+      }
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.altKey && e.key === 'd') {
+        // Debug info
+        alert(`🐛 DEBUG INFO\n\nOpen Windows: ${openWindows.length}\nTheme: ${document.body.className}\nSound: ${soundEnabled ? 'ON' : 'OFF'}\nZ-Index: ${windowZIndex}`);
+      }
+      
+      if (e.key === 'Escape') {
+        hideStartMenu();
+        hideContextMenu();
+      }
+      
+      if (e.key === 'Delete' && selectedIcons.length > 0) {
+        selectedIcons.forEach(icon => {
+          icon.style.opacity = '0.5';
+          setTimeout(() => icon.style.display = 'none', 300);
+        });
+        clearSelection();
+      }
+    });
+
+    // Mobile touch support
     if ('ontouchstart' in window) {
-      // Add touch feedback
       document.querySelectorAll('.desktop-icon, .btn-98, .download-btn').forEach(element => {
         element.addEventListener('touchstart', function() {
+          if (navigator.vibrate) navigator.vibrate(50);
           this.style.transform = 'scale(0.95)';
         });
         
@@ -1147,6 +1834,44 @@
         });
       });
     }
+
+    // Auto-show performance window after delay
+    setTimeout(() => {
+      if (openWindows.length === 1) {
+        openWindow('performance-window');
+      }
+    }, 10000);
+
+    // Auto-show system scan after more delay  
+    setTimeout(() => {
+      if (openWindows.length <= 2) {
+        openWindow('system-scan-window');
+      }
+    }, 20000);
+
+    // Konami code easter egg
+    let konamiCode = [];
+    const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+
+    document.addEventListener('keydown', function(e) {
+      konamiCode.push(e.keyCode);
+      if (konamiCode.length > konamiSequence.length) {
+        konamiCode.shift();
+      }
+      
+      if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
+        changeTheme('matrix');
+        alert('🎮 KONAMI CODE ACTIVATED!\n\n🟢 ENTERING THE MATRIX 🟢\n\nSecret hacker theme unlocked!');
+        konamiCode = [];
+      }
+    });
+
+    // CSS animation for blinking
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>
