@@ -424,21 +424,21 @@
         }
 
         function openApp() {
-            console.log('Opening ResellAI app...');
+            console.log('Opening Resell AI app...');
             
             // Try deep link first
             const appURL = 'resellai://auth/ebay?error=declined';
             window.location.href = appURL;
             
-            // Fallback to website after a delay
+            // Fallback to close window after a delay
             setTimeout(() => {
-                window.location.href = '/';
+                window.close();
             }, 2000);
         }
 
         function getHelp() {
             const helpDialog = `
-ResellAI Help - eBay Authorization
+Resell AI Help - eBay Authorization
 
 Common solutions:
 • Make sure you're logged into your eBay account
@@ -459,8 +459,8 @@ Error Code: EBAY_AUTH_DECLINED
         }
 
         function closeDialog() {
-            if (confirm('Close this error dialog?\n\nYou will be redirected to the ResellAI homepage.')) {
-                window.location.href = '/';
+            if (confirm('Close this error dialog?\n\nYou will return to the Resell AI app.')) {
+                openApp();
             }
         }
 

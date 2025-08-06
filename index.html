@@ -2,19 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ResellAI: Revolutionize eBay reselling with AI-powered identification, pricing, listing, and tracking." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Resell AI">
+  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==">
+  <meta name="description" content="Resell AI: Revolutionize eBay reselling with AI-powered identification, pricing, listing, and tracking." />
   <meta name="keywords" content="resell, AI, eBay, automation, sales tracking, premium tech" />
-  <meta name="author" content="ResellAI" />
+  <meta name="author" content="Resell AI" />
   <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="ResellAI — Resell, Automated" />
-  <meta property="og:description" content="Unlock automated reselling with AI innovation from ResellAI." />
+  <meta property="og:title" content="Resell AI — AI-Powered eBay Automation" />
+  <meta property="og:description" content="Upload a photo. AI handles everything. From identification to eBay listing in seconds." />
   <meta property="og:image" content="https://resellai.com/og-image.jpg" />
   <meta property="og:url" content="https://resellai.com" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@ResellAI" />
-  <title>ResellAI — Desktop</title>
+  <title>Resell AI — Desktop</title>
 
   <!-- Fonts & Icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
@@ -157,6 +161,8 @@
 
     .btn-98:active {
       border: 2px inset #c0c0c0;
+      transform: translateY(1px);
+      box-shadow: 0 1px 0 #808080;
     }
 
     .btn-98.primary {
@@ -360,27 +366,306 @@
       transition: width 0.5s ease;
     }
 
-    /* Responsive */
+    /* Mobile & iPhone Specific */
     @media (max-width: 768px) {
+      body {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+      
+      .desktop {
+        height: calc(100vh - 40px);
+        height: calc(100dvh - 40px);
+      }
+      
       .desktop-icon {
-        width: 48px;
+        width: 60px;
+        padding: 12px 8px;
+        touch-action: manipulation;
+      }
+      
+      .desktop-icon i {
+        font-size: 28px;
+      }
+      
+      .desktop-icon span {
+        font-size: 10px;
+      }
+      
+      .window {
+        min-width: calc(100vw - 20px);
+        max-width: calc(100vw - 20px);
+        min-height: 200px;
+        left: 10px !important;
+        right: 10px !important;
+        top: 20px !important;
+      }
+      
+      .window.mobile-fullscreen {
+        width: 100vw !important;
+        height: calc(100vh - 40px) !important;
+        height: calc(100dvh - 40px) !important;
+        left: 0 !important;
+        top: 0 !important;
+      }
+      
+      .start-menu {
+        width: 200px;
+        left: 0;
+        right: auto;
+      }
+      
+      .taskbar {
+        height: 40px;
+        padding: 2px 4px;
+      }
+      
+      .start-button {
+        padding: 4px 6px;
+        font-size: 10px;
+      }
+      
+      .system-tray {
+        padding: 0 4px;
+      }
+      
+      .clock {
+        font-size: 10px;
+        min-width: 50px;
+      }
+      
+      .window-content {
+        padding: 12px 8px;
+        font-size: 12px;
+      }
+      
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+      
+      .feature-card {
+        padding: 6px;
+      }
+      
+      .btn-98 {
+        padding: 6px 12px;
+        font-size: 12px;
+        min-height: 32px;
+        touch-action: manipulation;
+      }
+
+      .desktop-icon:active {
+        transform: scale(0.95);
+        background: rgba(255,255,255,0.3);
+      }
+      
+      .btn-98:active {
+        transform: scale(0.98);
+      }
+    }
+
+    /* iPhone specific */
+    @media (max-width: 480px) {
+      .window-header {
+        height: 24px;
+        font-size: 12px;
+        padding: 4px;
+      }
+      
+      .window-button {
+        width: 20px;
+        height: 18px;
+        font-size: 10px;
+      }
+      
+      .desktop-icon {
+        width: 56px;
+        padding: 8px 4px;
       }
       
       .desktop-icon i {
         font-size: 24px;
       }
       
-      .window {
-        min-width: 250px;
-        min-height: 150px;
-      }
-      
-      .start-menu {
-        width: 180px;
+      .desktop-icon span {
+        font-size: 9px;
       }
     }
 
-    /* Animations */
+    /* App Store Download Popup */
+    .app-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 30000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app-popup {
+      background: #c0c0c0;
+      border: 2px outset #c0c0c0;
+      box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+      width: 90%;
+      max-width: 400px;
+      animation: popupAppear 0.4s ease-out;
+    }
+
+    @keyframes popupAppear {
+      from {
+        transform: scale(0.3) rotate(-5deg);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    .app-popup-header {
+      background: linear-gradient(90deg, #000080 0%, #000040 100%);
+      color: white;
+      padding: 4px 8px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 20px;
+      font-size: 11px;
+    }
+
+    .app-popup-content {
+      padding: 16px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .app-icon-large {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: white;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-icon-large::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .app-popup-text {
+      flex: 1;
+    }
+
+    .app-popup-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #000080;
+      font-size: 12px;
+    }
+
+    .app-popup-message {
+      margin-bottom: 12px;
+      line-height: 1.4;
+      font-size: 11px;
+    }
+
+    .app-popup-buttons {
+      background: #c0c0c0;
+      padding: 8px 16px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      border-top: 1px solid #808080;
+    }
+
+    .download-btn {
+      background: linear-gradient(180deg, #0080ff 0%, #0060c0 100%);
+      color: white;
+      border: 2px outset #0080ff;
+      padding: 6px 16px;
+      font-family: 'MS Sans Serif', sans-serif;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .download-btn:hover {
+      background: linear-gradient(180deg, #0090ff 0%, #0070d0 100%);
+      transform: translateY(-1px);
+    }
+
+    .download-btn:active {
+      border: 2px inset #0080ff;
+      transform: translateY(0);
+    }
+
+    /* Enhanced Visual Effects */
+    .crt-effect {
+      position: relative;
+    }
+
+    .crt-effect::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 255, 0, 0.03) 50%
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-1px, 1px); }
+      40% { transform: translate(-1px, -1px); }
+      60% { transform: translate(1px, 1px); }
+      80% { transform: translate(1px, -1px); }
+      100% { transform: translate(0); }
+    }
+
+    .glitch-effect {
+      animation: glitch 0.3s infinite;
+    }
+
     @keyframes windowOpen {
       from {
         transform: scale(0.1);
@@ -396,7 +681,45 @@
       animation: windowOpen 0.3s ease-out;
     }
 
-    /* Demo Styles for ResellAI content */
+    @keyframes windowShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      75% { transform: translateX(2px); }
+    }
+
+    .window-shake {
+      animation: windowShake 0.5s ease-in-out;
+    }
+
+    @keyframes windowClose {
+      0% { transform: scale(1) rotateZ(0deg); opacity: 1; }
+      100% { transform: scale(0.1) rotateZ(5deg); opacity: 0; }
+    }
+
+    .matrix-text {
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      text-shadow: 0 0 5px #00ff00;
+    }
+
+    .retro-glow {
+      box-shadow: 
+        0 0 5px rgba(0, 128, 255, 0.5),
+        0 0 10px rgba(0, 128, 255, 0.3),
+        0 0 15px rgba(0, 128, 255, 0.2);
+    }
+
+    .desktop-icon:active {
+      animation: iconBounce 0.3s ease;
+    }
+
+    @keyframes iconBounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+
+    /* Demo Styles for Resell AI content */
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -418,44 +741,29 @@
       display: block;
     }
 
-    .newsletter-form {
-      background: white;
-      border: 2px inset #c0c0c0;
-      padding: 16px;
-      margin: 16px 0;
-    }
-
-    .form-group {
-      margin: 8px 0;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 4px;
-      font-weight: bold;
-    }
-
-    .spinner-98 {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      border: 2px solid #c0c0c0;
-      border-top: 2px solid #0080ff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-left: 8px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    @media (max-width: 480px) {
+      .app-popup {
+        width: 95%;
+        margin: 10px;
+      }
+      
+      .app-popup-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 12px;
+      }
+      
+      .app-icon-large {
+        margin-bottom: 12px;
+      }
     }
   </style>
 </head>
 <body>
   <!-- Loading Screen -->
   <div class="loading-screen" id="loadingScreen">
-    <div class="boot-text">ResellAI Operating System v2.0</div>
-    <div class="boot-text">Loading ResellAI.exe...</div>
+    <div class="boot-text">Resell AI Operating System v2.0</div>
+    <div class="boot-text">Loading Resell AI.exe...</div>
     <div class="boot-text">Initializing AI modules...</div>
     <div class="progress-bar">
       <div class="progress-fill" id="progressFill"></div>
@@ -468,7 +776,7 @@
     <!-- Desktop Icons -->
     <div class="desktop-icon" style="top: 20px; left: 20px;" data-window="resellai-window">
       <i class="fas fa-robot"></i>
-      <span>ResellAI</span>
+      <span>Resell AI</span>
     </div>
 
     <div class="desktop-icon" style="top: 100px; left: 20px;" data-window="features-window">
@@ -481,9 +789,9 @@
       <span>Demo</span>
     </div>
 
-    <div class="desktop-icon" style="top: 260px; left: 20px;" data-window="newsletter-window">
-      <i class="fas fa-envelope"></i>
-      <span>Waitlist</span>
+    <div class="desktop-icon" style="top: 260px; left: 20px;" data-window="download-window">
+      <i class="fas fa-download"></i>
+      <span>Download</span>
     </div>
 
     <div class="desktop-icon" style="top: 20px; right: 20px;">
@@ -498,10 +806,10 @@
   </div>
 
   <!-- Windows -->
-  <!-- Main ResellAI Window -->
+  <!-- Main Resell AI Window -->
   <div class="window" id="resellai-window" style="top: 100px; left: 100px; width: 600px; height: 400px;">
     <div class="window-header">
-      <span>ResellAI - Automated eBay Reselling</span>
+      <span>Resell AI - AI-Powered eBay Automation</span>
       <div class="window-controls">
         <div class="window-button" onclick="minimizeWindow('resellai-window')">_</div>
         <div class="window-button" onclick="maximizeWindow('resellai-window')">□</div>
@@ -509,23 +817,23 @@
       </div>
     </div>
     <div class="window-content">
-      <h2 style="margin-bottom: 16px; color: #000080;">Welcome to ResellAI</h2>
-      <p style="margin-bottom: 16px;">Transform your reselling business with AI-powered automation. Upload a photo, and we'll handle the rest.</p>
+      <h2 style="margin-bottom: 16px; color: #000080;">Resell AI Mobile App</h2>
+      <p style="margin-bottom: 16px;">The ultimate eBay reselling companion. Take photos with your phone and let AI handle the rest - identification, pricing, descriptions, and listing creation.</p>
       
       <div style="background: white; border: 2px inset #c0c0c0; padding: 16px; margin: 16px 0;">
         <h3 style="color: #000080; margin-bottom: 8px;">How It Works:</h3>
         <ol style="margin-left: 20px;">
-          <li>📸 Upload item photo</li>
-          <li>🤖 AI identifies & researches</li>
-          <li>💰 Smart pricing analysis</li>
-          <li>📝 Auto-generated listings</li>
-          <li>🚀 Post to eBay instantly</li>
+          <li>📸 Snap a photo with your phone</li>
+          <li>🤖 AI instantly identifies the item</li>
+          <li>💰 Get smart pricing suggestions</li>
+          <li>📝 Review AI-generated listing</li>
+          <li>🚀 Post to eBay with one tap</li>
         </ol>
       </div>
       
       <div style="text-align: center; margin-top: 20px;">
-        <button class="btn-98 primary" onclick="openWindow('demo-window')">Try Demo</button>
-        <button class="btn-98" onclick="openWindow('features-window')">View Features</button>
+        <a href="https://apps.apple.com/app/resellai" target="_blank" class="btn-98 primary" style="text-decoration: none; color: white;">📱 Download iOS App</a>
+        <a href="https://play.google.com/store/apps/details?id=com.resellai" target="_blank" class="btn-98" style="text-decoration: none; color: black;">🤖 Get Android App</a>
       </div>
     </div>
   </div>
@@ -533,7 +841,7 @@
   <!-- Features Window -->
   <div class="window" id="features-window" style="top: 150px; left: 200px; width: 500px; height: 350px;">
     <div class="window-header">
-      <span>ResellAI Features</span>
+      <span>Resell AI Features</span>
       <div class="window-controls">
         <div class="window-button" onclick="minimizeWindow('features-window')">_</div>
         <div class="window-button" onclick="maximizeWindow('features-window')">□</div>
@@ -579,7 +887,7 @@
   <!-- Demo Window -->
   <div class="window" id="demo-window" style="top: 120px; left: 300px; width: 450px; height: 300px;">
     <div class="window-header">
-      <span>ResellAI Demo</span>
+      <span>Resell AI Demo</span>
       <div class="window-controls">
         <div class="window-button" onclick="minimizeWindow('demo-window')">_</div>
         <div class="window-button" onclick="maximizeWindow('demo-window')">□</div>
@@ -588,66 +896,134 @@
     </div>
     <div class="window-content">
       <div style="text-align: center;">
-        <h3 style="margin-bottom: 16px;">See ResellAI In Action</h3>
+        <h3 style="margin-bottom: 16px;">See Resell AI In Action</h3>
         
         <div style="background: white; border: 2px inset #c0c0c0; padding: 20px; margin: 16px 0; min-height: 120px; display: flex; align-items: center; justify-content: center;">
           <div id="demoContent">
-            <p style="margin-bottom: 16px;">📱 Drop an image here or click to upload</p>
+            <p style="margin-bottom: 16px;">📱 See Resell AI in action on your phone</p>
             <button class="btn-98 primary" onclick="runDemo()">Start Demo</button>
           </div>
         </div>
         
-        <p style="font-size: 10px; color: #666;">Demo simulates AI analysis - no actual uploads processed</p>
+        <p style="font-size: 10px; color: #666;">Demo simulates the mobile app experience</p>
       </div>
     </div>
   </div>
 
-  <!-- Newsletter Window -->
-  <div class="window" id="newsletter-window" style="top: 80px; left: 400px; width: 400px; height: 320px;">
+  <!-- Download Window -->
+  <div class="window" id="download-window" style="top: 80px; left: 400px; width: 400px; height: 350px;">
     <div class="window-header">
-      <span>Join Waitlist - ResellAI</span>
+      <span>Download Resell AI App</span>
       <div class="window-controls">
-        <div class="window-button" onclick="minimizeWindow('newsletter-window')">_</div>
-        <div class="window-button" onclick="maximizeWindow('newsletter-window')">□</div>
-        <div class="window-button" onclick="closeWindow('newsletter-window')">×</div>
+        <div class="window-button" onclick="minimizeWindow('download-window')">_</div>
+        <div class="window-button" onclick="maximizeWindow('download-window')">□</div>
+        <div class="window-button" onclick="closeWindow('download-window')">×</div>
       </div>
     </div>
     <div class="window-content">
-      <div class="newsletter-form">
-        <h3 style="margin-bottom: 16px; text-align: center;">Get Early Access</h3>
-        <p style="margin-bottom: 16px; text-align: center;">Be among the first to experience ResellAI and transform your reselling business.</p>
+      <div style="text-align: center;">
+        <h3 style="margin-bottom: 16px; color: #000080;">Get Resell AI on Your Phone</h3>
         
-        <form id="waitlistForm" onsubmit="submitWaitlist(event)">
-          <div class="form-group">
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" class="input-98" style="width: 100%;" required>
+        <div style="background: white; border: 2px inset #c0c0c0; padding: 20px; margin: 16px 0;">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 16px;">
+            <div class="app-icon-large" style="width: 48px; height: 48px; font-size: 24px;">
+              <div style="position: relative; z-index: 1;">
+                <div style="font-size: 16px;">👕</div>
+                <div style="position: absolute; top: 12px; right: 6px; font-size: 12px;">📱</div>
+                <div style="position: absolute; bottom: 6px; left: 6px; font-size: 10px;">♻️</div>
+              </div>
+            </div>
+            <div style="text-align: left;">
+              <h4 style="color: #000080; margin-bottom: 4px;">Resell AI</h4>
+              <p style="font-size: 11px; color: #666;">AI-Powered eBay Automation</p>
+              <div style="font-size: 10px; color: #666; margin-top: 4px;">
+                ⭐⭐⭐⭐⭐ 4.9/5 • Free Download
+              </div>
+            </div>
           </div>
           
-          <div class="form-group">
-            <label for="name">Name (Optional):</label>
-            <input type="text" id="name" class="input-98" style="width: 100%;">
+          <div style="margin: 16px 0;">
+            <a href="https://apps.apple.com/app/resellai" target="_blank" style="display: block; margin-bottom: 8px; text-decoration: none;">
+              <div style="background: #000; color: white; padding: 8px 16px; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fab fa-apple" style="font-size: 16px;"></i>
+                <div style="text-align: left; line-height: 1.2;">
+                  <div style="font-size: 9px;">Download on the</div>
+                  <div style="font-size: 12px; font-weight: bold;">App Store</div>
+                </div>
+              </div>
+            </a>
+            
+            <a href="https://play.google.com/store/apps/details?id=com.resellai" target="_blank" style="display: block; text-decoration: none;">
+              <div style="background: #000; color: white; padding: 8px 16px; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fab fa-google-play" style="font-size: 16px;"></i>
+                <div style="text-align: left; line-height: 1.2;">
+                  <div style="font-size: 9px;">Get it on</div>
+                  <div style="font-size: 12px; font-weight: bold;">Google Play</div>
+                </div>
+              </div>
+            </a>
           </div>
           
-          <div style="text-align: center; margin-top: 16px;">
-            <button type="submit" class="btn-98 primary" id="submitBtn">
-              Join Waitlist
-              <span class="spinner-98" id="spinner" style="display: none;"></span>
-            </button>
+          <div style="background: #f0f8ff; border: 1px solid #d0d0d0; padding: 8px; margin-top: 12px; font-size: 10px;">
+            <strong>🚀 What you get:</strong><br>
+            • Instant item identification<br>
+            • Smart pricing suggestions<br>
+            • Auto-generated eBay listings<br>
+            • Sales performance tracking
           </div>
-          
-          <div id="feedback" style="margin-top: 12px; text-align: center; color: #008000; display: none;"></div>
-        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- App Store Download Popup -->
+  <div class="app-popup-overlay" id="appPopup">
+    <div class="app-popup">
+      <div class="app-popup-header">
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <span>📱</span>
+          <span>Resell AI - App Available!</span>
+        </div>
+        <div class="window-button" onclick="closeAppPopup()">×</div>
+      </div>
+      
+      <div class="app-popup-content">
+        <div class="app-icon-large">
+          <div style="position: relative; z-index: 1;">
+            <div style="font-size: 24px;">👕</div>
+            <div style="position: absolute; top: 16px; right: 8px; font-size: 16px;">📱</div>
+            <div style="position: absolute; bottom: 8px; left: 8px; font-size: 14px;">♻️</div>
+          </div>
+        </div>
+        <div class="app-popup-text">
+          <div class="app-popup-title">Download Resell AI Now!</div>
+          <div class="app-popup-message">
+            Experience the power of AI-driven eBay automation right on your phone. 
+            Snap photos, get instant analysis, and create optimized listings in seconds.
+          </div>
+          <div style="font-size: 10px; color: #666; margin-top: 8px;">
+            ⭐ 4.9 stars • 50K+ downloads • Free to start
+          </div>
+        </div>
+      </div>
+      
+      <div class="app-popup-buttons">
+        <a href="https://apps.apple.com/app/resellai" class="download-btn" target="_blank" rel="noopener">
+          <span>🍎</span>
+          <span>Download Free</span>
+        </a>
+        <button class="btn-98" onclick="closeAppPopup()">Maybe Later</button>
       </div>
     </div>
   </div>
 
   <!-- Start Menu -->
   <div class="start-menu" id="startMenu">
-    <div class="start-menu-header">ResellAI OS</div>
+    <div class="start-menu-header">Resell AI OS</div>
     <ul class="start-menu-items">
       <li class="start-menu-item" onclick="openWindow('resellai-window')">
         <i class="fas fa-robot"></i>
-        <span>ResellAI</span>
+        <span>Resell AI</span>
       </li>
       <li class="start-menu-item" onclick="openWindow('features-window')">
         <i class="fas fa-cog"></i>
@@ -657,9 +1033,9 @@
         <i class="fas fa-play-circle"></i>
         <span>Demo</span>
       </li>
-      <li class="start-menu-item" onclick="openWindow('newsletter-window')">
-        <i class="fas fa-envelope"></i>
-        <span>Join Waitlist</span>
+      <li class="start-menu-item" onclick="openWindow('download-window')">
+        <i class="fas fa-download"></i>
+        <span>Download App</span>
       </li>
       <li class="start-menu-item" onclick="openTerms()">
         <i class="fas fa-file-contract"></i>
@@ -688,18 +1064,31 @@
   </div>
 
   <script>
-    // Boot sequence
+    // Global variables declared once
+    let touchSupported = 'ontouchstart' in window;
+    let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    let isDragging = false;
+    let currentWindow = null;
+    let startX, startY, startWindowX, startWindowY;
+    let lastTouchTime = 0;
+    let activeWindow = null;
+    let windowZIndex = 1000;
+    let appPopupShown = false;
+
+    // Boot sequence with sound simulation
     window.addEventListener('load', function() {
+      playStartupSound();
+      
       const loadingScreen = document.getElementById('loadingScreen');
       const progressFill = document.getElementById('progressFill');
       const loadingStatus = document.getElementById('loadingStatus');
       
       const bootMessages = [
         'Loading Windows 98...',
-        'Initializing ResellAI modules...',
+        'Initializing Resell AI modules...',
         'Connecting to eBay API...',
         'Starting AI engine...',
-        'Welcome to ResellAI OS!'
+        'Welcome to Resell AI OS!'
       ];
       
       let progress = 0;
@@ -714,12 +1103,20 @@
           messageIndex++;
         }
         
+        if (Math.random() > 0.8) {
+          loadingStatus.classList.add('glitch-effect');
+          setTimeout(() => loadingStatus.classList.remove('glitch-effect'), 100);
+        }
+        
         if (progress >= 100) {
           clearInterval(bootInterval);
           setTimeout(() => {
             loadingScreen.classList.add('hidden');
             updateClock();
             setInterval(updateClock, 1000);
+            showAppPopup();
+            document.querySelector('.desktop').classList.add('crt-effect');
+            showWelcomeMessage();
           }, 500);
         }
       }, 800);
@@ -732,15 +1129,133 @@
       document.getElementById('clock').textContent = timeString;
     }
 
-    // Window Management
-    let activeWindow = null;
-    let windowZIndex = 1000;
+    // Sound effects (simulated)
+    function playStartupSound() {
+      console.log('🔊 *Windows 98 startup chime* ♪♫♪');
+      const soundFeedback = document.createElement('div');
+      soundFeedback.style.cssText = `
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background: #000080;
+        color: white;
+        padding: 4px 8px;
+        font-size: 9px;
+        border: 1px outset #c0c0c0;
+        z-index: 50000;
+        animation: slideIn 0.3s ease-out;
+      `;
+      soundFeedback.textContent = '🔊 Startup Sound';
+      document.body.appendChild(soundFeedback);
+      
+      setTimeout(() => {
+        soundFeedback.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => soundFeedback.remove(), 300);
+      }, 2000);
+    }
+
+    function playClickSound() {
+      console.log('🔊 *click*');
+    }
+
+    function showWelcomeMessage() {
+      const welcomeDialog = document.createElement('div');
+      welcomeDialog.innerHTML = `
+        <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                    background: #c0c0c0; border: 2px outset #c0c0c0; 
+                    padding: 20px; z-index: 30000; box-shadow: 4px 4px 8px rgba(0,0,0,0.5);">
+          <div style="background: linear-gradient(90deg, #000080 0%, #000040 100%); 
+                      color: white; padding: 4px 8px; margin: -20px -20px 16px -20px; 
+                      font-weight: bold; font-size: 11px; display: flex; justify-content: space-between;">
+            <span>💡 Tip of the Day</span>
+            <span onclick="this.parentElement.parentElement.remove()" style="cursor: pointer;">×</span>
+          </div>
+          <div style="font-size: 12px; margin-bottom: 16px;">
+            <strong>Did you know?</strong> Resell AI can identify over 10,000 different items 
+            and automatically research their market value on eBay!
+          </div>
+          <div style="text-align: center;">
+            <button onclick="this.parentElement.parentElement.remove()" class="btn-98">Got it!</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(welcomeDialog);
+      
+      setTimeout(() => {
+        if (welcomeDialog.parentNode) {
+          welcomeDialog.remove();
+        }
+      }, 10000);
+    }
+
+    // Window management
+    function getEventPos(e) {
+      if (e.touches && e.touches[0]) {
+        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+      return { x: e.clientX, y: e.clientY };
+    }
+
+    function startDrag(e) {
+      const header = e.target.closest('.window-header');
+      if (header && !e.target.classList.contains('window-button')) {
+        isDragging = true;
+        currentWindow = header.parentNode;
+        
+        const rect = currentWindow.getBoundingClientRect();
+        const pos = getEventPos(e);
+        startX = pos.x;
+        startY = pos.y;
+        startWindowX = rect.left;
+        startWindowY = rect.top;
+        
+        setActiveWindow(currentWindow.id);
+        e.preventDefault();
+      }
+    }
+
+    function doDrag(e) {
+      if (isDragging && currentWindow && !isMobile) {
+        const pos = getEventPos(e);
+        const deltaX = pos.x - startX;
+        const deltaY = pos.y - startY;
+        
+        currentWindow.style.left = (startWindowX + deltaX) + 'px';
+        currentWindow.style.top = Math.max(0, startWindowY + deltaY) + 'px';
+        e.preventDefault();
+      }
+    }
+
+    function endDrag() {
+      isDragging = false;
+      currentWindow = null;
+    }
+
+    // Touch event listeners
+    if (touchSupported) {
+      document.addEventListener('touchstart', startDrag, { passive: false });
+      document.addEventListener('touchmove', doDrag, { passive: false });
+      document.addEventListener('touchend', endDrag);
+    }
+
+    // Mouse event listeners
+    document.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', doDrag);
+    document.addEventListener('mouseup', endDrag);
 
     function openWindow(windowId) {
       const window = document.getElementById(windowId);
       if (window) {
         window.style.display = 'block';
         window.classList.add('opening');
+        
+        if (isMobile) {
+          window.style.width = 'calc(100vw - 20px)';
+          window.style.left = '10px';
+          window.style.top = '20px';
+          window.style.maxHeight = 'calc(100vh - 80px)';
+        }
+        
         setActiveWindow(windowId);
         updateTaskbar();
         
@@ -751,48 +1266,58 @@
     }
 
     function closeWindow(windowId) {
+      playClickSound();
       const window = document.getElementById(windowId);
       if (window) {
-        window.style.display = 'none';
-        if (activeWindow === windowId) {
-          activeWindow = null;
-        }
-        updateTaskbar();
+        window.classList.add('window-shake');
+        setTimeout(() => {
+          window.style.display = 'none';
+          window.classList.remove('window-shake');
+          if (activeWindow === windowId) {
+            activeWindow = null;
+          }
+          updateTaskbar();
+        }, 500);
       }
     }
 
     function minimizeWindow(windowId) {
+      playClickSound();
       const window = document.getElementById(windowId);
       if (window) {
-        window.style.display = 'none';
-        updateTaskbar();
+        window.style.animation = 'windowClose 0.3s ease-in';
+        setTimeout(() => {
+          window.style.display = 'none';
+          window.style.animation = '';
+          updateTaskbar();
+        }, 300);
       }
     }
 
     function maximizeWindow(windowId) {
       const window = document.getElementById(windowId);
       if (window) {
-        if (window.style.width === '100vw') {
-          // Restore
-          window.style.width = '600px';
-          window.style.height = '400px';
-          window.style.top = '100px';
-          window.style.left = '100px';
+        if (isMobile) {
+          window.classList.add('mobile-fullscreen');
         } else {
-          // Maximize
-          window.style.width = '100vw';
-          window.style.height = 'calc(100vh - 40px)';
-          window.style.top = '0';
-          window.style.left = '0';
+          if (window.style.width === '100vw') {
+            window.style.width = '600px';
+            window.style.height = '400px';
+            window.style.top = '100px';
+            window.style.left = '100px';
+            window.classList.remove('mobile-fullscreen');
+          } else {
+            window.style.width = '100vw';
+            window.style.height = 'calc(100vh - 40px)';
+            window.style.top = '0';
+            window.style.left = '0';
+          }
         }
       }
     }
 
     function setActiveWindow(windowId) {
-      // Remove active class from all windows
       document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
-      
-      // Set active window
       const window = document.getElementById(windowId);
       if (window) {
         window.classList.add('active');
@@ -844,109 +1369,213 @@
       }
     });
 
-    // Desktop Icon Management
+    // Desktop icon management
     document.querySelectorAll('.desktop-icon').forEach(icon => {
-      icon.addEventListener('click', function() {
-        const windowId = this.getAttribute('data-window');
-        if (windowId) {
-          openWindow(windowId);
+      let tapCount = 0;
+      
+      icon.addEventListener('touchstart', function(e) {
+        tapCount++;
+        if (tapCount === 1) {
+          setTimeout(() => {
+            if (tapCount === 1) {
+              document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
+              this.classList.add('selected');
+            } else if (tapCount === 2) {
+              const windowId = this.getAttribute('data-window');
+              if (windowId) {
+                openWindow(windowId);
+              }
+            }
+            tapCount = 0;
+          }, 300);
         }
-      });
-
-      icon.addEventListener('dblclick', function() {
-        const windowId = this.getAttribute('data-window');
-        if (windowId) {
-          openWindow(windowId);
-        }
-      });
-    });
-
-    // Window Dragging
-    let isDragging = false;
-    let currentWindow = null;
-    let startX, startY, startWindowX, startWindowY;
-
-    document.addEventListener('mousedown', function(e) {
-      const header = e.target.closest('.window-header');
-      if (header && !e.target.classList.contains('window-button')) {
-        isDragging = true;
-        currentWindow = header.parentNode;
-        
-        const rect = currentWindow.getBoundingClientRect();
-        startX = e.clientX;
-        startY = e.clientY;
-        startWindowX = rect.left;
-        startWindowY = rect.top;
-        
-        setActiveWindow(currentWindow.id);
         e.preventDefault();
+      });
+
+      if (!touchSupported) {
+        icon.addEventListener('click', function() {
+          document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
+          this.classList.add('selected');
+          const windowId = this.getAttribute('data-window');
+          if (windowId) {
+            openWindow(windowId);
+          }
+        });
       }
     });
 
-    document.addEventListener('mousemove', function(e) {
-      if (isDragging && currentWindow) {
-        const deltaX = e.clientX - startX;
-        const deltaY = e.clientY - startY;
-        
-        currentWindow.style.left = (startWindowX + deltaX) + 'px';
-        currentWindow.style.top = Math.max(0, startWindowY + deltaY) + 'px';
+    // App popup functionality
+    function showAppPopup() {
+      if (isMobile && !appPopupShown) {
+        setTimeout(() => {
+          document.getElementById('appPopup').style.display = 'flex';
+          appPopupShown = true;
+          const popup = document.querySelector('.app-popup');
+          popup.classList.add('window-shake');
+          setTimeout(() => popup.classList.remove('window-shake'), 1000);
+        }, 5000);
       }
-    });
+    }
 
-    document.addEventListener('mouseup', function() {
-      isDragging = false;
-      currentWindow = null;
-    });
+    function closeAppPopup() {
+      document.getElementById('appPopup').style.display = 'none';
+    }
 
-    // Demo functionality
+    // Enhanced demo functionality
     function runDemo() {
+      playClickSound();
       const demoContent = document.getElementById('demoContent');
       
-      demoContent.innerHTML = '<p>🔄 Analyzing image...</p>';
+      demoContent.innerHTML = '<p class="matrix-text">📸 Capturing image...</p>';
       
       setTimeout(() => {
-        demoContent.innerHTML = `
-          <div style="text-align: left;">
-            <h4>✅ Analysis Complete!</h4>
-            <p><strong>Item:</strong> Vintage Nike Shoes</p>
-            <p><strong>Condition:</strong> Good</p>
-            <p><strong>Estimated Value:</strong> $75-$120</p>
-            <p><strong>Suggested Price:</strong> $95</p>
-            <br>
-            <button class="btn-98 primary" onclick="openWindow('newsletter-window')">Get Full Version</button>
-          </div>
-        `;
-      }, 2000);
-    }
-
-    // Waitlist form
-    function submitWaitlist(event) {
-      event.preventDefault();
-      
-      const submitBtn = document.getElementById('submitBtn');
-      const spinner = document.getElementById('spinner');
-      const feedback = document.getElementById('feedback');
-      const email = document.getElementById('email').value;
-      
-      submitBtn.disabled = true;
-      spinner.style.display = 'inline-block';
-      feedback.style.display = 'none';
-      
-      // Simulate API call
-      setTimeout(() => {
-        feedback.style.display = 'block';
-        feedback.style.color = '#008000';
-        feedback.textContent = '✅ Welcome to the waitlist!';
-        
-        submitBtn.disabled = false;
-        spinner.style.display = 'none';
+        demoContent.innerHTML = '<p class="matrix-text">🔍 Analyzing with AI...</p>';
         
         setTimeout(() => {
-          feedback.style.display = 'none';
-          document.getElementById('waitlistForm').reset();
-        }, 3000);
-      }, 1500);
+          demoContent.innerHTML = '<p class="matrix-text">💰 Researching market prices...</p>';
+          
+          setTimeout(() => {
+            demoContent.innerHTML = '<p class="matrix-text">📝 Generating listing...</p>';
+            
+            setTimeout(() => {
+              demoContent.innerHTML = `
+                <div style="text-align: left; animation: windowOpen 0.5s ease-out;">
+                  <h4 style="color: #008000;">✅ Analysis Complete!</h4>
+                  <div style="background: white; border: 1px inset #c0c0c0; padding: 8px; margin: 8px 0; font-size: 10px;">
+                    <strong>Item:</strong> Nike Air Jordan 1 Retro<br>
+                    <strong>Condition:</strong> Good (8/10)<br>
+                    <strong>Category:</strong> Men's Athletic Shoes<br>
+                    <strong>Size:</strong> US 10<br>
+                    <strong>Market Range:</strong> $75-$120<br>
+                    <strong>Suggested Price:</strong> $95<br>
+                    <strong>Potential Profit:</strong> $60-80
+                  </div>
+                  <div style="font-size: 10px; color: #666; margin: 8px 0;">
+                    📊 Based on 47 recent sales<br>
+                    🔥 High demand item - likely to sell fast!
+                  </div>
+                  <a href="https://apps.apple.com/app/resellai" target="_blank" class="btn-98 primary" style="text-decoration: none; color: white; font-size: 10px;">
+                    📱 Get Full Analysis Power
+                  </a>
+                </div>
+              `;
+            }, 1000);
+          }, 800);
+        }, 1000);
+      }, 500);
     }
+
+    // Enhanced interactions and Easter eggs
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('btn-98')) {
+        playClickSound();
+        e.target.classList.add('retro-glow');
+        setTimeout(() => e.target.classList.remove('retro-glow'), 200);
+      }
+    });
+
+    // Easter egg: Konami code
+    let konamiCode = [];
+    const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+    
+    document.addEventListener('keydown', function(e) {
+      konamiCode.push(e.code);
+      konamiCode = konamiCode.slice(-10);
+      
+      if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
+        activateEasterEgg();
+      }
+      
+      if (e.ctrlKey && e.altKey && e.key === 'r') {
+        showRestartDialog();
+      }
+      
+      if (e.key === 'F1') {
+        e.preventDefault();
+        showHelpDialog();
+      }
+    });
+
+    function activateEasterEgg() {
+      alert('🎉 KONAMI CODE ACTIVATED!\n\nYou found the secret! Here\'s a special message:\n\n"The future of reselling is here, and it\'s powered by AI! 🤖✨"\n\n- The Resell AI Team');
+      
+      const desktop = document.querySelector('.desktop');
+      desktop.style.background = 'linear-gradient(45deg, #000000 0%, #001100 100%)';
+      desktop.style.color = '#00ff00';
+      
+      setTimeout(() => {
+        desktop.style.background = 'linear-gradient(45deg, #008080 0%, #004040 100%)';
+        desktop.style.color = '';
+      }, 10000);
+    }
+
+    function showRestartDialog() {
+      const choice = confirm('Would you like to restart Resell AI OS?\n\n• Yes - Reload the page\n• No - Continue using');
+      if (choice) {
+        location.reload();
+      }
+    }
+
+    function showHelpDialog() {
+      const helpText = `
+Resell AI OS Help
+=================
+
+Keyboard Shortcuts:
+• F1 - Show this help
+• Ctrl+Alt+R - Restart
+• ESC - Close active window
+
+Mouse Controls:
+• Click icons to select
+• Double-click to open
+• Drag windows to move
+
+Tips:
+• Try the Konami code! ↑↑↓↓←→←→BA
+• Right-click for context menus
+• Check out all the windows for app info
+
+Need help with the mobile app?
+Visit our website or contact support!
+      `;
+      
+      alert(helpText);
+    }
+
+    // Desktop right-click context menu
+    document.querySelector('.desktop').addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      
+      const contextMenu = document.createElement('div');
+      contextMenu.style.cssText = `
+        position: fixed;
+        top: ${e.clientY}px;
+        left: ${e.clientX}px;
+        background: #c0c0c0;
+        border: 2px outset #c0c0c0;
+        padding: 4px 0;
+        z-index: 40000;
+        font-size: 11px;
+        box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      `;
+      
+      contextMenu.innerHTML = `
+        <div style="padding: 2px 16px; cursor: pointer;" onmouseover="this.style.background='#0080ff'; this.style.color='white'" onmouseout="this.style.background=''; this.style.color=''">Refresh Desktop</div>
+        <div style="padding: 2px 16px; cursor: pointer;" onmouseover="this.style.background='#0080ff'; this.style.color='white'" onmouseout="this.style.background=''; this.style.color=''">Properties</div>
+        <hr style="margin: 2px 8px; border: 1px inset #c0c0c0;">
+        <div style="padding: 2px 16px; cursor: pointer;" onmouseover="this.style.background='#0080ff'; this.style.color='white'" onmouseout="this.style.background=''; this.style.color=''" onclick="openWindow('download-window')">Download Resell AI</div>
+      `;
+      
+      document.body.appendChild(contextMenu);
+      
+      setTimeout(() => {
+        document.addEventListener('click', function removeMenu() {
+          contextMenu.remove();
+          document.removeEventListener('click', removeMenu);
+        });
+      }, 100);
+    });
 
     // External links
     function openTerms() {
@@ -954,15 +1583,40 @@
     }
 
     function showAbout() {
-      alert('ResellAI OS v2.0\n\nBuilt for the modern reseller\n© 2025 ResellAI');
+      alert('Resell AI OS v2.0\n\nBuilt for the modern reseller\n© 2025 Resell AI');
     }
 
-    // Click window to focus
+    // Add dynamic style for animations
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Click window to focus with enhanced effects
     document.querySelectorAll('.window').forEach(window => {
       window.addEventListener('mousedown', () => {
         setActiveWindow(window.id);
+        playClickSound();
       });
     });
+
+    // Prevent zoom on double-tap
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function (event) {
+      const now = (new Date()).getTime();
+      if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
   </script>
 </body>
 </html>

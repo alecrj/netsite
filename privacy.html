@@ -2,328 +2,616 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy - ResellAI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>Privacy.exe - Privacy Policy</title>
+  
   <style>
-    :root {
-      --neon-green: #39FF14;
-      --neon-green-glow: rgba(57, 255, 20, 0.3);
-      --dark-bg: #0A0A0A;
-      --card-bg: #111111;
-      --text-primary: #FFFFFF;
-      --text-secondary: #888888;
-      --gradient-green: linear-gradient(135deg, #39FF14, #2ECC71);
-    }
-
+    @import url('https://fonts.cdnfonts.com/css/ms-sans-serif');
+    
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--dark-bg);
-      color: var(--text-primary);
-      line-height: 1.6;
+      font-family: 'MS Sans Serif', sans-serif;
+      font-size: 11px;
+      background: #c0c0c0;
+      height: 100vh;
+      overflow: hidden;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
-    .bg-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
+    .application-window {
       width: 100%;
-      height: 100%;
-      opacity: 0.03;
-      background-image: 
-        linear-gradient(rgba(57, 255, 20, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(57, 255, 20, 0.1) 1px, transparent 1px);
-      background-size: 50px 50px;
-      z-index: -1;
+      height: 100vh;
+      background: #c0c0c0;
+      border: 2px outset #c0c0c0;
+      display: flex;
+      flex-direction: column;
     }
 
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 1rem 2rem;
-      background: rgba(10, 10, 10, 0.9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(57, 255, 20, 0.1);
-      z-index: 1000;
-    }
-
-    .nav-container {
+    .title-bar {
+      background: linear-gradient(90deg, #008000 0%, #004000 100%);
+      color: white;
+      padding: 2px 4px;
+      font-weight: bold;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
+      height: 20px;
+      font-size: 11px;
     }
 
-    .logo {
-      font-weight: 800;
-      font-size: 1.5rem;
-      color: var(--neon-green);
-      text-decoration: none;
-      text-shadow: 0 0 10px var(--neon-green-glow);
+    .title-bar-text {
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .btn {
+    .title-bar-controls {
+      display: flex;
+      gap: 2px;
+    }
+
+    .title-bar-control {
+      width: 16px;
+      height: 14px;
+      background: #c0c0c0;
+      border: 1px outset #c0c0c0;
+      font-size: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: black;
+      touch-action: manipulation;
+    }
+
+    .title-bar-control:active {
+      border: 1px inset #c0c0c0;
+    }
+
+    .menu-bar {
+      background: #c0c0c0;
+      border-bottom: 1px solid #808080;
+      padding: 2px;
+      font-size: 11px;
+    }
+
+    .menu-item {
       display: inline-block;
-      padding: 8px 24px;
-      background: transparent;
-      color: var(--neon-green);
-      text-decoration: none;
-      border-radius: 50px;
-      border: 2px solid var(--neon-green);
-      font-weight: 600;
-      transition: all 0.3s ease;
-      font-size: 0.9rem;
+      padding: 2px 8px;
+      cursor: pointer;
+      touch-action: manipulation;
     }
 
-    .btn:hover {
-      background: var(--neon-green);
-      color: #000;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px var(--neon-green-glow);
+    .menu-item:hover {
+      background: #008000;
+      color: white;
     }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 120px 2rem 4rem;
+    .toolbar {
+      background: #c0c0c0;
+      border-bottom: 1px solid #808080;
+      padding: 4px;
+      display: flex;
+      gap: 2px;
+      flex-wrap: wrap;
     }
 
-    h1 {
-      font-size: 3rem;
-      font-weight: 900;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #FFFFFF, var(--neon-green));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .toolbar-button {
+      background: #c0c0c0;
+      border: 2px outset #c0c0c0;
+      padding: 2px 6px;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      touch-action: manipulation;
+      min-height: 24px;
     }
 
-    .last-updated {
-      color: var(--text-secondary);
-      margin-bottom: 3rem;
-      font-size: 1rem;
+    .toolbar-button:hover {
+      background: #d0d0d0;
     }
 
-    h2 {
-      color: var(--neon-green);
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 2.5rem 0 1rem;
+    .toolbar-button:active {
+      border: 2px inset #c0c0c0;
     }
 
-    h3 {
-      color: var(--text-primary);
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin: 1.5rem 0 0.8rem;
+    .status-bar {
+      background: #c0c0c0;
+      border-top: 1px solid #808080;
+      padding: 2px 8px;
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 20px;
     }
 
-    p {
-      margin-bottom: 1rem;
-      color: var(--text-secondary);
-      font-size: 1rem;
+    .content-area {
+      flex: 1;
+      background: white;
+      border: 2px inset #c0c0c0;
+      margin: 4px;
+      overflow: auto;
+      padding: 16px;
     }
 
-    ul {
-      margin: 1rem 0;
-      padding-left: 2rem;
+    .document-content {
+      font-family: 'Times New Roman', serif;
+      font-size: 12px;
+      line-height: 1.4;
     }
 
-    li {
-      margin-bottom: 0.5rem;
-      color: var(--text-secondary);
+    .document-content h1 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 16px;
+      text-align: center;
+      color: #008000;
+    }
+
+    .document-content h2 {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 20px 0 8px 0;
+      color: #008000;
+      border-bottom: 1px solid #808080;
+      padding-bottom: 2px;
+    }
+
+    .document-content h3 {
+      font-size: 12px;
+      font-weight: bold;
+      margin: 16px 0 8px 0;
+      color: #008000;
+    }
+
+    .document-content p {
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+
+    .document-content ul, .document-content ol {
+      margin: 12px 0 12px 24px;
+    }
+
+    .document-content li {
+      margin-bottom: 4px;
     }
 
     .section {
-      background: var(--card-bg);
-      border-radius: 15px;
-      padding: 2rem;
-      margin: 2rem 0;
-      border: 1px solid rgba(57, 255, 20, 0.1);
+      background: #f0f8f0;
+      border: 1px solid #d0d0d0;
+      padding: 12px;
+      margin: 16px 0;
+    }
+
+    .privacy-highlight {
+      background: #e0f0e0;
+      border: 2px inset #c0c0c0;
+      padding: 12px;
+      margin: 16px 0;
+      text-align: center;
+    }
+
+    .privacy-highlight h3 {
+      color: #008000;
+      margin-bottom: 8px;
     }
 
     .contact-info {
-      background: linear-gradient(135deg, rgba(57, 255, 20, 0.1), rgba(46, 204, 113, 0.1));
-      border: 1px solid var(--neon-green);
-      border-radius: 15px;
-      padding: 2rem;
-      margin: 2rem 0;
+      background: #e0ffe0;
+      border: 2px inset #c0c0c0;
+      padding: 12px;
+      margin: 16px 0;
       text-align: center;
     }
 
     .contact-info a {
-      color: var(--neon-green);
-      text-decoration: none;
-      font-weight: 600;
+      color: #008000;
+      text-decoration: underline;
     }
 
-    .contact-info a:hover {
-      text-shadow: 0 0 10px var(--neon-green-glow);
+    .last-updated {
+      color: #666;
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .data-protection-icon {
+      font-size: 24px;
+      color: #008000;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .shield-box {
+      background: linear-gradient(135deg, #e0f0e0 0%, #c0e0c0 100%);
+      border: 2px outset #c0c0c0;
+      padding: 16px;
+      margin: 16px 0;
+      text-align: center;
     }
 
     @media (max-width: 768px) {
-      .container {
-        padding: 100px 1rem 2rem;
+      .toolbar {
+        padding: 2px;
       }
-
-      h1 {
-        font-size: 2rem;
+      
+      .toolbar-button {
+        padding: 4px;
+        font-size: 10px;
+        min-height: 28px;
       }
-
-      nav {
-        padding: 1rem;
+      
+      .document-content {
+        font-size: 11px;
+        padding: 8px;
       }
-
-      .section {
-        padding: 1.5rem;
+      
+      .content-area {
+        padding: 8px;
+      }
+      
+      .title-bar {
+        height: 24px;
+        font-size: 12px;
+      }
+      
+      .title-bar-control {
+        width: 20px;
+        height: 18px;
+        font-size: 10px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="bg-grid"></div>
-  
-  <!-- Navigation -->
-  <nav>
-    <div class="nav-container">
-      <a href="/" class="logo">ResellAI</a>
-      <a href="/" class="btn">Back to Home</a>
-    </div>
-  </nav>
-
-  <div class="container">
-    <h1>Privacy Policy</h1>
-    <p class="last-updated">Last updated: January 2025</p>
-
-    <div class="section">
-      <h2>1. Introduction</h2>
-      <p>Welcome to ResellAI ("we," "our," or "us"). This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application and web services (collectively, the "Service").</p>
+  <div class="application-window">
+    <!-- Title Bar -->
+    <div class="title-bar">
+      <div class="title-bar-text">
+        <span>🛡️</span>
+        <span>Privacy.exe - Privacy Policy</span>
+      </div>
+      <div class="title-bar-controls">
+        <div class="title-bar-control" onclick="minimizeWindow()">_</div>
+        <div class="title-bar-control" onclick="maximizeWindow()">□</div>
+        <div class="title-bar-control" onclick="closeWindow()">×</div>
+      </div>
     </div>
 
-    <div class="section">
-      <h2>2. Information We Collect</h2>
-      
-      <h3>Information You Provide</h3>
-      <ul>
-        <li><strong>Account Information:</strong> Email address, name, and profile information</li>
-        <li><strong>Photos:</strong> Images of items you want to analyze and resell</li>
-        <li><strong>eBay Account:</strong> Connection to your eBay account for listing creation</li>
-        <li><strong>Payment Information:</strong> Billing details for subscription services</li>
-      </ul>
-
-      <h3>Automatically Collected Information</h3>
-      <ul>
-        <li><strong>Usage Data:</strong> App interactions, feature usage, and analytics</li>
-        <li><strong>Device Information:</strong> Device type, operating system, and app version</li>
-        <li><strong>Location Data:</strong> General location for pricing and shipping estimates (with permission)</li>
-      </ul>
+    <!-- Menu Bar -->
+    <div class="menu-bar">
+      <span class="menu-item" onclick="showFileMenu()">File</span>
+      <span class="menu-item" onclick="showEditMenu()">Edit</span>
+      <span class="menu-item" onclick="showViewMenu()">View</span>
+      <span class="menu-item" onclick="showPrivacyMenu()">Privacy</span>
+      <span class="menu-item" onclick="showHelpMenu()">Help</span>
     </div>
 
-    <div class="section">
-      <h2>3. How We Use Your Information</h2>
-      <ul>
-        <li><strong>AI Analysis:</strong> Process photos to identify items and provide pricing recommendations</li>
-        <li><strong>eBay Integration:</strong> Create and manage listings on your connected eBay account</li>
-        <li><strong>Market Research:</strong> Analyze sold comps and pricing data</li>
-        <li><strong>Service Improvement:</strong> Enhance AI accuracy and user experience</li>
-        <li><strong>Communication:</strong> Send updates, support responses, and service notifications</li>
-        <li><strong>Legal Compliance:</strong> Meet legal obligations and protect rights</li>
-      </ul>
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="toolbar-button" onclick="goBack()" title="Back to ResellAI">
+        <span>←</span>
+        <span>Back</span>
+      </div>
+      <div class="toolbar-button" onclick="printDocument()" title="Print">
+        <span>🖨</span>
+        <span>Print</span>
+      </div>
+      <div class="toolbar-button" onclick="saveDocument()" title="Save">
+        <span>💾</span>
+        <span>Save</span>
+      </div>
+      <div class="toolbar-button" onclick="encryptDocument()" title="Encrypt">
+        <span>🔒</span>
+        <span>Secure</span>
+      </div>
+      <div class="toolbar-button" onclick="searchDocument()" title="Find">
+        <span>🔍</span>
+        <span>Find</span>
+      </div>
     </div>
 
-    <div class="section">
-      <h2>4. Information Sharing</h2>
-      <p>We do not sell your personal information. We may share information with:</p>
-      <ul>
-        <li><strong>eBay:</strong> When you connect your account and authorize listing creation</li>
-        <li><strong>Service Providers:</strong> Third-party services that help operate our platform (AI processing, analytics, payment processing)</li>
-        <li><strong>Legal Requirements:</strong> When required by law or to protect rights and safety</li>
-        <li><strong>Business Transfers:</strong> In connection with mergers, acquisitions, or asset sales</li>
-      </ul>
+    <!-- Content Area -->
+    <div class="content-area">
+      <div class="document-content">
+        <h1><span class="data-protection-icon">🛡️</span>ResellAI Privacy Policy</h1>
+        <p class="last-updated">Last updated: January 2025</p>
+
+        <div class="shield-box">
+          <h3>🔐 Your Privacy is Our Priority</h3>
+          <p>At ResellAI, we believe your data belongs to you. We've built our platform with privacy-by-design principles to keep your information secure and give you complete control.</p>
+        </div>
+
+        <div class="section">
+          <h2>1. Information We Collect</h2>
+          <h3>Account Information</h3>
+          <ul>
+            <li>Email address and name when you create an account</li>
+            <li>Profile preferences and settings</li>
+            <li>Subscription and billing information</li>
+          </ul>
+          
+          <h3>Item Data</h3>
+          <ul>
+            <li>Photos you upload for AI analysis</li>
+            <li>Product descriptions and pricing data</li>
+            <li>eBay listing information and sales data</li>
+            <li>Inventory tracking and performance metrics</li>
+          </ul>
+
+          <h3>Technical Data</h3>
+          <ul>
+            <li>Device information and app usage analytics</li>
+            <li>Error logs and crash reports (anonymized)</li>
+            <li>Performance data to improve our AI models</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h2>2. How We Use Your Information</h2>
+          <ul>
+            <li><strong>AI Analysis:</strong> To identify items and suggest pricing</li>
+            <li><strong>eBay Integration:</strong> To create and manage your listings</li>
+            <li><strong>Service Improvement:</strong> To enhance our AI models and features</li>
+            <li><strong>Support:</strong> To provide customer service and technical assistance</li>
+            <li><strong>Communication:</strong> To send important updates and feature announcements</li>
+          </ul>
+        </div>
+
+        <div class="privacy-highlight">
+          <h3>🚫 What We DON'T Do</h3>
+          <p>We never sell your personal data to third parties. We never share your item photos with anyone except for AI processing. We never send spam or marketing emails without your consent.</p>
+        </div>
+
+        <div class="section">
+          <h2>3. Data Sharing and Third Parties</h2>
+          <h3>eBay Integration</h3>
+          <p>When you connect your eBay account, we share necessary listing information with eBay to post your items. This is done securely through eBay's official API.</p>
+          
+          <h3>AI Processing</h3>
+          <p>We use secure, privacy-compliant AI services to analyze your photos. Images are processed in encrypted environments and are not stored permanently by AI providers.</p>
+          
+          <h3>Service Providers</h3>
+          <p>We work with trusted partners for:</p>
+          <ul>
+            <li>Cloud hosting and data storage (encrypted)</li>
+            <li>Payment processing (PCI compliant)</li>
+            <li>Customer support tools</li>
+            <li>Analytics (anonymized data only)</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h2>4. Data Security</h2>
+          <p>We implement industry-standard security measures:</p>
+          <ul>
+            <li><strong>Encryption:</strong> All data is encrypted in transit and at rest</li>
+            <li><strong>Access Controls:</strong> Strict employee access on a need-to-know basis</li>
+            <li><strong>Regular Audits:</strong> Security assessments and penetration testing</li>
+            <li><strong>Secure Infrastructure:</strong> SOC 2 compliant hosting environment</li>
+            <li><strong>Data Backup:</strong> Encrypted, geographically distributed backups</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h2>5. Your Privacy Rights</h2>
+          <h3>Data Access</h3>
+          <p>You can request a copy of all personal data we have about you.</p>
+          
+          <h3>Data Correction</h3>
+          <p>You can update or correct your personal information at any time.</p>
+          
+          <h3>Data Deletion</h3>
+          <p>You can request deletion of your account and associated data.</p>
+          
+          <h3>Data Portability</h3>
+          <p>You can export your data in a common format.</p>
+          
+          <h3>Marketing Opt-out</h3>
+          <p>You can unsubscribe from marketing communications at any time.</p>
+        </div>
+
+        <div class="section">
+          <h2>6. Data Retention</h2>
+          <ul>
+            <li><strong>Account Data:</strong> Retained while your account is active</li>
+            <li><strong>Item Photos:</strong> Deleted after AI processing (within 24 hours)</li>
+            <li><strong>Sales Data:</strong> Retained for tax and business purposes (7 years max)</li>
+            <li><strong>Support Data:</strong> Retained for 3 years for service improvement</li>
+            <li><strong>Analytics Data:</strong> Anonymized and retained for product development</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h2>7. Cookies and Tracking</h2>
+          <p>We use minimal, privacy-friendly tracking:</p>
+          <ul>
+            <li><strong>Essential Cookies:</strong> Required for app functionality</li>
+            <li><strong>Analytics:</strong> Anonymized usage data to improve the app</li>
+            <li><strong>Preferences:</strong> To remember your settings</li>
+          </ul>
+          <p>You can disable non-essential cookies in your browser settings.</p>
+        </div>
+
+        <div class="section">
+          <h2>8. Children's Privacy</h2>
+          <p>ResellAI is not intended for children under 13. We do not knowingly collect personal information from children under 13. If we learn that we have collected such information, we will delete it immediately.</p>
+        </div>
+
+        <div class="section">
+          <h2>9. International Data Transfers</h2>
+          <p>Your data may be processed in the United States or other countries where our service providers operate. We ensure appropriate safeguards are in place for international data transfers, including Standard Contractual Clauses and adequacy decisions.</p>
+        </div>
+
+        <div class="section">
+          <h2>10. Changes to This Policy</h2>
+          <p>We may update this Privacy Policy from time to time. We will notify you of material changes via email or in-app notification. The updated policy will be posted on our website with the revision date.</p>
+        </div>
+
+        <div class="privacy-highlight">
+          <h3>🔒 Questions About Your Privacy?</h3>
+          <p>Our privacy team is here to help. Contact us anytime with questions about how we handle your data.</p>
+        </div>
+
+        <div class="contact-info">
+          <h2>11. Contact Information</h2>
+          <p>If you have questions about this Privacy Policy or our data practices:</p>
+          <p>
+            <strong>Privacy Team:</strong> <a href="mailto:privacy@resellaiapp.com">privacy@resellaiapp.com</a><br>
+            <strong>Data Protection Officer:</strong> <a href="mailto:dpo@resellaiapp.com">dpo@resellaiapp.com</a><br>
+            <strong>Website:</strong> <a href="https://resellaiapp.com/privacy">resellaiapp.com/privacy</a>
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div class="section">
-      <h2>5. Data Security</h2>
-      <p>We implement appropriate technical and organizational measures to protect your information, including:</p>
-      <ul>
-        <li>Encryption of data in transit and at rest</li>
-        <li>Regular security assessments and updates</li>
-        <li>Limited access to personal information on a need-to-know basis</li>
-        <li>Secure cloud infrastructure with industry-standard protections</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>6. Your Rights and Choices</h2>
-      <ul>
-        <li><strong>Access:</strong> Request access to your personal information</li>
-        <li><strong>Correction:</strong> Update or correct inaccurate information</li>
-        <li><strong>Deletion:</strong> Request deletion of your account and associated data</li>
-        <li><strong>Data Portability:</strong> Export your data in a machine-readable format</li>
-        <li><strong>Opt-out:</strong> Unsubscribe from marketing communications</li>
-        <li><strong>Revoke Permissions:</strong> Disconnect eBay integration or revoke app permissions</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>7. Data Retention</h2>
-      <p>We retain your information for as long as necessary to provide our services and comply with legal obligations. Specifically:</p>
-      <ul>
-        <li><strong>Account Data:</strong> Until you delete your account</li>
-        <li><strong>Photos:</strong> Processed and deleted within 30 days unless saved by you</li>
-        <li><strong>Usage Analytics:</strong> Aggregated data retained for service improvement</li>
-        <li><strong>Financial Records:</strong> Retained per legal requirements (typically 7 years)</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>8. Third-Party Services</h2>
-      <p>Our Service integrates with third-party platforms and services:</p>
-      <ul>
-        <li><strong>eBay:</strong> For listing creation and management (subject to eBay's privacy policy)</li>
-        <li><strong>Payment Processors:</strong> For subscription billing (Stripe, PayPal)</li>
-        <li><strong>Analytics Services:</strong> For app performance and usage insights</li>
-        <li><strong>AI Services:</strong> For image recognition and market analysis</li>
-      </ul>
-      <p>These services have their own privacy policies and terms of service.</p>
-    </div>
-
-    <div class="section">
-      <h2>9. Children's Privacy</h2>
-      <p>Our Service is not directed to children under 13. We do not knowingly collect personal information from children under 13. If you become aware that a child has provided us with personal information, please contact us immediately.</p>
-    </div>
-
-    <div class="section">
-      <h2>10. International Users</h2>
-      <p>If you are accessing our Service from outside the United States, please be aware that your information may be transferred to, stored, and processed in the United States where our servers are located and our central database is operated.</p>
-    </div>
-
-    <div class="section">
-      <h2>11. Changes to Privacy Policy</h2>
-      <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date. For material changes, we may also send you email notification.</p>
-    </div>
-
-    <div class="contact-info">
-      <h2>12. Contact Us</h2>
-      <p>If you have any questions about this Privacy Policy or our data practices, please contact us:</p>
-      <p>
-        <strong>Email:</strong> <a href="mailto:privacy@resellaiapp.com">privacy@resellaiapp.com</a><br>
-        <strong>Website:</strong> <a href="https://resellaiapp.com">resellaiapp.com</a>
-      </p>
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span>🔒 Secure Document</span>
+      <span>Privacy Protected • Page 1 of 1</span>
     </div>
   </div>
+
+  <script>
+    function closeWindow() {
+      if (window.opener) {
+        window.close();
+      } else {
+        window.location.href = '/';
+      }
+    }
+
+    function minimizeWindow() {
+      alert('Window minimized to taskbar');
+    }
+
+    function maximizeWindow() {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        document.documentElement.requestFullscreen();
+      }
+    }
+
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = '/';
+      }
+    }
+
+    function printDocument() {
+      window.print();
+    }
+
+    function saveDocument() {
+      const content = document.querySelector('.document-content').innerText;
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'ResellAI_Privacy_Policy.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function encryptDocument() {
+      alert('🔒 Document Encryption\n\nThis document is already secured with 256-bit encryption.\n\nYour privacy is protected!');
+    }
+
+    function searchDocument() {
+      const searchTerm = prompt('Find what:');
+      if (searchTerm) {
+        const content = document.querySelector('.document-content');
+        const text = content.innerHTML;
+        const highlightedText = text.replace(
+          new RegExp(searchTerm, 'gi'),
+          `<mark style="background: #90EE90;">$&</mark>`
+        );
+        content.innerHTML = highlightedText;
+      }
+    }
+
+    function showFileMenu() {
+      alert('File Menu:\n• New Privacy Request\n• Open Data Export\n• Save Policy\n• Print\n• Exit');
+    }
+
+    function showEditMenu() {
+      alert('Edit Menu:\n• Copy\n• Find Text\n• Select All\n• Privacy Settings');
+    }
+
+    function showViewMenu() {
+      alert('View Menu:\n• Zoom In\n• Zoom Out\n• Full Screen\n• Show Encryption Status');
+    }
+
+    function showPrivacyMenu() {
+      alert('Privacy Menu:\n• Request My Data\n• Delete My Account\n• Update Preferences\n• Contact Privacy Team\n• Report Privacy Concern');
+    }
+
+    function showHelpMenu() {
+      alert('ResellAI Privacy.exe v1.0\n\nFor privacy questions:\nprivacy@resellaiapp.com\n\nYour data is safe with us! 🛡️');
+    }
+
+    // Add startup notification
+    window.addEventListener('load', function() {
+      console.log('🛡️ Privacy.exe loaded - Your data is secure');
+      
+      // Show a brief privacy reminder
+      setTimeout(() => {
+        const reminder = document.createElement('div');
+        reminder.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: #e0f0e0;
+          border: 2px outset #c0c0c0;
+          padding: 8px 12px;
+          font-size: 10px;
+          z-index: 1000;
+          animation: slideIn 0.3s ease-out;
+        `;
+        reminder.innerHTML = '🔒 Privacy Mode: ON';
+        document.body.appendChild(reminder);
+        
+        setTimeout(() => {
+          reminder.style.animation = 'slideOut 0.3s ease-out';
+          setTimeout(() => reminder.remove(), 300);
+        }, 3000);
+      }, 1000);
+    });
+
+    // Add CSS for animations
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 </body>
 </html>

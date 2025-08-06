@@ -2,141 +2,717 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResellAI - Connecting to eBay...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Success - ResellAI</title>
+    
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        @import url('https://fonts.cdnfonts.com/css/ms-sans-serif');
+        
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
-            min-height: 100vh;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'MS Sans Serif', sans-serif;
+            font-size: 11px;
+            background: linear-gradient(45deg, #008080 0%, #004040 100%);
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .desktop-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #008080 0%, #004040 100%);
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%);
+        }
+
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #c0c0c0;
+            border-top: 1px solid #808080;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+            z-index: 10000;
+        }
+
+        .start-button {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 4px 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 4px;
+            touch-action: manipulation;
+        }
+
+        .taskbar-separator {
+            width: 2px;
+            height: 32px;
+            background: linear-gradient(to bottom, #808080, #ffffff);
+            margin: 0 4px;
+        }
+
+        .system-tray {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+            padding: 0 8px;
+            border: 1px inset #c0c0c0;
+            height: 32px;
+        }
+
+        .clock {
+            font-size: 11px;
+            min-width: 60px;
             text-align: center;
         }
-        .container {
-            max-width: 400px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+
+        .success-dialog {
+            position: relative;
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 450px;
+            z-index: 20000;
+            animation: successAppear 0.6s ease-out;
         }
-        .logo {
-            font-size: 2rem;
+
+        @keyframes successAppear {
+            0% {
+                transform: scale(0.1) rotate(-10deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1) rotate(2deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .dialog-header {
+            background: linear-gradient(90deg, #008000 0%, #004000 100%);
+            color: white;
+            padding: 2px 4px;
             font-weight: bold;
-            margin-bottom: 20px;
-            color: #39FF14;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 18px;
+            font-size: 11px;
         }
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #39FF14;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+
+        .dialog-title {
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        .dialog-controls {
+            display: flex;
+            gap: 2px;
         }
-        .message {
-            font-size: 1.1rem;
-            margin: 20px 0;
+
+        .dialog-button {
+            width: 16px;
+            height: 14px;
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            font-size: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: black;
+            touch-action: manipulation;
         }
-        .fallback {
-            margin-top: 30px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            font-size: 0.9rem;
+
+        .dialog-button:active {
+            border: 1px inset #c0c0c0;
         }
-        .fallback a {
-            color: #39FF14;
-            text-decoration: none;
+
+        .dialog-content {
+            padding: 20px;
+            background: #c0c0c0;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .success-icon {
+            font-size: 48px;
+            color: #008000;
+            flex-shrink: 0;
+            animation: pulse 2s infinite;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            50% { 
+                transform: scale(1.1);
+                filter: brightness(1.2);
+            }
+        }
+
+        .success-message {
+            flex: 1;
+        }
+
+        .success-title {
             font-weight: bold;
+            margin-bottom: 12px;
+            color: #008000;
+            font-size: 14px;
+        }
+
+        .success-text {
+            margin-bottom: 16px;
+            line-height: 1.4;
+            font-size: 12px;
+        }
+
+        .success-details {
+            background: #f0f8f0;
+            border: 2px inset #c0c0c0;
+            padding: 12px;
+            margin: 12px 0;
+            font-size: 11px;
+        }
+
+        .success-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .stat-item {
+            background: white;
+            border: 1px inset #c0c0c0;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .stat-number {
+            font-size: 16px;
+            font-weight: bold;
+            color: #008000;
+            display: block;
+        }
+
+        .next-steps {
+            background: #ffffcc;
+            border: 2px inset #c0c0c0;
+            padding: 12px;
+            margin: 12px 0;
+        }
+
+        .next-steps h4 {
+            color: #800080;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        .next-steps ul {
+            margin-left: 16px;
+            font-size: 11px;
+        }
+
+        .next-steps li {
+            margin-bottom: 4px;
+        }
+
+        .dialog-buttons {
+            background: #c0c0c0;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            border-top: 1px solid #808080;
+            flex-wrap: wrap;
+        }
+
+        .btn-98 {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 6px 16px;
+            font-family: 'MS Sans Serif', sans-serif;
+            font-size: 11px;
+            cursor: pointer;
+            min-width: 80px;
+            touch-action: manipulation;
+            margin: 2px;
+        }
+
+        .btn-98:hover {
+            background: #d0d0d0;
+        }
+
+        .btn-98:active {
+            border: 2px inset #c0c0c0;
+        }
+
+        .btn-98.primary {
+            background: #008000;
+            color: white;
+            border: 2px outset #008000;
+            font-weight: bold;
+        }
+
+        .btn-98.primary:hover {
+            background: #009000;
+        }
+
+        .btn-98.primary:active {
+            border: 2px inset #008000;
+        }
+
+        .btn-98.secondary {
+            background: #000080;
+            color: white;
+            border: 2px outset #000080;
+        }
+
+        .btn-98.secondary:hover {
+            background: #000090;
+        }
+
+        .btn-98.secondary:active {
+            border: 2px inset #000080;
+        }
+
+        .celebration-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #FFD700;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        .confetti:nth-child(2n) { background: #FF6B6B; animation-delay: 0.5s; }
+        .confetti:nth-child(3n) { background: #4ECDC4; animation-delay: 1s; }
+        .confetti:nth-child(4n) { background: #45B7D1; animation-delay: 1.5s; }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .loading-complete {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+            font-size: 11px;
+            color: #008000;
+        }
+
+        .checkmark {
+            color: #008000;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .success-dialog {
+                width: 95%;
+                margin: 10px;
+            }
+            
+            .dialog-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 16px;
+            }
+            
+            .success-icon {
+                margin-bottom: 12px;
+                font-size: 40px;
+            }
+            
+            .success-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .dialog-buttons {
+                padding: 8px 12px;
+            }
+            
+            .btn-98 {
+                min-width: 70px;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .success-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .dialog-content {
+                padding: 12px;
+            }
+            
+            .success-icon {
+                font-size: 36px;
+            }
+        }
+
+        /* Celebration effects */
+        .sparkle {
+            position: absolute;
+            color: #FFD700;
+            animation: sparkle 2s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">ResellAI</div>
-        <div class="spinner"></div>
-        <div class="message" id="message">
-            Connecting your eBay account...
+    <div class="desktop-background"></div>
+    
+    <!-- Celebration Animation -->
+    <div class="celebration-animation" id="celebration">
+        <!-- Confetti will be added dynamically -->
+    </div>
+    
+    <!-- Success Dialog -->
+    <div class="success-dialog">
+        <div class="dialog-header">
+            <div class="dialog-title">
+                <span>✅</span>
+                <span>ResellAI - Success!</span>
+            </div>
+            <div class="dialog-controls">
+                <div class="dialog-button" onclick="closeDialog()">×</div>
+            </div>
         </div>
-        <div class="fallback" id="fallback" style="display: none;">
-            <p>Having trouble? <a href="#" onclick="openApp()">Tap here to open ResellAI</a></p>
+        
+        <div class="dialog-content">
+            <div class="success-icon">🎉</div>
+            <div class="success-message">
+                <div class="success-title">eBay Account Connected Successfully!</div>
+                <div class="success-text">
+                    Your eBay account has been successfully linked to Resell AI! You can now start 
+                    uploading photos and creating automated listings. Your reselling business is about 
+                    to get a major AI upgrade.
+                </div>
+                
+                <div class="success-details">
+                    <div class="loading-complete">
+                        <span class="checkmark">✓</span>
+                        <span>eBay authorization completed</span>
+                    </div>
+                    <div class="loading-complete">
+                        <span class="checkmark">✓</span>
+                        <span>Account permissions verified</span>
+                    </div>
+                    <div class="loading-complete">
+                        <span class="checkmark">✓</span>
+                        <span>Listing capabilities enabled</span>
+                    </div>
+                    <div class="loading-complete">
+                        <span class="checkmark">✓</span>
+                        <span>AI engine ready</span>
+                    </div>
+                </div>
+
+                <div class="success-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">Ready</span>
+                        <span>Status</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">∞</span>
+                        <span>Listings</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">AI</span>
+                        <span>Powered</span>
+                    </div>
+                </div>
+
+                <div class="next-steps">
+                    <h4>🚀 Ready to Start Selling:</h4>
+                    <ul>
+                        <li>Take a photo of any item to get started</li>
+                        <li>AI will instantly identify and price it</li>
+                        <li>Review the generated listing details</li>
+                        <li>Post to eBay with one tap</li>
+                        <li>Track your sales and profits</li>
+                    </ul>
+                </div>
+
+                <div style="background: #e0f0ff; border: 2px inset #c0c0c0; padding: 8px; margin: 12px 0; text-align: center; font-size: 10px;">
+                    💡 <strong>Pro Tip:</strong> Start with items you know well to see how accurate our AI pricing is!
+                </div>
+            </div>
+        </div>
+        
+        <div class="dialog-buttons">
+            <button class="btn-98 primary" onclick="startSelling()">
+                📸 Start Selling
+            </button>
+            <button class="btn-98 secondary" onclick="viewTutorial()">
+                📚 View Tutorial
+            </button>
+            <button class="btn-98" onclick="openApp()">
+                📱 Back to App
+            </button>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <div class="start-button" onclick="goHome()">
+            <span>🚀</span>
+            <span>Start</span>
+        </div>
+        <div class="taskbar-separator"></div>
+        <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <div style="background: #008000; color: white; padding: 2px 8px; border: 1px inset #c0c0c0; font-size: 10px;">
+                ✓ ResellAI - Success!
+            </div>
+        </div>
+        <div class="system-tray">
+            <div style="width: 16px; height: 16px;">🔊</div>
+            <div style="width: 16px; height: 16px;">📶</div>
+            <div class="clock" id="clock"></div>
         </div>
     </div>
 
     <script>
-        function getUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            const result = {};
-            for (const [key, value] of params) {
-                result[key] = value;
+        // Initialize
+        window.addEventListener('load', function() {
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            // Create celebration effects
+            createConfetti();
+            createSparkles();
+            
+            // Play success sound simulation
+            console.log('🔊 Windows success sound: ta-da!');
+            
+            // Auto-redirect after 30 seconds unless user interacts
+            let redirectTimer = setTimeout(() => {
+                goHome();
+            }, 30000);
+            
+            // Cancel auto-redirect on any user interaction
+            document.addEventListener('click', () => {
+                clearTimeout(redirectTimer);
+            });
+            
+            // Show a welcome toast
+            setTimeout(showWelcomeToast, 2000);
+        });
+
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        function createConfetti() {
+            const celebration = document.getElementById('celebration');
+            
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                celebration.appendChild(confetti);
             }
-            return result;
+            
+            // Remove confetti after animation
+            setTimeout(() => {
+                celebration.innerHTML = '';
+            }, 5000);
+        }
+
+        function createSparkles() {
+            const successIcon = document.querySelector('.success-icon');
+            
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.textContent = '✨';
+                    sparkle.style.left = (Math.random() * 50) + 'px';
+                    sparkle.style.top = (Math.random() * 50) + 'px';
+                    successIcon.appendChild(sparkle);
+                    
+                    setTimeout(() => {
+                        sparkle.remove();
+                    }, 2000);
+                }, i * 500);
+            }
+        }
+
+        function showWelcomeToast() {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #008000;
+                color: white;
+                border: 2px outset #008000;
+                padding: 8px 12px;
+                font-size: 11px;
+                z-index: 30000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            toast.innerHTML = '🎊 Welcome to ResellAI!';
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        function startSelling() {
+            // Deep link back to the app's camera/upload screen
+            const appURL = 'resellai://camera';
+            window.location.href = appURL;
+            
+            // Fallback message if deep link fails
+            setTimeout(() => {
+                alert('📱 Please open the Resell AI app and tap the camera button to start taking photos of items to sell!');
+            }, 1000);
+        }
+
+        function viewTutorial() {
+            // Deep link to tutorial or show tutorial info
+            const tutorialInfo = `
+📚 Quick Start Tutorial:
+
+1. 📸 Take a photo of any item
+2. 🤖 AI identifies the item automatically
+3. 💰 Review the suggested price
+4. ✏️ Edit the title/description if needed
+5. 🚀 Tap "Post to eBay" to list it
+6. 📊 Track your sales in the app
+
+Pro Tips:
+• Good lighting makes AI more accurate
+• Clean backgrounds work best
+• Include brand names when visible
+• Check the condition assessment
+            `;
+            
+            alert(tutorialInfo);
         }
 
         function openApp() {
-            const params = getUrlParams();
-            
-            // Build the deep link to your app
-            let appURL = 'resellai://auth/ebay';
-            
-            // Add all URL parameters to the app redirect
-            const paramString = new URLSearchParams(params).toString();
-            if (paramString) {
-                appURL += '?' + paramString;
-            }
-            
-            console.log('Redirecting to app:', appURL);
-            
-            // Try to open the app
+            // Deep link back to main app
+            const appURL = 'resellai://dashboard';
             window.location.href = appURL;
             
-            // Show fallback after a delay
+            // Fallback
             setTimeout(() => {
-                document.getElementById('fallback').style.display = 'block';
-                document.getElementById('message').textContent = 'Please open the ResellAI app to complete the connection.';
-            }, 2000);
+                window.close();
+            }, 1000);
         }
 
-        function handleEbayCallback() {
-            const params = getUrlParams();
-            
-            if (params.code) {
-                // Success - got authorization code
-                document.getElementById('message').textContent = 'eBay connected successfully! Opening ResellAI...';
-                setTimeout(openApp, 1000);
-            } else if (params.error) {
-                // Error occurred
-                document.getElementById('message').textContent = 'Connection failed. Please try again.';
-                document.getElementById('fallback').style.display = 'block';
-                
-                // Still try to open app with error info
-                setTimeout(openApp, 2000);
-            } else {
-                // No params - probably direct access
-                document.getElementById('message').textContent = 'Please use the ResellAI app to connect your eBay account.';
-                document.getElementById('fallback').style.display = 'block';
+        // Add CSS for toast animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
             }
-        }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
 
-        // Run when page loads
-        window.onload = handleEbayCallback;
-        
-        // Also try to open app immediately if we have an auth code
-        const params = getUrlParams();
-        if (params.code) {
-            setTimeout(openApp, 500);
-        }
+        // Prevent accidental navigation
+        window.addEventListener('beforeunload', function(e) {
+            e.preventDefault();
+            e.returnValue = '';
+        });
+
+        // Random success messages for variety
+        const successMessages = [
+            "You've successfully joined the ResellAI waitlist!",
+            "Welcome to the future of automated reselling!",
+            "Your journey to effortless eBay profits starts now!",
+            "Congratulations! You're now in line for ResellAI access!",
+            "Success! Get ready to revolutionize your reselling business!"
+        ];
+
+        // Randomly update the success message on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const randomMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
+            const successTitle = document.querySelector('.success-title');
+            if (successTitle && Math.random() > 0.5) {
+                successTitle.textContent = randomMessage;
+            }
+        });
     </script>
 </body>
 </html>
