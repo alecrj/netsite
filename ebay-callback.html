@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ResellAI - eBay Authentication</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .success {
+            color: #4CAF50;
+        }
+        .error {
+            color: #f44336;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ResellAI eBay Authentication</h1>
+        <div class="spinner"></div>
+        <p id="status">Completing authentication...</p>
+    </div>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const state = urlParams.get('state');
+        const error = urlParams.get('error');
+        
+        const statusElement = document.getElementById('status');
+        
+        if (error) {
+            statusElement.innerHTML = '<span class="error">Authentication failed. Please try again.</span>';
+            setTimeout(() => {
+                window.location.href = 'resellai://auth/ebay?result=error&error=' + error;
+            }, 2000);
+        } else if (code) {
+            statusElement.innerHTML = '<span class="success">Authentication successful! Redirecting to app...</span>';
+            
+            // Build the callback URL
+            const callbackUrl = `resellai://auth/ebay?code=${code}&state=${state || ''}`;
+            
+            // Try to redirect to the app
+            window.location.href = callbackUrl;
+            
+            // Fallback message if redirect doesn't work
+            setTimeout(() => {
+                statusElement.innerHTML = '<span class="error">Please return to the ResellAI app to complete setup.</span>';
+            }, 3000);
+        } else {
+            statusElement.innerHTML = '<span class="error">Invalid response. Please try again.</span>';
+        }
+    </script>
+</body>
+</html>
